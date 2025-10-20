@@ -80,7 +80,7 @@ class Indices(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("INDICES_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.example.com"
+            base_url = f"https://api.indices.io"
 
         super().__init__(
             version=__version__,
@@ -250,7 +250,7 @@ class AsyncIndices(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("INDICES_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.example.com"
+            base_url = f"https://api.indices.io"
 
         super().__init__(
             version=__version__,
