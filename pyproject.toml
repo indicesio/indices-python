@@ -5,7 +5,7 @@ description = "The official Python library for the indices API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Indices", email = "" },
+{ name = "Indices", email = "support@indices.io" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
