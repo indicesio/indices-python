@@ -87,7 +87,7 @@ class TasksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/tasks",
+            "/v1beta/tasks",
             body=maybe_transform(
                 {
                     "display_name": display_name,
@@ -133,7 +133,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/v1/tasks/{id}",
+            f"/v1beta/tasks/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -152,7 +152,7 @@ class TasksResource(SyncAPIResource):
     ) -> TaskListResponse:
         """<p>List all tasks that have been created.</p>"""
         return self._get(
-            "/v1/tasks",
+            "/v1beta/tasks",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -187,7 +187,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/v1/tasks/{id}",
+            f"/v1beta/tasks/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -222,7 +222,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/tasks/{id}/complete-manual-session",
+            f"/v1beta/tasks/{id}/complete-manual-session",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -261,7 +261,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1/tasks/{id}/start-manual-session",
+            f"/v1beta/tasks/{id}/start-manual-session",
             body=maybe_transform(
                 {"use_proxy": use_proxy}, task_start_manual_session_params.TaskStartManualSessionParams
             ),
@@ -336,7 +336,7 @@ class AsyncTasksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/tasks",
+            "/v1beta/tasks",
             body=await async_maybe_transform(
                 {
                     "display_name": display_name,
@@ -382,7 +382,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/v1/tasks/{id}",
+            f"/v1beta/tasks/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -401,7 +401,7 @@ class AsyncTasksResource(AsyncAPIResource):
     ) -> TaskListResponse:
         """<p>List all tasks that have been created.</p>"""
         return await self._get(
-            "/v1/tasks",
+            "/v1beta/tasks",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -436,7 +436,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/v1/tasks/{id}",
+            f"/v1beta/tasks/{id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -471,7 +471,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/tasks/{id}/complete-manual-session",
+            f"/v1beta/tasks/{id}/complete-manual-session",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -510,7 +510,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1/tasks/{id}/start-manual-session",
+            f"/v1beta/tasks/{id}/start-manual-session",
             body=await async_maybe_transform(
                 {"use_proxy": use_proxy}, task_start_manual_session_params.TaskStartManualSessionParams
             ),
