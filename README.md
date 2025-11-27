@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/indices.svg?label=pypi%20(stable))](https://pypi.org/project/indices/)
 
-The Indices Python library provides convenient access to the Indices REST API from any Python 3.8+
+The Indices Python library provides convenient access to the Indices REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -32,7 +32,10 @@ client = Indices(
     api_key=os.environ.get("INDICES_API_KEY"),  # This is the default and can be omitted
 )
 
-tasks = client.tasks.list()
+run = client.runs.run(
+    task_id="<your_task_id>",
+)
+print(run.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -55,7 +58,10 @@ client = AsyncIndices(
 
 
 async def main() -> None:
-    tasks = await client.tasks.list()
+    run = await client.runs.run(
+        task_id="<your_task_id>",
+    )
+    print(run.id)
 
 
 asyncio.run(main())
@@ -87,7 +93,10 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        tasks = await client.tasks.list()
+        run = await client.runs.run(
+            task_id="<your_task_id>",
+        )
+        print(run.id)
 
 
 asyncio.run(main())
@@ -118,7 +127,9 @@ from indices import Indices
 client = Indices()
 
 try:
-    client.tasks.list()
+    client.runs.run(
+        task_id="<your_task_id>",
+    )
 except indices.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -161,7 +172,9 @@ client = Indices(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).tasks.list()
+client.with_options(max_retries=5).runs.run(
+    task_id="<your_task_id>",
+)
 ```
 
 ### Timeouts
@@ -184,7 +197,9 @@ client = Indices(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).tasks.list()
+client.with_options(timeout=5.0).runs.run(
+    task_id="<your_task_id>",
+)
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -225,11 +240,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from indices import Indices
 
 client = Indices()
-response = client.tasks.with_raw_response.list()
+response = client.runs.with_raw_response.run(
+    task_id="<your_task_id>",
+)
 print(response.headers.get('X-My-Header'))
 
-task = response.parse()  # get the object that `tasks.list()` would have returned
-print(task)
+run = response.parse()  # get the object that `runs.run()` would have returned
+print(run.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/indicesio/indices-python/tree/main/src/indices/_response.py) object.
@@ -243,7 +260,9 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.tasks.with_streaming_response.list() as response:
+with client.runs.with_streaming_response.run(
+    task_id="<your_task_id>",
+) as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -353,7 +372,7 @@ print(indices.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 
