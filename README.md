@@ -33,7 +33,7 @@ client = Indices(
 )
 
 run = client.runs.run(
-    task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    task_id="<your_task_id>",
 )
 print(run.id)
 ```
@@ -59,7 +59,7 @@ client = AsyncIndices(
 
 async def main() -> None:
     run = await client.runs.run(
-        task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        task_id="<your_task_id>",
     )
     print(run.id)
 
@@ -94,7 +94,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         run = await client.runs.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="<your_task_id>",
         )
         print(run.id)
 
@@ -128,7 +128,7 @@ client = Indices()
 
 try:
     client.runs.run(
-        task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        task_id="<your_task_id>",
     )
 except indices.APIConnectionError as e:
     print("The server could not be reached")
@@ -173,7 +173,7 @@ client = Indices(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).runs.run(
-    task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    task_id="<your_task_id>",
 )
 ```
 
@@ -198,7 +198,7 @@ client = Indices(
 
 # Override per-request:
 client.with_options(timeout=5.0).runs.run(
-    task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    task_id="<your_task_id>",
 )
 ```
 
@@ -241,7 +241,7 @@ from indices import Indices
 
 client = Indices()
 response = client.runs.with_raw_response.run(
-    task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    task_id="<your_task_id>",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -261,7 +261,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.runs.with_streaming_response.run(
-    task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    task_id="<your_task_id>",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
