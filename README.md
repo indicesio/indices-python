@@ -34,8 +34,9 @@ client = Indices(
 
 run = client.runs.run(
     task_id="<your_task_id>",
+    arguments={"...": None},
 )
-print(run.id)
+print(run.result_json)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -60,8 +61,9 @@ client = AsyncIndices(
 async def main() -> None:
     run = await client.runs.run(
         task_id="<your_task_id>",
+        arguments={"...": None},
     )
-    print(run.id)
+    print(run.result_json)
 
 
 asyncio.run(main())
@@ -95,8 +97,9 @@ async def main() -> None:
     ) as client:
         run = await client.runs.run(
             task_id="<your_task_id>",
+            arguments={"...": None},
         )
-        print(run.id)
+        print(run.result_json)
 
 
 asyncio.run(main())
@@ -129,6 +132,7 @@ client = Indices()
 try:
     client.runs.run(
         task_id="<your_task_id>",
+        arguments={"...": None},
     )
 except indices.APIConnectionError as e:
     print("The server could not be reached")
@@ -174,6 +178,7 @@ client = Indices(
 # Or, configure per-request:
 client.with_options(max_retries=5).runs.run(
     task_id="<your_task_id>",
+    arguments={"...": None},
 )
 ```
 
@@ -199,6 +204,7 @@ client = Indices(
 # Override per-request:
 client.with_options(timeout=5.0).runs.run(
     task_id="<your_task_id>",
+    arguments={"...": None},
 )
 ```
 
@@ -242,11 +248,14 @@ from indices import Indices
 client = Indices()
 response = client.runs.with_raw_response.run(
     task_id="<your_task_id>",
+    arguments={
+        "...": None
+    },
 )
 print(response.headers.get('X-My-Header'))
 
 run = response.parse()  # get the object that `runs.run()` would have returned
-print(run.id)
+print(run.result_json)
 ```
 
 These methods return an [`APIResponse`](https://github.com/indicesio/indices-python/tree/main/src/indices/_response.py) object.
@@ -262,6 +271,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.runs.with_streaming_response.run(
     task_id="<your_task_id>",
+    arguments={"...": None},
 ) as response:
     print(response.headers.get("X-My-Header"))
 

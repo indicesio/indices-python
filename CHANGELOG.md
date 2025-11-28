@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.0.3 (2025-11-28)
+
+Full Changelog: [v0.0.2...v0.0.3](https://github.com/indicesio/indices-python/compare/v0.0.2...v0.0.3)
+
+### Features
+
+* **api:** improve examples ([b2aa0ed](https://github.com/indicesio/indices-python/commit/b2aa0ed184f512b82e245c39b399f32972f68c8f))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([69d4b32](https://github.com/indicesio/indices-python/commit/69d4b327e19123f455fca874f2468e798880117c))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([e64b0a1](https://github.com/indicesio/indices-python/commit/e64b0a1fc2c5e067516938b2df54f1bda4523b0c))
+
 ## 0.0.2 (2025-11-27)
 
 Full Changelog: [v0.0.1...v0.0.2](https://github.com/indicesio/indices-python/compare/v0.0.1...v0.0.2)
