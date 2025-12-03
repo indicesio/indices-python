@@ -85,6 +85,7 @@ pip install indices[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from indices import DefaultAioHttpClient
 from indices import AsyncIndices
@@ -92,7 +93,7 @@ from indices import AsyncIndices
 
 async def main() -> None:
     async with AsyncIndices(
-        api_key="My API Key",
+        api_key=os.environ.get("INDICES_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         run = await client.runs.run(
