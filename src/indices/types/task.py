@@ -10,6 +10,8 @@ __all__ = ["Task", "FailureInfo"]
 
 
 class FailureInfo(BaseModel):
+    """Information about why a task failed, for user display."""
+
     category: str
     """Primary failure category"""
 
