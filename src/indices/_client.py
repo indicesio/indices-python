@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import runs, tasks
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import IndicesError, APIStatusError
 from ._base_client import (
@@ -30,15 +30,15 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+if TYPE_CHECKING:
+    from .resources import runs, tasks
+    from .resources.runs import RunsResource, AsyncRunsResource
+    from .resources.tasks import TasksResource, AsyncTasksResource
+
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Indices", "AsyncIndices", "Client", "AsyncClient"]
 
 
 class Indices(SyncAPIClient):
-    tasks: tasks.TasksResource
-    runs: runs.RunsResource
-    with_raw_response: IndicesWithRawResponse
-    with_streaming_response: IndicesWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -93,10 +93,25 @@ class Indices(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.tasks = tasks.TasksResource(self)
-        self.runs = runs.RunsResource(self)
-        self.with_raw_response = IndicesWithRawResponse(self)
-        self.with_streaming_response = IndicesWithStreamedResponse(self)
+    @cached_property
+    def tasks(self) -> TasksResource:
+        from .resources.tasks import TasksResource
+
+        return TasksResource(self)
+
+    @cached_property
+    def runs(self) -> RunsResource:
+        from .resources.runs import RunsResource
+
+        return RunsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> IndicesWithRawResponse:
+        return IndicesWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> IndicesWithStreamedResponse:
+        return IndicesWithStreamedResponse(self)
 
     @property
     @override
@@ -204,11 +219,6 @@ class Indices(SyncAPIClient):
 
 
 class AsyncIndices(AsyncAPIClient):
-    tasks: tasks.AsyncTasksResource
-    runs: runs.AsyncRunsResource
-    with_raw_response: AsyncIndicesWithRawResponse
-    with_streaming_response: AsyncIndicesWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -263,10 +273,25 @@ class AsyncIndices(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.tasks = tasks.AsyncTasksResource(self)
-        self.runs = runs.AsyncRunsResource(self)
-        self.with_raw_response = AsyncIndicesWithRawResponse(self)
-        self.with_streaming_response = AsyncIndicesWithStreamedResponse(self)
+    @cached_property
+    def tasks(self) -> AsyncTasksResource:
+        from .resources.tasks import AsyncTasksResource
+
+        return AsyncTasksResource(self)
+
+    @cached_property
+    def runs(self) -> AsyncRunsResource:
+        from .resources.runs import AsyncRunsResource
+
+        return AsyncRunsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncIndicesWithRawResponse:
+        return AsyncIndicesWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncIndicesWithStreamedResponse:
+        return AsyncIndicesWithStreamedResponse(self)
 
     @property
     @override
@@ -374,27 +399,79 @@ class AsyncIndices(AsyncAPIClient):
 
 
 class IndicesWithRawResponse:
+    _client: Indices
+
     def __init__(self, client: Indices) -> None:
-        self.tasks = tasks.TasksResourceWithRawResponse(client.tasks)
-        self.runs = runs.RunsResourceWithRawResponse(client.runs)
+        self._client = client
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithRawResponse:
+        from .resources.tasks import TasksResourceWithRawResponse
+
+        return TasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
+    def runs(self) -> runs.RunsResourceWithRawResponse:
+        from .resources.runs import RunsResourceWithRawResponse
+
+        return RunsResourceWithRawResponse(self._client.runs)
 
 
 class AsyncIndicesWithRawResponse:
+    _client: AsyncIndices
+
     def __init__(self, client: AsyncIndices) -> None:
-        self.tasks = tasks.AsyncTasksResourceWithRawResponse(client.tasks)
-        self.runs = runs.AsyncRunsResourceWithRawResponse(client.runs)
+        self._client = client
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+        from .resources.tasks import AsyncTasksResourceWithRawResponse
+
+        return AsyncTasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
+    def runs(self) -> runs.AsyncRunsResourceWithRawResponse:
+        from .resources.runs import AsyncRunsResourceWithRawResponse
+
+        return AsyncRunsResourceWithRawResponse(self._client.runs)
 
 
 class IndicesWithStreamedResponse:
+    _client: Indices
+
     def __init__(self, client: Indices) -> None:
-        self.tasks = tasks.TasksResourceWithStreamingResponse(client.tasks)
-        self.runs = runs.RunsResourceWithStreamingResponse(client.runs)
+        self._client = client
+
+    @cached_property
+    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+        from .resources.tasks import TasksResourceWithStreamingResponse
+
+        return TasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
+    def runs(self) -> runs.RunsResourceWithStreamingResponse:
+        from .resources.runs import RunsResourceWithStreamingResponse
+
+        return RunsResourceWithStreamingResponse(self._client.runs)
 
 
 class AsyncIndicesWithStreamedResponse:
+    _client: AsyncIndices
+
     def __init__(self, client: AsyncIndices) -> None:
-        self.tasks = tasks.AsyncTasksResourceWithStreamingResponse(client.tasks)
-        self.runs = runs.AsyncRunsResourceWithStreamingResponse(client.runs)
+        self._client = client
+
+    @cached_property
+    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+        from .resources.tasks import AsyncTasksResourceWithStreamingResponse
+
+        return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
+    def runs(self) -> runs.AsyncRunsResourceWithStreamingResponse:
+        from .resources.runs import AsyncRunsResourceWithStreamingResponse
+
+        return AsyncRunsResourceWithStreamingResponse(self._client.runs)
 
 
 Client = Indices
