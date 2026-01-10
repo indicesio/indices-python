@@ -25,6 +25,7 @@ class TestTasks:
     @parametrize
     def test_method_create(self, client: Indices) -> None:
         task = client.tasks.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -37,12 +38,21 @@ class TestTasks:
     @parametrize
     def test_method_create_with_all_params(self, client: Indices) -> None:
         task = client.tasks.create(
+            creation_params={
+                "initial_input_values": {"foo": "bar"},
+                "is_fully_autonomous": True,
+                "secrets": [
+                    {
+                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "description": "description",
+                    }
+                ],
+            },
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
             task="task",
             website="https://example.com",
-            is_fully_autonomous=True,
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -50,6 +60,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_create(self, client: Indices) -> None:
         response = client.tasks.with_raw_response.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -66,6 +77,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_create(self, client: Indices) -> None:
         with client.tasks.with_streaming_response.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -247,6 +259,16 @@ class TestTasks:
     def test_method_start_manual_session_with_all_params(self, client: Indices) -> None:
         task = client.tasks.start_manual_session(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cookies=[
+                {
+                    "name": "name",
+                    "value": "value",
+                    "domain": "domain",
+                    "http_only": True,
+                    "path": "path",
+                    "secure": True,
+                }
+            ],
             use_proxy=True,
         )
         assert_matches_type(TaskStartManualSessionResponse, task, path=["response"])
@@ -295,6 +317,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_create(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -307,12 +330,21 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.create(
+            creation_params={
+                "initial_input_values": {"foo": "bar"},
+                "is_fully_autonomous": True,
+                "secrets": [
+                    {
+                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "description": "description",
+                    }
+                ],
+            },
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
             task="task",
             website="https://example.com",
-            is_fully_autonomous=True,
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -320,6 +352,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
         response = await async_client.tasks.with_raw_response.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -336,6 +369,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
         async with async_client.tasks.with_streaming_response.create(
+            creation_params={},
             display_name="display_name",
             input_schema="input_schema",
             output_schema="output_schema",
@@ -517,6 +551,16 @@ class TestAsyncTasks:
     async def test_method_start_manual_session_with_all_params(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.start_manual_session(
             id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cookies=[
+                {
+                    "name": "name",
+                    "value": "value",
+                    "domain": "domain",
+                    "http_only": True,
+                    "path": "path",
+                    "secure": True,
+                }
+            ],
             use_proxy=True,
         )
         assert_matches_type(TaskStartManualSessionResponse, task, path=["response"])
