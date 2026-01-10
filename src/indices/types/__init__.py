@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .run import Run as Run
 from .task import Task as Task
+from .secret import Secret as Secret
 from .run_run_params import RunRunParams as RunRunParams
 from .run_list_params import RunListParams as RunListParams
 from .run_list_response import RunListResponse as RunListResponse

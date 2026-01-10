@@ -9,7 +9,7 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import Run, SecretListResponse, SecretDeleteResponse, SecretGetTotpResponse
+from indices.types import Secret, SecretListResponse, SecretDeleteResponse, SecretGetTotpResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,7 +24,7 @@ class TestSecrets:
             name="name",
             secret_type="login",
         )
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -38,7 +38,7 @@ class TestSecrets:
             value="value",
             website="website",
         )
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -51,7 +51,7 @@ class TestSecrets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         secret = response.parse()
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -64,7 +64,7 @@ class TestSecrets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             secret = response.parse()
-            assert_matches_type(Run, secret, path=["response"])
+            assert_matches_type(Secret, secret, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -193,7 +193,7 @@ class TestAsyncSecrets:
             name="name",
             secret_type="login",
         )
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -207,7 +207,7 @@ class TestAsyncSecrets:
             value="value",
             website="website",
         )
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -220,7 +220,7 @@ class TestAsyncSecrets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         secret = await response.parse()
-        assert_matches_type(Run, secret, path=["response"])
+        assert_matches_type(Secret, secret, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -233,7 +233,7 @@ class TestAsyncSecrets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             secret = await response.parse()
-            assert_matches_type(Run, secret, path=["response"])
+            assert_matches_type(Secret, secret, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

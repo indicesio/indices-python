@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .run import Run
+from .secret import Secret
 
 __all__ = ["SecretListResponse"]
 
-SecretListResponse: TypeAlias = List[Run]
+SecretListResponse: TypeAlias = List[Secret]
