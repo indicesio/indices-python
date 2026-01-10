@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.0.3 (2026-01-10)
+
+Full Changelog: [v0.0.2...v0.0.3](https://github.com/indicesio/indices-python/compare/v0.0.2...v0.0.3)
+
+### Features
+
+* **api:** improve examples ([b2aa0ed](https://github.com/indicesio/indices-python/commit/b2aa0ed184f512b82e245c39b399f32972f68c8f))
+* **api:** manual updates ([b7364bb](https://github.com/indicesio/indices-python/commit/b7364bb2260e6fcdb0c7be226087a160320995e3))
+
+
+### Bug Fixes
+
+* ensure streams are always closed ([69d4b32](https://github.com/indicesio/indices-python/commit/69d4b327e19123f455fca874f2468e798880117c))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([57b79b0](https://github.com/indicesio/indices-python/commit/57b79b0bf617bee7bb445bd53aa34183325296ce))
+* use async_to_httpx_files in patch method ([126eb61](https://github.com/indicesio/indices-python/commit/126eb613c202fdddf23808aacbdbdf675bcdccd2))
+
+
+### Chores
+
+* add missing docstrings ([8df9ee8](https://github.com/indicesio/indices-python/commit/8df9ee89d5143935931215e42602695ec1ea065c))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([e64b0a1](https://github.com/indicesio/indices-python/commit/e64b0a1fc2c5e067516938b2df54f1bda4523b0c))
+* **docs:** use environment variables for authentication in code snippets ([9c03911](https://github.com/indicesio/indices-python/commit/9c0391185cfe2a091e2309dad60ce49dc447f394))
+* **internal:** add `--fix` argument to lint script ([d783aed](https://github.com/indicesio/indices-python/commit/d783aedc00622a00a9ad0c93caed2c57db1e68ff))
+* **internal:** add missing files argument to base client ([0493ee7](https://github.com/indicesio/indices-python/commit/0493ee7da82202ba3b442bef83b787d4a0137e38))
+* **internal:** codegen related update ([b7f5b02](https://github.com/indicesio/indices-python/commit/b7f5b025e6443645688cebd3ecb9de0493e45f61))
+* speedup initial import ([02a4942](https://github.com/indicesio/indices-python/commit/02a4942f1dea08583414c4d2a25507d6db3d406d))
+* update lockfile ([12e35b4](https://github.com/indicesio/indices-python/commit/12e35b4b0170fb54100b1c1d98006317592b3fb3))
+
 ## 0.0.2 (2025-11-27)
 
 Full Changelog: [v0.0.1...v0.0.2](https://github.com/indicesio/indices-python/compare/v0.0.1...v0.0.2)
