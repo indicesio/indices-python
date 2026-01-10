@@ -31,9 +31,10 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import runs, tasks
+    from .resources import runs, tasks, secrets
     from .resources.runs import RunsResource, AsyncRunsResource
     from .resources.tasks import TasksResource, AsyncTasksResource
+    from .resources.secrets import SecretsResource, AsyncSecretsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Indices", "AsyncIndices", "Client", "AsyncClient"]
 
@@ -104,6 +105,12 @@ class Indices(SyncAPIClient):
         from .resources.runs import RunsResource
 
         return RunsResource(self)
+
+    @cached_property
+    def secrets(self) -> SecretsResource:
+        from .resources.secrets import SecretsResource
+
+        return SecretsResource(self)
 
     @cached_property
     def with_raw_response(self) -> IndicesWithRawResponse:
@@ -286,6 +293,12 @@ class AsyncIndices(AsyncAPIClient):
         return AsyncRunsResource(self)
 
     @cached_property
+    def secrets(self) -> AsyncSecretsResource:
+        from .resources.secrets import AsyncSecretsResource
+
+        return AsyncSecretsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncIndicesWithRawResponse:
         return AsyncIndicesWithRawResponse(self)
 
@@ -416,6 +429,12 @@ class IndicesWithRawResponse:
 
         return RunsResourceWithRawResponse(self._client.runs)
 
+    @cached_property
+    def secrets(self) -> secrets.SecretsResourceWithRawResponse:
+        from .resources.secrets import SecretsResourceWithRawResponse
+
+        return SecretsResourceWithRawResponse(self._client.secrets)
+
 
 class AsyncIndicesWithRawResponse:
     _client: AsyncIndices
@@ -434,6 +453,12 @@ class AsyncIndicesWithRawResponse:
         from .resources.runs import AsyncRunsResourceWithRawResponse
 
         return AsyncRunsResourceWithRawResponse(self._client.runs)
+
+    @cached_property
+    def secrets(self) -> secrets.AsyncSecretsResourceWithRawResponse:
+        from .resources.secrets import AsyncSecretsResourceWithRawResponse
+
+        return AsyncSecretsResourceWithRawResponse(self._client.secrets)
 
 
 class IndicesWithStreamedResponse:
@@ -454,6 +479,12 @@ class IndicesWithStreamedResponse:
 
         return RunsResourceWithStreamingResponse(self._client.runs)
 
+    @cached_property
+    def secrets(self) -> secrets.SecretsResourceWithStreamingResponse:
+        from .resources.secrets import SecretsResourceWithStreamingResponse
+
+        return SecretsResourceWithStreamingResponse(self._client.secrets)
+
 
 class AsyncIndicesWithStreamedResponse:
     _client: AsyncIndices
@@ -472,6 +503,12 @@ class AsyncIndicesWithStreamedResponse:
         from .resources.runs import AsyncRunsResourceWithStreamingResponse
 
         return AsyncRunsResourceWithStreamingResponse(self._client.runs)
+
+    @cached_property
+    def secrets(self) -> secrets.AsyncSecretsResourceWithStreamingResponse:
+        from .resources.secrets import AsyncSecretsResourceWithStreamingResponse
+
+        return AsyncSecretsResourceWithStreamingResponse(self._client.secrets)
 
 
 Client = Indices
