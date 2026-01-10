@@ -24,5 +24,14 @@ class Run(BaseModel):
     result_json: Optional[str] = None
     """Execution result of the run. In JSON, matching the task's output schema."""
 
+    success: bool
+    """Whether the run was successful."""
+
     task_id: str
     """ID of the task executed in this run."""
+
+    secret_bindings: Optional[Dict[str, str]] = None
+    """Secrets to use for this run.
+
+    This dict must be a mapping of secret slot names to secret UUIDs.
+    """

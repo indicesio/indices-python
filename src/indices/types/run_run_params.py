@@ -17,3 +17,10 @@ class RunRunParams(TypedDict, total=False):
 
     Optional if the task does not require any arguments.
     """
+
+    secret_bindings: Dict[str, str]
+    """Mapping of secret slot names to secret UUIDs.
+
+    Each slot defined in the task's required_secrets must be mapped to a user-owned
+    secret.
+    """
