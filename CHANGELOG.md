@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.0.4 (2026-01-10)
+
+Full Changelog: [v0.0.3...v0.0.4](https://github.com/indicesio/indices-python/compare/v0.0.3...v0.0.4)
+
+### Features
+
+* **api:** add secrets APIs ([16f1cbe](https://github.com/indicesio/indices-python/commit/16f1cbeddd312eb10e1ae813ad40b3ad836dc4e2))
+* **api:** add secrets APIs ([19f64f7](https://github.com/indicesio/indices-python/commit/19f64f7d9b9717ad2541c43b86496c39ecbd03cf))
+
 ## 0.0.3 (2026-01-10)
 
 Full Changelog: [v0.0.2...v0.0.3](https://github.com/indicesio/indices-python/compare/v0.0.2...v0.0.3)
