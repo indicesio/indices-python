@@ -107,6 +107,7 @@ class TestRuns:
         run = client.runs.run(
             task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             arguments={"foo": "bar"},
+            secret_bindings={"foo": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -232,6 +233,7 @@ class TestAsyncRuns:
         run = await async_client.runs.run(
             task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             arguments={"foo": "bar"},
+            secret_bindings={"foo": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
         )
         assert_matches_type(Run, run, path=["response"])
 

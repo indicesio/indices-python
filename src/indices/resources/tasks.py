@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
 from ..types import task_create_params, task_start_manual_session_params
@@ -46,12 +48,12 @@ class TasksResource(SyncAPIResource):
     def create(
         self,
         *,
+        creation_params: task_create_params.CreationParams,
         display_name: str,
         input_schema: str,
         output_schema: str,
         task: str,
         website: str,
-        is_fully_autonomous: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,6 +66,8 @@ class TasksResource(SyncAPIResource):
                 <p>Once a task has been created and is ready for usage, it can be repeatedly executed using the `run` endpoint.</p>
 
         Args:
+          creation_params: Information used during task creation.
+
           display_name: Short title shown in the dashboard. Informational only; not used to generate the
               task.
 
@@ -74,9 +78,6 @@ class TasksResource(SyncAPIResource):
           task: Detailed explanation of the task to be performed.
 
           website: The website to perform the task on.
-
-          is_fully_autonomous: If true, the server will run the browser task autonomously. If false, the user
-              must complete the task manually in a spawned browser.
 
           extra_headers: Send extra headers
 
@@ -90,12 +91,12 @@ class TasksResource(SyncAPIResource):
             "/v1beta/tasks",
             body=maybe_transform(
                 {
+                    "creation_params": creation_params,
                     "display_name": display_name,
                     "input_schema": input_schema,
                     "output_schema": output_schema,
                     "task": task,
                     "website": website,
-                    "is_fully_autonomous": is_fully_autonomous,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -233,6 +234,7 @@ class TasksResource(SyncAPIResource):
         self,
         id: str,
         *,
+        cookies: Iterable[task_start_manual_session_params.Cookie] | Omit = omit,
         use_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -247,6 +249,8 @@ class TasksResource(SyncAPIResource):
 
         Args:
           id: The ID of the task to perform manually.
+
+          cookies: Initial cookies to set in the browser session.
 
           use_proxy: If true, spawn the browser session using a proxy.
 
@@ -263,7 +267,11 @@ class TasksResource(SyncAPIResource):
         return self._post(
             f"/v1beta/tasks/{id}/start-manual-session",
             body=maybe_transform(
-                {"use_proxy": use_proxy}, task_start_manual_session_params.TaskStartManualSessionParams
+                {
+                    "cookies": cookies,
+                    "use_proxy": use_proxy,
+                },
+                task_start_manual_session_params.TaskStartManualSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -295,12 +303,12 @@ class AsyncTasksResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        creation_params: task_create_params.CreationParams,
         display_name: str,
         input_schema: str,
         output_schema: str,
         task: str,
         website: str,
-        is_fully_autonomous: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -313,6 +321,8 @@ class AsyncTasksResource(AsyncAPIResource):
                 <p>Once a task has been created and is ready for usage, it can be repeatedly executed using the `run` endpoint.</p>
 
         Args:
+          creation_params: Information used during task creation.
+
           display_name: Short title shown in the dashboard. Informational only; not used to generate the
               task.
 
@@ -323,9 +333,6 @@ class AsyncTasksResource(AsyncAPIResource):
           task: Detailed explanation of the task to be performed.
 
           website: The website to perform the task on.
-
-          is_fully_autonomous: If true, the server will run the browser task autonomously. If false, the user
-              must complete the task manually in a spawned browser.
 
           extra_headers: Send extra headers
 
@@ -339,12 +346,12 @@ class AsyncTasksResource(AsyncAPIResource):
             "/v1beta/tasks",
             body=await async_maybe_transform(
                 {
+                    "creation_params": creation_params,
                     "display_name": display_name,
                     "input_schema": input_schema,
                     "output_schema": output_schema,
                     "task": task,
                     "website": website,
-                    "is_fully_autonomous": is_fully_autonomous,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -482,6 +489,7 @@ class AsyncTasksResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        cookies: Iterable[task_start_manual_session_params.Cookie] | Omit = omit,
         use_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -496,6 +504,8 @@ class AsyncTasksResource(AsyncAPIResource):
 
         Args:
           id: The ID of the task to perform manually.
+
+          cookies: Initial cookies to set in the browser session.
 
           use_proxy: If true, spawn the browser session using a proxy.
 
@@ -512,7 +522,11 @@ class AsyncTasksResource(AsyncAPIResource):
         return await self._post(
             f"/v1beta/tasks/{id}/start-manual-session",
             body=await async_maybe_transform(
-                {"use_proxy": use_proxy}, task_start_manual_session_params.TaskStartManualSessionParams
+                {
+                    "cookies": cookies,
+                    "use_proxy": use_proxy,
+                },
+                task_start_manual_session_params.TaskStartManualSessionParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
