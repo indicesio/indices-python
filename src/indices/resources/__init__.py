@@ -16,6 +16,14 @@ from .tasks import (
     TasksResourceWithStreamingResponse,
     AsyncTasksResourceWithStreamingResponse,
 )
+from .secrets import (
+    SecretsResource,
+    AsyncSecretsResource,
+    SecretsResourceWithRawResponse,
+    AsyncSecretsResourceWithRawResponse,
+    SecretsResourceWithStreamingResponse,
+    AsyncSecretsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "TasksResource",
@@ -30,4 +38,10 @@ __all__ = [
     "AsyncRunsResourceWithRawResponse",
     "RunsResourceWithStreamingResponse",
     "AsyncRunsResourceWithStreamingResponse",
+    "SecretsResource",
+    "AsyncSecretsResource",
+    "SecretsResourceWithRawResponse",
+    "AsyncSecretsResourceWithRawResponse",
+    "SecretsResourceWithStreamingResponse",
+    "AsyncSecretsResourceWithStreamingResponse",
 ]
