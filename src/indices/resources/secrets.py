@@ -18,8 +18,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..types.run import Run
 from .._base_client import make_request_options
+from ..types.secret import Secret
 from ..types.secret_list_response import SecretListResponse
 from ..types.secret_delete_response import SecretDeleteResponse
 from ..types.secret_get_totp_response import SecretGetTotpResponse
@@ -63,7 +63,7 @@ class SecretsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    ) -> Secret:
         """<p>Create a new secret.
 
         Credentials are stored securely in 1Password.</p>
@@ -108,7 +108,7 @@ class SecretsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Run,
+            cast_to=Secret,
         )
 
     def list(
@@ -241,7 +241,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    ) -> Secret:
         """<p>Create a new secret.
 
         Credentials are stored securely in 1Password.</p>
@@ -286,7 +286,7 @@ class AsyncSecretsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Run,
+            cast_to=Secret,
         )
 
     async def list(

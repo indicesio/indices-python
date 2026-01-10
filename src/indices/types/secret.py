@@ -6,10 +6,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Run"]
+__all__ = ["Secret"]
 
 
-class Run(BaseModel):
+class Secret(BaseModel):
     created_at: datetime
     """Timestamp when the secret was created."""
 
