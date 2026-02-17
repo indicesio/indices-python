@@ -18,17 +18,23 @@ class TaskCreateParams(TypedDict, total=False):
     Informational only; not used to generate the task.
     """
 
-    input_schema: Required[str]
-    """Task input parameters in the form of a JSON schema."""
-
-    output_schema: Required[str]
-    """Task output in the form of a JSON schema."""
-
     task: Required[str]
     """Detailed explanation of the task to be performed."""
 
     website: Required[str]
     """The website to perform the task on."""
+
+    input_schema: Optional[str]
+    """Task input parameters in the form of a JSON schema.
+
+    Optional if auto_generate_schemas is enabled.
+    """
+
+    output_schema: Optional[str]
+    """Task output in the form of a JSON schema.
+
+    Optional if auto_generate_schemas is enabled.
+    """
 
 
 class CreationParamsSecret(TypedDict, total=False):
@@ -46,6 +52,14 @@ class CreationParamsSecret(TypedDict, total=False):
 
 class CreationParams(TypedDict, total=False):
     """Information used during task creation."""
+
+    auto_generate_schemas: bool
+    """
+    If true, input and output schemas will be automatically generated from captured
+    HAR traffic. When enabled, input_schema and output_schema in the request are
+    optional and will be replaced with auto-generated schemas during the task
+    creation workflow.
+    """
 
     initial_input_values: Dict[str, object]
     """Initial values for input schema fields, keyed by property name.
