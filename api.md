@@ -20,13 +20,14 @@ Methods:
 Types:
 
 ```python
-from indices.types import Run, RunListResponse
+from indices.types import Run, RunListResponse, RunLogsResponse
 ```
 
 Methods:
 
 - <code title="get /v1beta/runs/{run_id}">client.runs.<a href="./src/indices/resources/runs.py">retrieve</a>(run_id) -> <a href="./src/indices/types/run.py">Run</a></code>
 - <code title="get /v1beta/runs">client.runs.<a href="./src/indices/resources/runs.py">list</a>(\*\*<a href="src/indices/types/run_list_params.py">params</a>) -> <a href="./src/indices/types/run_list_response.py">RunListResponse</a></code>
+- <code title="get /v1beta/runs/{run_id}/logs">client.runs.<a href="./src/indices/resources/runs.py">logs</a>(run_id) -> <a href="./src/indices/types/run_logs_response.py">RunLogsResponse</a></code>
 - <code title="post /v1beta/runs">client.runs.<a href="./src/indices/resources/runs.py">run</a>(\*\*<a href="src/indices/types/run_run_params.py">params</a>) -> <a href="./src/indices/types/run.py">Run</a></code>
 
 # Secrets

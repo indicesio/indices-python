@@ -8,6 +8,7 @@ from .secret import Secret as Secret
 from .run_run_params import RunRunParams as RunRunParams
 from .run_list_params import RunListParams as RunListParams
 from .run_list_response import RunListResponse as RunListResponse
+from .run_logs_response import RunLogsResponse as RunLogsResponse
 from .task_create_params import TaskCreateParams as TaskCreateParams
 from .task_list_response import TaskListResponse as TaskListResponse
 from .secret_create_params import SecretCreateParams as SecretCreateParams
