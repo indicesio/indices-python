@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.0.5 (2026-02-17)
+
+Full Changelog: [v0.0.4...v0.0.5](https://github.com/indicesio/indices-python/compare/v0.0.4...v0.0.5)
+
+### Features
+
+* **api:** api update ([73e33fb](https://github.com/indicesio/indices-python/commit/73e33fb63037ac7c287b8e6ec422ce67fba82f1d))
+* **api:** sync ([6f09f4c](https://github.com/indicesio/indices-python/commit/6f09f4cb006bea86b214d44f5a38c129024427c5))
+* **client:** add custom JSON encoder for extended type support ([ff4c567](https://github.com/indicesio/indices-python/commit/ff4c567305a1d0feb329dfd9e59f4a927350e9fd))
+* **client:** add support for binary request streaming ([13ebdcc](https://github.com/indicesio/indices-python/commit/13ebdccd3ae8f91647f40d4be3b6a2db378f9ecb))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([88e6850](https://github.com/indicesio/indices-python/commit/88e6850dd2b2ab98b861740813e3de587afeb713))
+* format all `api.md` files ([c64b877](https://github.com/indicesio/indices-python/commit/c64b87740a7466d20ee3417c55efd7480e5abc4a))
+* **internal:** bump dependencies ([24a923f](https://github.com/indicesio/indices-python/commit/24a923ff97ac88cb84123ba2aa1c57aa7c034a1b))
+* **internal:** fix lint error on Python 3.14 ([3ad6e62](https://github.com/indicesio/indices-python/commit/3ad6e624136b8908973b1938d33bbb4dc0906ced))
+* **internal:** update `actions/checkout` version ([518badd](https://github.com/indicesio/indices-python/commit/518badde5aadc9c9b2ea75abc61364f9067f18c4))
+
 ## 0.0.4 (2026-01-10)
 
 Full Changelog: [v0.0.3...v0.0.4](https://github.com/indicesio/indices-python/compare/v0.0.3...v0.0.4)
