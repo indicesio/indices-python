@@ -127,8 +127,6 @@ client = Indices()
 task = client.tasks.create(
     creation_params={},
     display_name="display_name",
-    input_schema="input_schema",
-    output_schema="output_schema",
     task="task",
     website="https://example.com",
 )

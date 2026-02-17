@@ -27,8 +27,6 @@ class TestTasks:
         task = client.tasks.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         )
@@ -39,6 +37,7 @@ class TestTasks:
     def test_method_create_with_all_params(self, client: Indices) -> None:
         task = client.tasks.create(
             creation_params={
+                "auto_generate_schemas": True,
                 "initial_input_values": {"foo": "bar"},
                 "is_fully_autonomous": True,
                 "secrets": [
@@ -49,10 +48,10 @@ class TestTasks:
                 ],
             },
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
+            input_schema="input_schema",
+            output_schema="output_schema",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -62,8 +61,6 @@ class TestTasks:
         response = client.tasks.with_raw_response.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         )
@@ -79,8 +76,6 @@ class TestTasks:
         with client.tasks.with_streaming_response.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         ) as response:
@@ -210,7 +205,7 @@ class TestTasks:
         task = client.tasks.complete_manual_session(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(Task, task, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -222,7 +217,7 @@ class TestTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = response.parse()
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(Task, task, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -234,7 +229,7 @@ class TestTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = response.parse()
-            assert_matches_type(object, task, path=["response"])
+            assert_matches_type(Task, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -319,8 +314,6 @@ class TestAsyncTasks:
         task = await async_client.tasks.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         )
@@ -331,6 +324,7 @@ class TestAsyncTasks:
     async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.create(
             creation_params={
+                "auto_generate_schemas": True,
                 "initial_input_values": {"foo": "bar"},
                 "is_fully_autonomous": True,
                 "secrets": [
@@ -341,10 +335,10 @@ class TestAsyncTasks:
                 ],
             },
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
+            input_schema="input_schema",
+            output_schema="output_schema",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -354,8 +348,6 @@ class TestAsyncTasks:
         response = await async_client.tasks.with_raw_response.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         )
@@ -371,8 +363,6 @@ class TestAsyncTasks:
         async with async_client.tasks.with_streaming_response.create(
             creation_params={},
             display_name="display_name",
-            input_schema="input_schema",
-            output_schema="output_schema",
             task="task",
             website="https://example.com",
         ) as response:
@@ -502,7 +492,7 @@ class TestAsyncTasks:
         task = await async_client.tasks.complete_manual_session(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(Task, task, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -514,7 +504,7 @@ class TestAsyncTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = await response.parse()
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(Task, task, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -526,7 +516,7 @@ class TestAsyncTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = await response.parse()
-            assert_matches_type(object, task, path=["response"])
+            assert_matches_type(Task, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

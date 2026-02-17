@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 
 import httpx
 
@@ -50,10 +50,10 @@ class TasksResource(SyncAPIResource):
         *,
         creation_params: task_create_params.CreationParams,
         display_name: str,
-        input_schema: str,
-        output_schema: str,
         task: str,
         website: str,
+        input_schema: Optional[str] | Omit = omit,
+        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,13 +71,15 @@ class TasksResource(SyncAPIResource):
           display_name: Short title shown in the dashboard. Informational only; not used to generate the
               task.
 
-          input_schema: Task input parameters in the form of a JSON schema.
-
-          output_schema: Task output in the form of a JSON schema.
-
           task: Detailed explanation of the task to be performed.
 
           website: The website to perform the task on.
+
+          input_schema: Task input parameters in the form of a JSON schema. Optional if
+              auto_generate_schemas is enabled.
+
+          output_schema: Task output in the form of a JSON schema. Optional if auto_generate_schemas is
+              enabled.
 
           extra_headers: Send extra headers
 
@@ -93,10 +95,10 @@ class TasksResource(SyncAPIResource):
                 {
                     "creation_params": creation_params,
                     "display_name": display_name,
-                    "input_schema": input_schema,
-                    "output_schema": output_schema,
                     "task": task,
                     "website": website,
+                    "input_schema": input_schema,
+                    "output_schema": output_schema,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -205,7 +207,7 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> Task:
         """
         <p>Mark the manual browser session as complete and continue the task workflow.</p>
 
@@ -227,7 +229,7 @@ class TasksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=Task,
         )
 
     def start_manual_session(
@@ -305,10 +307,10 @@ class AsyncTasksResource(AsyncAPIResource):
         *,
         creation_params: task_create_params.CreationParams,
         display_name: str,
-        input_schema: str,
-        output_schema: str,
         task: str,
         website: str,
+        input_schema: Optional[str] | Omit = omit,
+        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -326,13 +328,15 @@ class AsyncTasksResource(AsyncAPIResource):
           display_name: Short title shown in the dashboard. Informational only; not used to generate the
               task.
 
-          input_schema: Task input parameters in the form of a JSON schema.
-
-          output_schema: Task output in the form of a JSON schema.
-
           task: Detailed explanation of the task to be performed.
 
           website: The website to perform the task on.
+
+          input_schema: Task input parameters in the form of a JSON schema. Optional if
+              auto_generate_schemas is enabled.
+
+          output_schema: Task output in the form of a JSON schema. Optional if auto_generate_schemas is
+              enabled.
 
           extra_headers: Send extra headers
 
@@ -348,10 +352,10 @@ class AsyncTasksResource(AsyncAPIResource):
                 {
                     "creation_params": creation_params,
                     "display_name": display_name,
-                    "input_schema": input_schema,
-                    "output_schema": output_schema,
                     "task": task,
                     "website": website,
+                    "input_schema": input_schema,
+                    "output_schema": output_schema,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -460,7 +464,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> Task:
         """
         <p>Mark the manual browser session as complete and continue the task workflow.</p>
 
@@ -482,7 +486,7 @@ class AsyncTasksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=Task,
         )
 
     async def start_manual_session(
