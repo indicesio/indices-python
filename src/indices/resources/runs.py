@@ -20,6 +20,7 @@ from .._response import (
 from ..types.run import Run
 from .._base_client import make_request_options
 from ..types.run_list_response import RunListResponse
+from ..types.run_logs_response import RunLogsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -114,6 +115,41 @@ class RunsResource(SyncAPIResource):
                 query=maybe_transform({"task_id": task_id}, run_list_params.RunListParams),
             ),
             cast_to=RunListResponse,
+        )
+
+    def logs(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunLogsResponse:
+        """
+        <p>Retrieve stdout and stderr logs for a run.</p>
+
+        Args:
+          run_id: The ID of the run to get logs for.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return self._get(
+            f"/v1beta/runs/{run_id}/logs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RunLogsResponse,
         )
 
     def run(
@@ -258,6 +294,41 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunListResponse,
         )
 
+    async def logs(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunLogsResponse:
+        """
+        <p>Retrieve stdout and stderr logs for a run.</p>
+
+        Args:
+          run_id: The ID of the run to get logs for.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return await self._get(
+            f"/v1beta/runs/{run_id}/logs",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RunLogsResponse,
+        )
+
     async def run(
         self,
         *,
@@ -318,6 +389,9 @@ class RunsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             runs.list,
         )
+        self.logs = to_raw_response_wrapper(
+            runs.logs,
+        )
         self.run = to_raw_response_wrapper(
             runs.run,
         )
@@ -332,6 +406,9 @@ class AsyncRunsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             runs.list,
+        )
+        self.logs = async_to_raw_response_wrapper(
+            runs.logs,
         )
         self.run = async_to_raw_response_wrapper(
             runs.run,
@@ -348,6 +425,9 @@ class RunsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             runs.list,
         )
+        self.logs = to_streamed_response_wrapper(
+            runs.logs,
+        )
         self.run = to_streamed_response_wrapper(
             runs.run,
         )
@@ -362,6 +442,9 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             runs.list,
+        )
+        self.logs = async_to_streamed_response_wrapper(
+            runs.logs,
         )
         self.run = async_to_streamed_response_wrapper(
             runs.run,
