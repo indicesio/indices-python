@@ -76,6 +76,12 @@ class Task(BaseModel):
     website: str
     """The website to perform the task on."""
 
+    creation_auto_generate_schemas: Optional[bool] = None
+    """
+    Whether schemas were configured to auto-generate during task creation, if
+    available.
+    """
+
     creation_secrets: Optional[List[CreationSecret]] = None
     """List of secrets provided during task creation."""
 
