@@ -55,6 +55,12 @@ class Task(BaseModel):
     created_at: datetime
     """Timestamp when the object was created."""
 
+    creation_auto_generate_schemas: bool
+    """
+    Whether schemas were configured to auto-generate during task creation, if
+    available.
+    """
+
     current_state: Literal["not_ready", "waiting_for_manual_completion", "ready", "failed"]
     """Current state of the task, in particular whether it is ready to use."""
 
@@ -75,12 +81,6 @@ class Task(BaseModel):
 
     website: str
     """The website to perform the task on."""
-
-    creation_auto_generate_schemas: Optional[bool] = None
-    """
-    Whether schemas were configured to auto-generate during task creation, if
-    available.
-    """
 
     creation_secrets: Optional[List[CreationSecret]] = None
     """List of secrets provided during task creation."""
