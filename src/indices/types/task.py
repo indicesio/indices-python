@@ -67,11 +67,19 @@ class Task(BaseModel):
     display_name: str
     """Short title shown in the dashboard. Informational only."""
 
-    input_schema: str
-    """Task input parameters in the form of a JSON schema."""
+    input_schema: Optional[str] = None
+    """Task input schema as a JSON schema string.
 
-    output_schema: str
-    """Task output in the form of a JSON schema."""
+    May be null while the task is not ready (e.g. schema generation in progress).
+    Guaranteed non-null when current_state is ready.
+    """
+
+    output_schema: Optional[str] = None
+    """Task output schema as a JSON schema string.
+
+    May be null while the task is not ready (e.g. schema generation in progress).
+    Guaranteed non-null when current_state is ready.
+    """
 
     task: str
     """Detailed explanation of the task to be performed."""
