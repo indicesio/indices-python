@@ -96,18 +96,21 @@ class Indices(SyncAPIClient):
 
     @cached_property
     def tasks(self) -> TasksResource:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import TasksResource
 
         return TasksResource(self)
 
     @cached_property
     def runs(self) -> RunsResource:
+        """Execute a task."""
         from .resources.runs import RunsResource
 
         return RunsResource(self)
 
     @cached_property
     def secrets(self) -> SecretsResource:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import SecretsResource
 
         return SecretsResource(self)
@@ -282,18 +285,21 @@ class AsyncIndices(AsyncAPIClient):
 
     @cached_property
     def tasks(self) -> AsyncTasksResource:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import AsyncTasksResource
 
         return AsyncTasksResource(self)
 
     @cached_property
     def runs(self) -> AsyncRunsResource:
+        """Execute a task."""
         from .resources.runs import AsyncRunsResource
 
         return AsyncRunsResource(self)
 
     @cached_property
     def secrets(self) -> AsyncSecretsResource:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import AsyncSecretsResource
 
         return AsyncSecretsResource(self)
@@ -419,18 +425,21 @@ class IndicesWithRawResponse:
 
     @cached_property
     def tasks(self) -> tasks.TasksResourceWithRawResponse:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import TasksResourceWithRawResponse
 
         return TasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
     def runs(self) -> runs.RunsResourceWithRawResponse:
+        """Execute a task."""
         from .resources.runs import RunsResourceWithRawResponse
 
         return RunsResourceWithRawResponse(self._client.runs)
 
     @cached_property
     def secrets(self) -> secrets.SecretsResourceWithRawResponse:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import SecretsResourceWithRawResponse
 
         return SecretsResourceWithRawResponse(self._client.secrets)
@@ -444,18 +453,21 @@ class AsyncIndicesWithRawResponse:
 
     @cached_property
     def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import AsyncTasksResourceWithRawResponse
 
         return AsyncTasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
     def runs(self) -> runs.AsyncRunsResourceWithRawResponse:
+        """Execute a task."""
         from .resources.runs import AsyncRunsResourceWithRawResponse
 
         return AsyncRunsResourceWithRawResponse(self._client.runs)
 
     @cached_property
     def secrets(self) -> secrets.AsyncSecretsResourceWithRawResponse:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import AsyncSecretsResourceWithRawResponse
 
         return AsyncSecretsResourceWithRawResponse(self._client.secrets)
@@ -469,18 +481,21 @@ class IndicesWithStreamedResponse:
 
     @cached_property
     def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import TasksResourceWithStreamingResponse
 
         return TasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
     def runs(self) -> runs.RunsResourceWithStreamingResponse:
+        """Execute a task."""
         from .resources.runs import RunsResourceWithStreamingResponse
 
         return RunsResourceWithStreamingResponse(self._client.runs)
 
     @cached_property
     def secrets(self) -> secrets.SecretsResourceWithStreamingResponse:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import SecretsResourceWithStreamingResponse
 
         return SecretsResourceWithStreamingResponse(self._client.secrets)
@@ -494,18 +509,21 @@ class AsyncIndicesWithStreamedResponse:
 
     @cached_property
     def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
+        """Create a task to repeatedly perform an action on an external website."""
         from .resources.tasks import AsyncTasksResourceWithStreamingResponse
 
         return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
     def runs(self) -> runs.AsyncRunsResourceWithStreamingResponse:
+        """Execute a task."""
         from .resources.runs import AsyncRunsResourceWithStreamingResponse
 
         return AsyncRunsResourceWithStreamingResponse(self._client.runs)
 
     @cached_property
     def secrets(self) -> secrets.AsyncSecretsResourceWithStreamingResponse:
+        """Manage secrets like login credentials and API keys."""
         from .resources.secrets import AsyncSecretsResourceWithStreamingResponse
 
         return AsyncSecretsResourceWithStreamingResponse(self._client.secrets)
