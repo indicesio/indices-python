@@ -26,6 +26,8 @@ __all__ = ["TasksResource", "AsyncTasksResource"]
 
 
 class TasksResource(SyncAPIResource):
+    """Create a task to repeatedly perform an action on an external website."""
+
     @cached_property
     def with_raw_response(self) -> TasksResourceWithRawResponse:
         """
@@ -286,6 +288,8 @@ class TasksResource(SyncAPIResource):
 
 
 class AsyncTasksResource(AsyncAPIResource):
+    """Create a task to repeatedly perform an action on an external website."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTasksResourceWithRawResponse:
         """
