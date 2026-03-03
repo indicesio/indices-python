@@ -62,7 +62,7 @@ class TasksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p><p>When <code>auto_generate_schemas</code> is enabled and schemas are omitted, <code>input_schema</code> and <code>output_schema</code> remain <code>null</code> until generation completes.</p>
+        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p><p>When <code>auto_generate_schemas</code> is enabled and schemas are omitted (enforced), <code>input_schema</code> and <code>output_schema</code> remain <code>null</code> until generation completes.</p>
 
         Args:
           creation_params: Information used during task creation.
@@ -75,12 +75,12 @@ class TasksResource(SyncAPIResource):
           website: The website to perform the task on.
 
           input_schema: Task input parameters as a JSON schema string. Required when
-              auto_generate_schemas is disabled. When auto_generate_schemas is enabled, this
-              may be omitted and remains null until generation completes.
+              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
+              enabled; remains null until generation completes.
 
           output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
-              is disabled. When auto_generate_schemas is enabled, this may be omitted and
-              remains null until generation completes.
+              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
+              until generation completes.
 
           extra_headers: Send extra headers
 
@@ -322,7 +322,7 @@ class AsyncTasksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p><p>When <code>auto_generate_schemas</code> is enabled and schemas are omitted, <code>input_schema</code> and <code>output_schema</code> remain <code>null</code> until generation completes.</p>
+        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p><p>When <code>auto_generate_schemas</code> is enabled and schemas are omitted (enforced), <code>input_schema</code> and <code>output_schema</code> remain <code>null</code> until generation completes.</p>
 
         Args:
           creation_params: Information used during task creation.
@@ -335,12 +335,12 @@ class AsyncTasksResource(AsyncAPIResource):
           website: The website to perform the task on.
 
           input_schema: Task input parameters as a JSON schema string. Required when
-              auto_generate_schemas is disabled. When auto_generate_schemas is enabled, this
-              may be omitted and remains null until generation completes.
+              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
+              enabled; remains null until generation completes.
 
           output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
-              is disabled. When auto_generate_schemas is enabled, this may be omitted and
-              remains null until generation completes.
+              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
+              until generation completes.
 
           extra_headers: Send extra headers
 
