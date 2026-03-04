@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Task", "CreationSecret", "FailureInfo", "RequiredSecret"]
+__all__ = ["Task", "Creation", "CreationSecret", "FailureInfo", "RequiredSecret"]
 
 
 class CreationSecret(BaseModel):
@@ -20,6 +20,22 @@ class CreationSecret(BaseModel):
     Optional description of what this secret is used for (helps generate meaningful
     slot names).
     """
+
+
+class Creation(BaseModel):
+    """Parameters set during the creation of this task."""
+
+    auto_generate_schemas: bool
+    """Whether schemas were configured to auto-generate during task creation."""
+
+    secret_bindings: Optional[Dict[str, str]] = None
+    """
+    Mapping of required secret slot names to secret UUIDs bound during task
+    creation.
+    """
+
+    secrets: Optional[List[CreationSecret]] = None
+    """List of secrets provided during task creation."""
 
 
 class FailureInfo(BaseModel):
@@ -55,11 +71,8 @@ class Task(BaseModel):
     created_at: datetime
     """Timestamp when the object was created."""
 
-    creation_auto_generate_schemas: bool
-    """
-    Whether schemas were configured to auto-generate during task creation, if
-    available.
-    """
+    creation: Creation
+    """Parameters set during the creation of this task."""
 
     current_state: Literal["not_ready", "waiting_for_manual_completion", "ready", "failed"]
     """Current state of the task, in particular whether it is ready to use."""
@@ -90,17 +103,8 @@ class Task(BaseModel):
     website: str
     """The website to perform the task on."""
 
-    creation_secrets: Optional[List[CreationSecret]] = None
-    """List of secrets provided during task creation."""
-
     failure_info: Optional[FailureInfo] = None
     """Information about why a task failed, for user display."""
 
     required_secrets: Optional[List[RequiredSecret]] = None
     """List of secrets that must be provided when running this task."""
-
-    secret_bindings: Optional[Dict[str, str]] = None
-    """
-    Mapping of required secret slot names to secret UUIDs bound during task
-    creation.
-    """
