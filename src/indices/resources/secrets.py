@@ -9,7 +9,7 @@ import httpx
 
 from ..types import secret_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -164,7 +164,7 @@ class SecretsResource(SyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return self._delete(
-            f"/v1beta/secrets/{uuid}",
+            path_template("/v1beta/secrets/{uuid}", uuid=uuid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -199,7 +199,7 @@ class SecretsResource(SyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return self._post(
-            f"/v1beta/secrets/{uuid}/totp",
+            path_template("/v1beta/secrets/{uuid}/totp", uuid=uuid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -344,7 +344,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return await self._delete(
-            f"/v1beta/secrets/{uuid}",
+            path_template("/v1beta/secrets/{uuid}", uuid=uuid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -379,7 +379,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         if not uuid:
             raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
         return await self._post(
-            f"/v1beta/secrets/{uuid}/totp",
+            path_template("/v1beta/secrets/{uuid}/totp", uuid=uuid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
