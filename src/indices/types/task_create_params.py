@@ -25,15 +25,17 @@ class TaskCreateParams(TypedDict, total=False):
     """The website to perform the task on."""
 
     input_schema: Optional[str]
-    """Task input parameters in the form of a JSON schema.
+    """Task input parameters as a JSON schema string.
 
-    Optional if auto_generate_schemas is enabled.
+    Required when auto_generate_schemas is disabled. Must be omitted when
+    auto_generate_schemas is enabled; remains null until generation completes.
     """
 
     output_schema: Optional[str]
-    """Task output in the form of a JSON schema.
+    """Task output schema as a JSON schema string.
 
-    Optional if auto_generate_schemas is enabled.
+    Required when auto_generate_schemas is disabled. Must be omitted when
+    auto_generate_schemas is enabled; remains null until generation completes.
     """
 
 
@@ -56,9 +58,9 @@ class CreationParams(TypedDict, total=False):
     auto_generate_schemas: bool
     """
     If true, input and output schemas will be automatically generated from captured
-    HAR traffic. When enabled, input_schema and output_schema in the request are
-    optional and will be replaced with auto-generated schemas during the task
-    creation workflow.
+    HAR traffic. When enabled, input_schema and output_schema must be omitted from
+    the request. Task responses may return null for these fields until generation
+    completes.
     """
 
     initial_input_values: Dict[str, object]

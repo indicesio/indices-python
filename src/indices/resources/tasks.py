@@ -8,7 +8,7 @@ import httpx
 
 from ..types import task_create_params, task_start_manual_session_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -26,6 +26,8 @@ __all__ = ["TasksResource", "AsyncTasksResource"]
 
 
 class TasksResource(SyncAPIResource):
+    """Create a task to repeatedly perform an action on an external website."""
+
     @cached_property
     def with_raw_response(self) -> TasksResourceWithRawResponse:
         """
@@ -62,8 +64,7 @@ class TasksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p>
-                <p>Once a task has been created and is ready for usage, it can be repeatedly executed using the `run` endpoint.</p>
+        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p>
 
         Args:
           creation_params: Information used during task creation.
@@ -75,11 +76,13 @@ class TasksResource(SyncAPIResource):
 
           website: The website to perform the task on.
 
-          input_schema: Task input parameters in the form of a JSON schema. Optional if
-              auto_generate_schemas is enabled.
+          input_schema: Task input parameters as a JSON schema string. Required when
+              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
+              enabled; remains null until generation completes.
 
-          output_schema: Task output in the form of a JSON schema. Optional if auto_generate_schemas is
-              enabled.
+          output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
+              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
+              until generation completes.
 
           extra_headers: Send extra headers
 
@@ -120,7 +123,7 @@ class TasksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Retrieve a task by its ID.</p>
+        <p>Retrieve a task by its ID.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
 
         Args:
           id: The ID of the task to retrieve.
@@ -136,7 +139,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            f"/v1beta/tasks/{id}",
+            path_template("/v1beta/tasks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -153,7 +156,9 @@ class TasksResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskListResponse:
-        """<p>List all tasks that have been created.</p>"""
+        """
+        <p>List all tasks that have been created.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
+        """
         return self._get(
             "/v1beta/tasks",
             options=make_request_options(
@@ -190,7 +195,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/v1beta/tasks/{id}",
+            path_template("/v1beta/tasks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -225,7 +230,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1beta/tasks/{id}/complete-manual-session",
+            path_template("/v1beta/tasks/{id}/complete-manual-session", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -267,7 +272,7 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            f"/v1beta/tasks/{id}/start-manual-session",
+            path_template("/v1beta/tasks/{id}/start-manual-session", id=id),
             body=maybe_transform(
                 {
                     "cookies": cookies,
@@ -283,6 +288,8 @@ class TasksResource(SyncAPIResource):
 
 
 class AsyncTasksResource(AsyncAPIResource):
+    """Create a task to repeatedly perform an action on an external website."""
+
     @cached_property
     def with_raw_response(self) -> AsyncTasksResourceWithRawResponse:
         """
@@ -319,8 +326,7 @@ class AsyncTasksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p>
-                <p>Once a task has been created and is ready for usage, it can be repeatedly executed using the `run` endpoint.</p>
+        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p>
 
         Args:
           creation_params: Information used during task creation.
@@ -332,11 +338,13 @@ class AsyncTasksResource(AsyncAPIResource):
 
           website: The website to perform the task on.
 
-          input_schema: Task input parameters in the form of a JSON schema. Optional if
-              auto_generate_schemas is enabled.
+          input_schema: Task input parameters as a JSON schema string. Required when
+              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
+              enabled; remains null until generation completes.
 
-          output_schema: Task output in the form of a JSON schema. Optional if auto_generate_schemas is
-              enabled.
+          output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
+              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
+              until generation completes.
 
           extra_headers: Send extra headers
 
@@ -377,7 +385,7 @@ class AsyncTasksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Task:
         """
-        <p>Retrieve a task by its ID.</p>
+        <p>Retrieve a task by its ID.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
 
         Args:
           id: The ID of the task to retrieve.
@@ -393,7 +401,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            f"/v1beta/tasks/{id}",
+            path_template("/v1beta/tasks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -410,7 +418,9 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TaskListResponse:
-        """<p>List all tasks that have been created.</p>"""
+        """
+        <p>List all tasks that have been created.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
+        """
         return await self._get(
             "/v1beta/tasks",
             options=make_request_options(
@@ -447,7 +457,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/v1beta/tasks/{id}",
+            path_template("/v1beta/tasks/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -482,7 +492,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1beta/tasks/{id}/complete-manual-session",
+            path_template("/v1beta/tasks/{id}/complete-manual-session", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -524,7 +534,7 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            f"/v1beta/tasks/{id}/start-manual-session",
+            path_template("/v1beta/tasks/{id}/start-manual-session", id=id),
             body=await async_maybe_transform(
                 {
                     "cookies": cookies,

@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.0.6 (2026-03-30)
+
+Full Changelog: [v0.0.5...v0.0.6](https://github.com/indicesio/indices-python/compare/v0.0.5...v0.0.6)
+
+### Features
+
+* **api:** api update ([881280f](https://github.com/indicesio/indices-python/commit/881280f7a0984414a0b6edfbf24bc7bdfc1763f3))
+* **api:** api update ([31f3044](https://github.com/indicesio/indices-python/commit/31f30445070fcca584ee9633ba1e9a8a943b6093))
+* **api:** api update ([ec0d80b](https://github.com/indicesio/indices-python/commit/ec0d80b6b17dcdd4516974c6f733f5a9ddb0666d))
+* **api:** api update ([553f602](https://github.com/indicesio/indices-python/commit/553f602cf3205ab95e31d9440b52852d57251d9e))
+* **api:** api update ([4909f6a](https://github.com/indicesio/indices-python/commit/4909f6afee52f86e6bd67be2b6a4449c75ca04da))
+* **api:** capitalisation ([c3cd371](https://github.com/indicesio/indices-python/commit/c3cd37126d87d619bfea60e746882d88de84724e))
+* **internal:** implement indices array format for query and form serialization ([67914c1](https://github.com/indicesio/indices-python/commit/67914c1c39da4a869a153ba278c7cf2eacbc5130))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([3cb05ab](https://github.com/indicesio/indices-python/commit/3cb05abefb9f78004e9d6f9152538cda80efae4a))
+* **pydantic:** do not pass `by_alias` unless set ([a52be24](https://github.com/indicesio/indices-python/commit/a52be245a99de6de7077faf4dfbed7e0002dba08))
+* sanitize endpoint path params ([facb6b1](https://github.com/indicesio/indices-python/commit/facb6b128829e92337930fe3259f887c4219a0ac))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([faea39e](https://github.com/indicesio/indices-python/commit/faea39e6ebea556d9803376bcca3026914253307))
+* **ci:** skip uploading artifacts on stainless-internal branches ([d2db552](https://github.com/indicesio/indices-python/commit/d2db552f7675fc9017b01d135eec6ee291c64d49))
+* **internal:** add request options to SSE classes ([e9a3e79](https://github.com/indicesio/indices-python/commit/e9a3e794aa0309cd57bf7b1d0fa0492e61512247))
+* **internal:** codegen related update ([a095bfc](https://github.com/indicesio/indices-python/commit/a095bfc81c8c8c627045072e67c922b6375a115c))
+* **internal:** make `test_proxy_environment_variables` more resilient ([66265bf](https://github.com/indicesio/indices-python/commit/66265bfd8973ebb9277316a7f4d8bfda22c06323))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([9a9a342](https://github.com/indicesio/indices-python/commit/9a9a3420d4e45b05aed339581c5c3dcbe199af02))
+* **internal:** remove mock server code ([9403e9e](https://github.com/indicesio/indices-python/commit/9403e9ec9b214d8add5087b426bbcb2d1c585f1c))
+* **internal:** tweak CI branches ([8f58c2c](https://github.com/indicesio/indices-python/commit/8f58c2c432d856e10668647dd20736b753b45902))
+* **internal:** update gitignore ([b7cc4be](https://github.com/indicesio/indices-python/commit/b7cc4be6a776eb2e26107b738ee668176f2b22e4))
+* update mock server docs ([ccaed7b](https://github.com/indicesio/indices-python/commit/ccaed7bde4bb2b03062db63204a65621b1372ee4))
+
 ## 0.0.5 (2026-02-17)
 
 Full Changelog: [v0.0.4...v0.0.5](https://github.com/indicesio/indices-python/compare/v0.0.4...v0.0.5)
