@@ -13,7 +13,5 @@ from .task_create_params import TaskCreateParams as TaskCreateParams
 from .task_list_response import TaskListResponse as TaskListResponse
 from .secret_create_params import SecretCreateParams as SecretCreateParams
 from .secret_list_response import SecretListResponse as SecretListResponse
-from .secret_delete_response import SecretDeleteResponse as SecretDeleteResponse
-from .secret_get_totp_response import SecretGetTotpResponse as SecretGetTotpResponse
 from .task_start_manual_session_params import TaskStartManualSessionParams as TaskStartManualSessionParams
 from .task_start_manual_session_response import TaskStartManualSessionResponse as TaskStartManualSessionResponse

@@ -9,7 +9,7 @@ import httpx
 
 from ..types import secret_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,8 +21,6 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.secret import Secret
 from ..types.secret_list_response import SecretListResponse
-from ..types.secret_delete_response import SecretDeleteResponse
-from ..types.secret_get_totp_response import SecretGetTotpResponse
 
 __all__ = ["SecretsResource", "AsyncSecretsResource"]
 
@@ -135,77 +133,6 @@ class SecretsResource(SyncAPIResource):
             cast_to=SecretListResponse,
         )
 
-    def delete(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretDeleteResponse:
-        """<p>Delete a secret.
-
-        This removes it from both the database and 1Password.</p>
-
-        Args:
-          uuid: The UUID of the secret to delete.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return self._delete(
-            path_template("/v1beta/secrets/{uuid}", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SecretDeleteResponse,
-        )
-
-    def get_totp(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretGetTotpResponse:
-        """
-        <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
-
-        Args:
-          uuid: The UUID of the secret.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return self._post(
-            path_template("/v1beta/secrets/{uuid}/totp", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SecretGetTotpResponse,
-        )
-
 
 class AsyncSecretsResource(AsyncAPIResource):
     """Manage secrets like login credentials and API keys."""
@@ -315,77 +242,6 @@ class AsyncSecretsResource(AsyncAPIResource):
             cast_to=SecretListResponse,
         )
 
-    async def delete(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretDeleteResponse:
-        """<p>Delete a secret.
-
-        This removes it from both the database and 1Password.</p>
-
-        Args:
-          uuid: The UUID of the secret to delete.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return await self._delete(
-            path_template("/v1beta/secrets/{uuid}", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SecretDeleteResponse,
-        )
-
-    async def get_totp(
-        self,
-        uuid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretGetTotpResponse:
-        """
-        <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
-
-        Args:
-          uuid: The UUID of the secret.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uuid:
-            raise ValueError(f"Expected a non-empty value for `uuid` but received {uuid!r}")
-        return await self._post(
-            path_template("/v1beta/secrets/{uuid}/totp", uuid=uuid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=SecretGetTotpResponse,
-        )
-
 
 class SecretsResourceWithRawResponse:
     def __init__(self, secrets: SecretsResource) -> None:
@@ -396,12 +252,6 @@ class SecretsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             secrets.list,
-        )
-        self.delete = to_raw_response_wrapper(
-            secrets.delete,
-        )
-        self.get_totp = to_raw_response_wrapper(
-            secrets.get_totp,
         )
 
 
@@ -415,12 +265,6 @@ class AsyncSecretsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             secrets.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            secrets.delete,
-        )
-        self.get_totp = async_to_raw_response_wrapper(
-            secrets.get_totp,
-        )
 
 
 class SecretsResourceWithStreamingResponse:
@@ -433,12 +277,6 @@ class SecretsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             secrets.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            secrets.delete,
-        )
-        self.get_totp = to_streamed_response_wrapper(
-            secrets.get_totp,
-        )
 
 
 class AsyncSecretsResourceWithStreamingResponse:
@@ -450,10 +288,4 @@ class AsyncSecretsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             secrets.list,
-        )
-        self.delete = async_to_streamed_response_wrapper(
-            secrets.delete,
-        )
-        self.get_totp = async_to_streamed_response_wrapper(
-            secrets.get_totp,
         )
