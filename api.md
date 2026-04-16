@@ -35,12 +35,10 @@ Methods:
 Types:
 
 ```python
-from indices.types import Secret, SecretListResponse, SecretDeleteResponse, SecretGetTotpResponse
+from indices.types import Secret, SecretListResponse
 ```
 
 Methods:
 
 - <code title="post /v1beta/secrets">client.secrets.<a href="./src/indices/resources/secrets.py">create</a>(\*\*<a href="src/indices/types/secret_create_params.py">params</a>) -> <a href="./src/indices/types/secret.py">Secret</a></code>
 - <code title="get /v1beta/secrets">client.secrets.<a href="./src/indices/resources/secrets.py">list</a>() -> <a href="./src/indices/types/secret_list_response.py">SecretListResponse</a></code>
-- <code title="delete /v1beta/secrets/{uuid}">client.secrets.<a href="./src/indices/resources/secrets.py">delete</a>(uuid) -> <a href="./src/indices/types/secret_delete_response.py">SecretDeleteResponse</a></code>
-- <code title="post /v1beta/secrets/{uuid}/totp">client.secrets.<a href="./src/indices/resources/secrets.py">get_totp</a>(uuid) -> <a href="./src/indices/types/secret_get_totp_response.py">SecretGetTotpResponse</a></code>
