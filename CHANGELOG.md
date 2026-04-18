@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.0.7 (2026-04-18)
+
+Full Changelog: [v0.0.6...v0.0.7](https://github.com/indicesio/indices-python/compare/v0.0.6...v0.0.7)
+
+### Features
+
+* **api:** api update ([3ba740c](https://github.com/indicesio/indices-python/commit/3ba740c5cdc505972cddbc2e6b507ca70a51caef))
+* **api:** manual updates ([60e1b13](https://github.com/indicesio/indices-python/commit/60e1b13d7eb1a9eca04201b1ff955f426b4bf7b4))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([48a9cc7](https://github.com/indicesio/indices-python/commit/48a9cc74c48cf298e4c287e1e08a48aa79789a52))
+* ensure file data are only sent as 1 parameter ([979fdd0](https://github.com/indicesio/indices-python/commit/979fdd028c41778f473e041a15dc134913ec5091))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([7b93c78](https://github.com/indicesio/indices-python/commit/7b93c78769f07cc21af555fcb80725d39b4ed2b5))
+
 ## 0.0.6 (2026-03-30)
 
 Full Changelog: [v0.0.5...v0.0.6](https://github.com/indicesio/indices-python/compare/v0.0.5...v0.0.6)
