@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.8 (2026-04-18)
+
+Full Changelog: [v0.0.7...v0.0.8](https://github.com/indicesio/indices-python/compare/v0.0.7...v0.0.8)
+
+### Features
+
+* **core:** bump stainless edition for uv ([6e311f3](https://github.com/indicesio/indices-python/commit/6e311f3704dda0053f2ef814244fc154e61f8eef))
+
 ## 0.0.7 (2026-04-18)
 
 Full Changelog: [v0.0.6...v0.0.7](https://github.com/indicesio/indices-python/compare/v0.0.6...v0.0.7)
