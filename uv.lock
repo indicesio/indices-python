@@ -491,7 +491,7 @@ wheels = [
 
 [[package]]
 name = "indices"
-version = "0.0.6"
+version = "0.0.8"
 source = { editable = "." }
 dependencies = [
     { name = "anyio" },

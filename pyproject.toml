@@ -1,6 +1,6 @@
 [project]
 name = "indices"
-version = "0.0.6"
+version = "0.0.8"
 description = "The official Python library for the Indices API"
 dynamic = ["readme"]
 license = "Apache-2.0"
