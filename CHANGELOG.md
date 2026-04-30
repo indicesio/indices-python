@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.0 (2026-04-30)
+
+Full Changelog: [v0.0.8...v0.1.0](https://github.com/indicesio/indices-python/compare/v0.0.8...v0.1.0)
+
+### Features
+
+* **api:** oidc auth ([3149d17](https://github.com/indicesio/indices-python/commit/3149d17a801c813dc160fc7d93d00e01cfe035ea))
+* support setting headers via env ([9d0f96a](https://github.com/indicesio/indices-python/commit/9d0f96aafe1be1647ca27a8282a653471b8a1603))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([ca36939](https://github.com/indicesio/indices-python/commit/ca36939e6ceb49bac43406de366a5de49f8bda2b))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([2616c44](https://github.com/indicesio/indices-python/commit/2616c44a82fa31b3a55c9deff8f6480197b5de0e))
+
 ## 0.0.8 (2026-04-18)
 
 Full Changelog: [v0.0.7...v0.0.8](https://github.com/indicesio/indices-python/compare/v0.0.7...v0.0.8)
