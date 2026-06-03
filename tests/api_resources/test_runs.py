@@ -63,7 +63,7 @@ class TestRuns:
     @parametrize
     def test_method_list(self, client: Indices) -> None:
         run = client.runs.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
         assert_matches_type(RunListResponse, run, path=["response"])
 
@@ -71,7 +71,7 @@ class TestRuns:
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
         response = client.runs.with_raw_response.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -83,7 +83,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
         with client.runs.with_streaming_response.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -139,7 +139,7 @@ class TestRuns:
     @parametrize
     def test_method_run(self, client: Indices) -> None:
         run = client.runs.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -147,7 +147,7 @@ class TestRuns:
     @parametrize
     def test_method_run_with_all_params(self, client: Indices) -> None:
         run = client.runs.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
             arguments={"foo": "bar"},
             secret_bindings={"foo": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
         )
@@ -157,7 +157,7 @@ class TestRuns:
     @parametrize
     def test_raw_response_run(self, client: Indices) -> None:
         response = client.runs.with_raw_response.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -169,7 +169,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_run(self, client: Indices) -> None:
         with client.runs.with_streaming_response.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -231,7 +231,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
         assert_matches_type(RunListResponse, run, path=["response"])
 
@@ -239,7 +239,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
         response = await async_client.runs.with_raw_response.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -251,7 +251,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
         async with async_client.runs.with_streaming_response.list(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -307,7 +307,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_run(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -315,7 +315,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
             arguments={"foo": "bar"},
             secret_bindings={"foo": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"},
         )
@@ -325,7 +325,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncIndices) -> None:
         response = await async_client.runs.with_raw_response.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         )
 
         assert response.is_closed is True
@@ -337,7 +337,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncIndices) -> None:
         async with async_client.runs.with_streaming_response.run(
-            task_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            task_id="task_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
