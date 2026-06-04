@@ -21,7 +21,7 @@ class TestRuns:
     @parametrize
     def test_method_retrieve(self, client: Indices) -> None:
         run = client.runs.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -29,7 +29,7 @@ class TestRuns:
     @parametrize
     def test_raw_response_retrieve(self, client: Indices) -> None:
         response = client.runs.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
 
         assert response.is_closed is True
@@ -41,7 +41,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_retrieve(self, client: Indices) -> None:
         with client.runs.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -97,7 +97,7 @@ class TestRuns:
     @parametrize
     def test_method_logs(self, client: Indices) -> None:
         run = client.runs.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
         assert_matches_type(RunLogsResponse, run, path=["response"])
 
@@ -105,7 +105,7 @@ class TestRuns:
     @parametrize
     def test_raw_response_logs(self, client: Indices) -> None:
         response = client.runs.with_raw_response.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
 
         assert response.is_closed is True
@@ -117,7 +117,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_logs(self, client: Indices) -> None:
         with client.runs.with_streaming_response.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -189,7 +189,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -197,7 +197,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncIndices) -> None:
         response = await async_client.runs.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
 
         assert response.is_closed is True
@@ -209,7 +209,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncIndices) -> None:
         async with async_client.runs.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +265,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_logs(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
         assert_matches_type(RunLogsResponse, run, path=["response"])
 
@@ -273,7 +273,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_raw_response_logs(self, async_client: AsyncIndices) -> None:
         response = await async_client.runs.with_raw_response.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         )
 
         assert response.is_closed is True
@@ -285,7 +285,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_logs(self, async_client: AsyncIndices) -> None:
         async with async_client.runs.with_streaming_response.logs(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
