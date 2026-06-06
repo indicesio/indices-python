@@ -6,8 +6,5 @@ __all__ = ["RunLogsResponse"]
 
 
 class RunLogsResponse(BaseModel):
-    stderr: str
-    """Standard error output from the run execution."""
-
-    stdout: str
-    """Standard output from the run execution."""
+    logs: str
+    """Run execution logs."""
