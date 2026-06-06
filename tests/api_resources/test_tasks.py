@@ -42,7 +42,7 @@ class TestTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "secret_id": "secret_id",
                         "description": "description",
                     }
                 ],
@@ -329,7 +329,7 @@ class TestAsyncTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "secret_id": "secret_id",
                         "description": "description",
                     }
                 ],

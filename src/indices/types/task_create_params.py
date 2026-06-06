@@ -42,8 +42,8 @@ class TaskCreateParams(TypedDict, total=False):
 class CreationParamsSecret(TypedDict, total=False):
     """A secret provided during task creation"""
 
-    secret_uuid: Required[str]
-    """UUID of the secret to bind."""
+    secret_id: Required[str]
+    """ID of the secret to bind."""
 
     description: Optional[str]
     """
