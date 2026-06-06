@@ -42,7 +42,7 @@ class TestTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "secret_id": "secret_id",
                         "description": "description",
                     }
                 ],
@@ -91,7 +91,7 @@ class TestTasks:
     @parametrize
     def test_method_retrieve(self, client: Indices) -> None:
         task = client.tasks.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -99,7 +99,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_retrieve(self, client: Indices) -> None:
         response = client.tasks.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -111,7 +111,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_retrieve(self, client: Indices) -> None:
         with client.tasks.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -161,7 +161,7 @@ class TestTasks:
     @parametrize
     def test_method_delete(self, client: Indices) -> None:
         task = client.tasks.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(object, task, path=["response"])
 
@@ -169,7 +169,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_delete(self, client: Indices) -> None:
         response = client.tasks.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -181,7 +181,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_delete(self, client: Indices) -> None:
         with client.tasks.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -203,7 +203,7 @@ class TestTasks:
     @parametrize
     def test_method_complete_manual_session(self, client: Indices) -> None:
         task = client.tasks.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -211,7 +211,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_complete_manual_session(self, client: Indices) -> None:
         response = client.tasks.with_raw_response.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -223,7 +223,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_complete_manual_session(self, client: Indices) -> None:
         with client.tasks.with_streaming_response.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -245,7 +245,7 @@ class TestTasks:
     @parametrize
     def test_method_start_manual_session(self, client: Indices) -> None:
         task = client.tasks.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         )
         assert_matches_type(TaskStartManualSessionResponse, task, path=["response"])
 
@@ -253,7 +253,7 @@ class TestTasks:
     @parametrize
     def test_method_start_manual_session_with_all_params(self, client: Indices) -> None:
         task = client.tasks.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
             cookies=[
                 {
                     "name": "name",
@@ -272,7 +272,7 @@ class TestTasks:
     @parametrize
     def test_raw_response_start_manual_session(self, client: Indices) -> None:
         response = client.tasks.with_raw_response.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -284,7 +284,7 @@ class TestTasks:
     @parametrize
     def test_streaming_response_start_manual_session(self, client: Indices) -> None:
         with client.tasks.with_streaming_response.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -329,7 +329,7 @@ class TestAsyncTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_uuid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                        "secret_id": "secret_id",
                         "description": "description",
                     }
                 ],
@@ -378,7 +378,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -386,7 +386,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncIndices) -> None:
         response = await async_client.tasks.with_raw_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -398,7 +398,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncIndices) -> None:
         async with async_client.tasks.with_streaming_response.retrieve(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -448,7 +448,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_delete(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(object, task, path=["response"])
 
@@ -456,7 +456,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncIndices) -> None:
         response = await async_client.tasks.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -468,7 +468,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncIndices) -> None:
         async with async_client.tasks.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -490,7 +490,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_complete_manual_session(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -498,7 +498,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_complete_manual_session(self, async_client: AsyncIndices) -> None:
         response = await async_client.tasks.with_raw_response.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -510,7 +510,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_complete_manual_session(self, async_client: AsyncIndices) -> None:
         async with async_client.tasks.with_streaming_response.complete_manual_session(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -532,7 +532,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_start_manual_session(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         )
         assert_matches_type(TaskStartManualSessionResponse, task, path=["response"])
 
@@ -540,7 +540,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_method_start_manual_session_with_all_params(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
             cookies=[
                 {
                     "name": "name",
@@ -559,7 +559,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_raw_response_start_manual_session(self, async_client: AsyncIndices) -> None:
         response = await async_client.tasks.with_raw_response.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -571,7 +571,7 @@ class TestAsyncTasks:
     @parametrize
     async def test_streaming_response_start_manual_session(self, async_client: AsyncIndices) -> None:
         async with async_client.tasks.with_streaming_response.start_manual_session(
-            id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

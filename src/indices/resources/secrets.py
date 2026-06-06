@@ -151,7 +151,7 @@ class SecretsResource(SyncAPIResource):
         This removes it from both the database and 1Password.</p>
 
         Args:
-          id: The UUID of the secret to delete.
+          id: The ID of the secret to delete.
 
           extra_headers: Send extra headers
 
@@ -186,7 +186,7 @@ class SecretsResource(SyncAPIResource):
         <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
 
         Args:
-          id: The UUID of the secret.
+          id: The ID of the secret.
 
           extra_headers: Send extra headers
 
@@ -331,7 +331,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         This removes it from both the database and 1Password.</p>
 
         Args:
-          id: The UUID of the secret to delete.
+          id: The ID of the secret to delete.
 
           extra_headers: Send extra headers
 
@@ -366,7 +366,7 @@ class AsyncSecretsResource(AsyncAPIResource):
         <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
 
         Args:
-          id: The UUID of the secret.
+          id: The ID of the secret.
 
           extra_headers: Send extra headers
 

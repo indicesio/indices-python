@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.0.9 (2026-06-06)
+
+Full Changelog: [v0.0.8...v0.0.9](https://github.com/indicesio/indices-python/compare/v0.0.8...v0.0.9)
+
+### Features
+
+* **api:** api update ([5c3a7f9](https://github.com/indicesio/indices-python/commit/5c3a7f999d87af79d6d5a0ec01478a43bdf9c00c))
+* **api:** api update ([ff375be](https://github.com/indicesio/indices-python/commit/ff375be4aaa574520413824d89e456ae91037821))
+* **api:** api update ([7075199](https://github.com/indicesio/indices-python/commit/707519974508438c62360071362c109718efab30))
+* **api:** api update ([f30c477](https://github.com/indicesio/indices-python/commit/f30c4770a2b7efc8014b2bee98b9a5e73be7e2a4))
+* **api:** oidc auth ([3149d17](https://github.com/indicesio/indices-python/commit/3149d17a801c813dc160fc7d93d00e01cfe035ea))
+* **internal/types:** support eagerly validating pydantic iterators ([36d8bd1](https://github.com/indicesio/indices-python/commit/36d8bd1ed24a693eda93f8858460d868fb090d3e))
+* support setting headers via env ([9d0f96a](https://github.com/indicesio/indices-python/commit/9d0f96aafe1be1647ca27a8282a653471b8a1603))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([14b6085](https://github.com/indicesio/indices-python/commit/14b608562da0bfdee0de5a4847a8157f25078e2d))
+* use correct field name format for multipart file arrays ([ca36939](https://github.com/indicesio/indices-python/commit/ca36939e6ceb49bac43406de366a5de49f8bda2b))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([2616c44](https://github.com/indicesio/indices-python/commit/2616c44a82fa31b3a55c9deff8f6480197b5de0e))
+* **internal:** reformat pyproject.toml ([f985446](https://github.com/indicesio/indices-python/commit/f9854461d4f522d29994d542009ffcd3f6d296de))
+
 ## 0.0.8 (2026-04-18)
 
 Full Changelog: [v0.0.7...v0.0.8](https://github.com/indicesio/indices-python/compare/v0.0.7...v0.0.8)

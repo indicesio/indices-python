@@ -131,7 +131,7 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunLogsResponse:
         """
-        <p>Retrieve stdout and stderr logs for a run.</p>
+        <p>Retrieve the combined logs for a run.</p>
 
         Args:
           run_id: The ID of the run to get logs for.
@@ -176,7 +176,7 @@ class RunsResource(SyncAPIResource):
           arguments: Arguments to pass to the task. Optional if the task does not require any
               arguments.
 
-          secret_bindings: Mapping of secret slot names to secret UUIDs. Each slot defined in the task's
+          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
               required_secrets must be mapped to a user-owned secret.
 
           extra_headers: Send extra headers
@@ -310,7 +310,7 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunLogsResponse:
         """
-        <p>Retrieve stdout and stderr logs for a run.</p>
+        <p>Retrieve the combined logs for a run.</p>
 
         Args:
           run_id: The ID of the run to get logs for.
@@ -355,7 +355,7 @@ class AsyncRunsResource(AsyncAPIResource):
           arguments: Arguments to pass to the task. Optional if the task does not require any
               arguments.
 
-          secret_bindings: Mapping of secret slot names to secret UUIDs. Each slot defined in the task's
+          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
               required_secrets must be mapped to a user-owned secret.
 
           extra_headers: Send extra headers

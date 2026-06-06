@@ -33,5 +33,5 @@ class Run(BaseModel):
     secret_bindings: Optional[Dict[str, str]] = None
     """Secrets to use for this run.
 
-    This dict must be a mapping of secret slot names to secret UUIDs.
+    This dict must be a mapping of secret slot names to secret IDs.
     """
