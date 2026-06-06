@@ -42,8 +42,8 @@ class TestTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_id": "secret_id",
-                        "description": "description",
+                        "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
+                        "description": "Login credentials for the store account.",
                     }
                 ],
             },
@@ -329,8 +329,8 @@ class TestAsyncTasks:
                 "is_fully_autonomous": True,
                 "secrets": [
                     {
-                        "secret_id": "secret_id",
-                        "description": "description",
+                        "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
+                        "description": "Login credentials for the store account.",
                     }
                 ],
             },
