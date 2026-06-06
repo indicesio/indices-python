@@ -100,7 +100,7 @@ class TestSecrets:
     @parametrize
     def test_method_delete(self, client: Indices) -> None:
         secret = client.secrets.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(SecretDeleteResponse, secret, path=["response"])
 
@@ -108,7 +108,7 @@ class TestSecrets:
     @parametrize
     def test_raw_response_delete(self, client: Indices) -> None:
         response = client.secrets.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -120,7 +120,7 @@ class TestSecrets:
     @parametrize
     def test_streaming_response_delete(self, client: Indices) -> None:
         with client.secrets.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -142,7 +142,7 @@ class TestSecrets:
     @parametrize
     def test_method_get_totp(self, client: Indices) -> None:
         secret = client.secrets.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(SecretGetTotpResponse, secret, path=["response"])
 
@@ -150,7 +150,7 @@ class TestSecrets:
     @parametrize
     def test_raw_response_get_totp(self, client: Indices) -> None:
         response = client.secrets.with_raw_response.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -162,7 +162,7 @@ class TestSecrets:
     @parametrize
     def test_streaming_response_get_totp(self, client: Indices) -> None:
         with client.secrets.with_streaming_response.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +269,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_method_delete(self, async_client: AsyncIndices) -> None:
         secret = await async_client.secrets.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(SecretDeleteResponse, secret, path=["response"])
 
@@ -277,7 +277,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncIndices) -> None:
         response = await async_client.secrets.with_raw_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -289,7 +289,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncIndices) -> None:
         async with async_client.secrets.with_streaming_response.delete(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -311,7 +311,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_method_get_totp(self, async_client: AsyncIndices) -> None:
         secret = await async_client.secrets.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
         assert_matches_type(SecretGetTotpResponse, secret, path=["response"])
 
@@ -319,7 +319,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_raw_response_get_totp(self, async_client: AsyncIndices) -> None:
         response = await async_client.secrets.with_raw_response.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         )
 
         assert response.is_closed is True
@@ -331,7 +331,7 @@ class TestAsyncSecrets:
     @parametrize
     async def test_streaming_response_get_totp(self, async_client: AsyncIndices) -> None:
         async with async_client.secrets.with_streaming_response.get_totp(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

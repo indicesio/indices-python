@@ -12,8 +12,8 @@ __all__ = ["Task", "Creation", "CreationSecret", "FailureInfo", "RequiredSecret"
 class CreationSecret(BaseModel):
     """A secret provided during task creation"""
 
-    secret_uuid: str
-    """UUID of the secret to bind."""
+    secret_id: str
+    """ID of the secret to bind."""
 
     description: Optional[str] = None
     """
@@ -29,10 +29,7 @@ class Creation(BaseModel):
     """Whether schemas were configured to auto-generate during task creation."""
 
     secret_bindings: Optional[Dict[str, str]] = None
-    """
-    Mapping of required secret slot names to secret UUIDs bound during task
-    creation.
-    """
+    """Mapping of required secret slot names to secret IDs bound during task creation."""
 
     secrets: Optional[List[CreationSecret]] = None
     """List of secrets provided during task creation."""
