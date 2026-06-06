@@ -131,7 +131,7 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunLogsResponse:
         """
-        <p>Retrieve stdout and stderr logs for a run.</p>
+        <p>Retrieve the combined logs for a run.</p>
 
         Args:
           run_id: The ID of the run to get logs for.
@@ -310,7 +310,7 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunLogsResponse:
         """
-        <p>Retrieve stdout and stderr logs for a run.</p>
+        <p>Retrieve the combined logs for a run.</p>
 
         Args:
           run_id: The ID of the run to get logs for.
