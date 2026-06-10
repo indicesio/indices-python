@@ -70,11 +70,5 @@ class CreationParams(TypedDict, total=False):
     tasks requiring authentication, as initial credentials must be provided.
     """
 
-    is_fully_autonomous: bool
-    """If true, the server will run the browser task autonomously.
-
-    If false, the user must complete the task manually in a spawned browser.
-    """
-
     secrets: Iterable[CreationParamsSecret]
     """List of secrets to use for this task."""
