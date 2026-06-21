@@ -53,7 +53,6 @@ class TasksResource(SyncAPIResource):
         creation_params: task_create_params.CreationParams,
         display_name: str,
         task: str,
-        website: str,
         input_schema: Optional[str] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -73,8 +72,6 @@ class TasksResource(SyncAPIResource):
               task.
 
           task: Detailed explanation of the task to be performed.
-
-          website: The website to perform the task on.
 
           input_schema: Task input parameters as a JSON schema string. Required when
               auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
@@ -99,7 +96,6 @@ class TasksResource(SyncAPIResource):
                     "creation_params": creation_params,
                     "display_name": display_name,
                     "task": task,
-                    "website": website,
                     "input_schema": input_schema,
                     "output_schema": output_schema,
                 },
@@ -315,7 +311,6 @@ class AsyncTasksResource(AsyncAPIResource):
         creation_params: task_create_params.CreationParams,
         display_name: str,
         task: str,
-        website: str,
         input_schema: Optional[str] | Omit = omit,
         output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -335,8 +330,6 @@ class AsyncTasksResource(AsyncAPIResource):
               task.
 
           task: Detailed explanation of the task to be performed.
-
-          website: The website to perform the task on.
 
           input_schema: Task input parameters as a JSON schema string. Required when
               auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
@@ -361,7 +354,6 @@ class AsyncTasksResource(AsyncAPIResource):
                     "creation_params": creation_params,
                     "display_name": display_name,
                     "task": task,
-                    "website": website,
                     "input_schema": input_schema,
                     "output_schema": output_schema,
                 },

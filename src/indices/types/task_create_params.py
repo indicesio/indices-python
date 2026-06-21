@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["TaskCreateParams", "CreationParams", "CreationParamsSecret"]
@@ -20,9 +20,6 @@ class TaskCreateParams(TypedDict, total=False):
 
     task: Required[str]
     """Detailed explanation of the task to be performed."""
-
-    website: Required[str]
-    """The website to perform the task on."""
 
     input_schema: Optional[str]
     """Task input parameters as a JSON schema string.
@@ -61,13 +58,6 @@ class CreationParams(TypedDict, total=False):
     HAR traffic. When enabled, input_schema and output_schema must be omitted from
     the request. Task responses may return null for these fields until generation
     completes.
-    """
-
-    initial_input_values: Dict[str, object]
-    """Initial values for input schema fields, keyed by property name.
-
-    Used during task creation to demonstrate the task. Especially important for
-    tasks requiring authentication, as initial credentials must be provided.
     """
 
     secrets: Iterable[CreationParamsSecret]

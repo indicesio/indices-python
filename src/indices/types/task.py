@@ -97,8 +97,11 @@ class Task(BaseModel):
     updated_at: datetime
     """Timestamp when the object was last updated."""
 
-    website: str
-    """The website to perform the task on."""
+    website: Optional[str] = None
+    """The primary URL the task targets.
+
+    May be null while the task is not ready; non-null once generation completes.
+    """
 
     failure_info: Optional[FailureInfo] = None
     """Information about why a task failed, for user display."""
