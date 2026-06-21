@@ -128,7 +128,6 @@ task = client.tasks.create(
     creation_params={},
     display_name="display_name",
     task="task",
-    website="https://example.com",
 )
 print(task.creation_params)
 ```

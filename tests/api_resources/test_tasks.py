@@ -28,7 +28,6 @@ class TestTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -38,7 +37,6 @@ class TestTasks:
         task = client.tasks.create(
             creation_params={
                 "auto_generate_schemas": True,
-                "initial_input_values": {"foo": "bar"},
                 "secrets": [
                     {
                         "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
@@ -48,7 +46,6 @@ class TestTasks:
             },
             display_name="display_name",
             task="task",
-            website="https://example.com",
             input_schema="input_schema",
             output_schema="output_schema",
         )
@@ -61,7 +58,6 @@ class TestTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         )
 
         assert response.is_closed is True
@@ -76,7 +72,6 @@ class TestTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -314,7 +309,6 @@ class TestAsyncTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -324,7 +318,6 @@ class TestAsyncTasks:
         task = await async_client.tasks.create(
             creation_params={
                 "auto_generate_schemas": True,
-                "initial_input_values": {"foo": "bar"},
                 "secrets": [
                     {
                         "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
@@ -334,7 +327,6 @@ class TestAsyncTasks:
             },
             display_name="display_name",
             task="task",
-            website="https://example.com",
             input_schema="input_schema",
             output_schema="output_schema",
         )
@@ -347,7 +339,6 @@ class TestAsyncTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         )
 
         assert response.is_closed is True
@@ -362,7 +353,6 @@ class TestAsyncTasks:
             creation_params={},
             display_name="display_name",
             task="task",
-            website="https://example.com",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
