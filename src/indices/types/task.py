@@ -25,9 +25,6 @@ class CreationSecret(BaseModel):
 class Creation(BaseModel):
     """Parameters set during the creation of this task."""
 
-    auto_generate_schemas: bool
-    """Whether schemas were configured to auto-generate during task creation."""
-
     secret_bindings: Optional[Dict[str, str]] = None
     """Mapping of required secret slot names to secret IDs bound during task creation."""
 

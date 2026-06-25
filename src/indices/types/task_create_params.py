@@ -21,20 +21,6 @@ class TaskCreateParams(TypedDict, total=False):
     task: Required[str]
     """Detailed explanation of the task to be performed."""
 
-    input_schema: Optional[str]
-    """Task input parameters as a JSON schema string.
-
-    Required when auto_generate_schemas is disabled. Must be omitted when
-    auto_generate_schemas is enabled; remains null until generation completes.
-    """
-
-    output_schema: Optional[str]
-    """Task output schema as a JSON schema string.
-
-    Required when auto_generate_schemas is disabled. Must be omitted when
-    auto_generate_schemas is enabled; remains null until generation completes.
-    """
-
 
 class CreationParamsSecret(TypedDict, total=False):
     """A secret provided during task creation"""
@@ -51,14 +37,6 @@ class CreationParamsSecret(TypedDict, total=False):
 
 class CreationParams(TypedDict, total=False):
     """Information used during task creation."""
-
-    auto_generate_schemas: bool
-    """
-    If true, input and output schemas will be automatically generated from captured
-    HAR traffic. When enabled, input_schema and output_schema must be omitted from
-    the request. Task responses may return null for these fields until generation
-    completes.
-    """
 
     secrets: Iterable[CreationParamsSecret]
     """List of secrets to use for this task."""

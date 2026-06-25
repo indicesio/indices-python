@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Iterable
 
 import httpx
 
@@ -53,8 +53,6 @@ class TasksResource(SyncAPIResource):
         creation_params: task_create_params.CreationParams,
         display_name: str,
         task: str,
-        input_schema: Optional[str] | Omit = omit,
-        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,14 +71,6 @@ class TasksResource(SyncAPIResource):
 
           task: Detailed explanation of the task to be performed.
 
-          input_schema: Task input parameters as a JSON schema string. Required when
-              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
-              enabled; remains null until generation completes.
-
-          output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
-              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
-              until generation completes.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -96,8 +86,6 @@ class TasksResource(SyncAPIResource):
                     "creation_params": creation_params,
                     "display_name": display_name,
                     "task": task,
-                    "input_schema": input_schema,
-                    "output_schema": output_schema,
                 },
                 task_create_params.TaskCreateParams,
             ),
@@ -311,8 +299,6 @@ class AsyncTasksResource(AsyncAPIResource):
         creation_params: task_create_params.CreationParams,
         display_name: str,
         task: str,
-        input_schema: Optional[str] | Omit = omit,
-        output_schema: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -331,14 +317,6 @@ class AsyncTasksResource(AsyncAPIResource):
 
           task: Detailed explanation of the task to be performed.
 
-          input_schema: Task input parameters as a JSON schema string. Required when
-              auto_generate_schemas is disabled. Must be omitted when auto_generate_schemas is
-              enabled; remains null until generation completes.
-
-          output_schema: Task output schema as a JSON schema string. Required when auto_generate_schemas
-              is disabled. Must be omitted when auto_generate_schemas is enabled; remains null
-              until generation completes.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -354,8 +332,6 @@ class AsyncTasksResource(AsyncAPIResource):
                     "creation_params": creation_params,
                     "display_name": display_name,
                     "task": task,
-                    "input_schema": input_schema,
-                    "output_schema": output_schema,
                 },
                 task_create_params.TaskCreateParams,
             ),
