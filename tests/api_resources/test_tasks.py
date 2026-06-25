@@ -36,18 +36,15 @@ class TestTasks:
     def test_method_create_with_all_params(self, client: Indices) -> None:
         task = client.tasks.create(
             creation_params={
-                "auto_generate_schemas": True,
                 "secrets": [
                     {
                         "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
                         "description": "Login credentials for the store account.",
                     }
-                ],
+                ]
             },
             display_name="display_name",
             task="task",
-            input_schema="input_schema",
-            output_schema="output_schema",
         )
         assert_matches_type(Task, task, path=["response"])
 
@@ -317,18 +314,15 @@ class TestAsyncTasks:
     async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
         task = await async_client.tasks.create(
             creation_params={
-                "auto_generate_schemas": True,
                 "secrets": [
                     {
                         "secret_id": "sec_8kPq2mWxYz1aBcDeFgHi3J",
                         "description": "Login credentials for the store account.",
                     }
-                ],
+                ]
             },
             display_name="display_name",
             task="task",
-            input_schema="input_schema",
-            output_schema="output_schema",
         )
         assert_matches_type(Task, task, path=["response"])
 
