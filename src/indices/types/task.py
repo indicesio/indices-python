@@ -74,15 +74,15 @@ class Task(BaseModel):
     display_name: str
     """Short title shown in the dashboard. Informational only."""
 
-    input_schema: Optional[str] = None
-    """Task input schema as a JSON schema string.
+    input_schema: Optional[Dict[str, object]] = None
+    """Task input schema as a JSON Schema object.
 
     May be null while the task is not ready (e.g. schema generation in progress).
     Guaranteed non-null when current_state is ready.
     """
 
-    output_schema: Optional[str] = None
-    """Task output schema as a JSON schema string.
+    output_schema: Optional[Dict[str, object]] = None
+    """Task output schema as a JSON Schema object.
 
     May be null while the task is not ready (e.g. schema generation in progress).
     Guaranteed non-null when current_state is ready.
