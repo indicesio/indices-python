@@ -21,6 +21,9 @@ class Run(BaseModel):
     finished_at: Optional[datetime] = None
     """Timestamp when the object was last updated."""
 
+    has_logs: bool
+    """Whether the run has associated logs"""
+
     result_json: Optional[str] = None
     """Execution result of the run. In JSON, matching the task's output schema."""
 
