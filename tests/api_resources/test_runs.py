@@ -69,6 +69,16 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Indices) -> None:
+        run = client.runs.list(
+            task_id="task_id",
+            cursor="cursor",
+            limit=1,
+        )
+        assert_matches_type(RunListResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
         response = client.runs.with_raw_response.list(
             task_id="task_id",
@@ -232,6 +242,16 @@ class TestAsyncRuns:
     async def test_method_list(self, async_client: AsyncIndices) -> None:
         run = await async_client.runs.list(
             task_id="task_id",
+        )
+        assert_matches_type(RunListResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
+        run = await async_client.runs.list(
+            task_id="task_id",
+            cursor="cursor",
+            limit=1,
         )
         assert_matches_type(RunListResponse, run, path=["response"])
 
