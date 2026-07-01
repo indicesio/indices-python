@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 
 import httpx
 
@@ -86,6 +86,8 @@ class RunsResource(SyncAPIResource):
         self,
         *,
         task_id: str,
+        cursor: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -94,10 +96,14 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunListResponse:
         """
-        <p>List all runs for a given task.</p>
+        <p>List runs for a given task.</p>
 
         Args:
           task_id: The ID of the task to list runs for.
+
+          cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          limit: Maximum number of runs to return.
 
           extra_headers: Send extra headers
 
@@ -114,7 +120,14 @@ class RunsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"task_id": task_id}, run_list_params.RunListParams),
+                query=maybe_transform(
+                    {
+                        "task_id": task_id,
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    run_list_params.RunListParams,
+                ),
             ),
             cast_to=RunListResponse,
         )
@@ -265,6 +278,8 @@ class AsyncRunsResource(AsyncAPIResource):
         self,
         *,
         task_id: str,
+        cursor: Optional[str] | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,10 +288,14 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunListResponse:
         """
-        <p>List all runs for a given task.</p>
+        <p>List runs for a given task.</p>
 
         Args:
           task_id: The ID of the task to list runs for.
+
+          cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          limit: Maximum number of runs to return.
 
           extra_headers: Send extra headers
 
@@ -293,7 +312,14 @@ class AsyncRunsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"task_id": task_id}, run_list_params.RunListParams),
+                query=await async_maybe_transform(
+                    {
+                        "task_id": task_id,
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    run_list_params.RunListParams,
+                ),
             ),
             cast_to=RunListResponse,
         )
