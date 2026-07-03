@@ -2,6 +2,7 @@
 
 from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -27,8 +28,11 @@ class Run(BaseModel):
     result_json: Optional[str] = None
     """Execution result of the run. In JSON, matching the task's output schema."""
 
-    success: bool
-    """Whether the run was successful."""
+    status: Literal["running", "success", "failed", "timed_out", "result_too_large", "internal_error"]
+    """
+    Lifecycle status of the run: `running`, `success`, `failed`, `timed_out`,
+    `result_too_large`, or `internal_error`.
+    """
 
     task_id: str
     """ID of the task executed in this run."""
