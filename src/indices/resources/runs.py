@@ -182,8 +182,9 @@ class RunsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run:
-        """
-        <p>Execute a task that has already been created.</p>
+        """<p>Execute a task that has already been created.
+
+        By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
 
         Args:
           task_id: ID of the task to execute.
@@ -383,8 +384,9 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run:
-        """
-        <p>Execute a task that has already been created.</p>
+        """<p>Execute a task that has already been created.
+
+        By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
 
         Args:
           task_id: ID of the task to execute.
