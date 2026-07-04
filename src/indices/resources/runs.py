@@ -172,6 +172,8 @@ class RunsResource(SyncAPIResource):
         *,
         task_id: str,
         arguments: Dict[str, object] | Omit = omit,
+        async_: bool | Omit = omit,
+        max_timeout_s: int | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -188,6 +190,11 @@ class RunsResource(SyncAPIResource):
 
           arguments: Arguments to pass to the task. Optional if the task does not require any
               arguments.
+
+          async_: When true, return immediately with a pending run; poll retrieveRun for the
+              result.
+
+          max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
           secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
               required_secrets must be mapped to a user-owned secret.
@@ -206,6 +213,8 @@ class RunsResource(SyncAPIResource):
                 {
                     "task_id": task_id,
                     "arguments": arguments,
+                    "async_": async_,
+                    "max_timeout_s": max_timeout_s,
                     "secret_bindings": secret_bindings,
                 },
                 run_run_params.RunRunParams,
@@ -364,6 +373,8 @@ class AsyncRunsResource(AsyncAPIResource):
         *,
         task_id: str,
         arguments: Dict[str, object] | Omit = omit,
+        async_: bool | Omit = omit,
+        max_timeout_s: int | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -380,6 +391,11 @@ class AsyncRunsResource(AsyncAPIResource):
 
           arguments: Arguments to pass to the task. Optional if the task does not require any
               arguments.
+
+          async_: When true, return immediately with a pending run; poll retrieveRun for the
+              result.
+
+          max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
           secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
               required_secrets must be mapped to a user-owned secret.
@@ -398,6 +414,8 @@ class AsyncRunsResource(AsyncAPIResource):
                 {
                     "task_id": task_id,
                     "arguments": arguments,
+                    "async_": async_,
+                    "max_timeout_s": max_timeout_s,
                     "secret_bindings": secret_bindings,
                 },
                 run_run_params.RunRunParams,
