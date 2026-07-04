@@ -28,10 +28,10 @@ class Run(BaseModel):
     result_json: Optional[str] = None
     """Execution result of the run. In JSON, matching the task's output schema."""
 
-    status: Literal["running", "success", "failed", "timed_out", "result_too_large", "internal_error"]
+    status: Literal["pending", "running", "success", "failed", "timed_out", "result_too_large", "internal_error"]
     """
-    Lifecycle status of the run: `running`, `success`, `failed`, `timed_out`,
-    `result_too_large`, or `internal_error`.
+    Lifecycle status of the run: `pending`, `running`, `success`, `failed`,
+    `timed_out`, `result_too_large`, or `internal_error`.
     """
 
     task_id: str
