@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["RunRunParams"]
 
@@ -17,6 +19,15 @@ class RunRunParams(TypedDict, total=False):
 
     Optional if the task does not require any arguments.
     """
+
+    async_: Annotated[bool, PropertyInfo(alias="async")]
+    """
+    When true, return immediately with a pending run; poll retrieveRun for the
+    result.
+    """
+
+    max_timeout_s: int
+    """Maximum execution time in seconds before the run is timed out."""
 
     secret_bindings: Dict[str, str]
     """Mapping of secret slot names to secret IDs.

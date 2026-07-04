@@ -159,6 +159,8 @@ class TestRuns:
         run = client.runs.run(
             task_id="task_id",
             arguments={"foo": "bar"},
+            async_=True,
+            max_timeout_s=1,
             secret_bindings={"foo": "string"},
         )
         assert_matches_type(Run, run, path=["response"])
@@ -337,6 +339,8 @@ class TestAsyncRuns:
         run = await async_client.runs.run(
             task_id="task_id",
             arguments={"foo": "bar"},
+            async_=True,
+            max_timeout_s=1,
             secret_bindings={"foo": "string"},
         )
         assert_matches_type(Run, run, path=["response"])
