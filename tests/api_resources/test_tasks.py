@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from indices.types import (
     Task,
     TaskListResponse,
+    TaskDeleteResponse,
     TaskStartManualSessionResponse,
 )
 
@@ -154,7 +155,7 @@ class TestTasks:
         task = client.tasks.delete(
             "id",
         )
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -166,7 +167,7 @@ class TestTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = response.parse()
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -178,7 +179,7 @@ class TestTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = response.parse()
-            assert_matches_type(object, task, path=["response"])
+            assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -432,7 +433,7 @@ class TestAsyncTasks:
         task = await async_client.tasks.delete(
             "id",
         )
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -444,7 +445,7 @@ class TestAsyncTasks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         task = await response.parse()
-        assert_matches_type(object, task, path=["response"])
+        assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -456,7 +457,7 @@ class TestAsyncTasks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             task = await response.parse()
-            assert_matches_type(object, task, path=["response"])
+            assert_matches_type(TaskDeleteResponse, task, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
