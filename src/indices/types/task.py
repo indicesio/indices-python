@@ -5,57 +5,11 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .task_creation import TaskCreation
+from .task_failure_info import TaskFailureInfo
+from .secret_slot_definition import SecretSlotDefinition
 
-__all__ = ["Task", "Creation", "CreationSecret", "FailureInfo", "RequiredSecret"]
-
-
-class CreationSecret(BaseModel):
-    """A secret provided during task creation"""
-
-    secret_id: str
-    """ID of the secret to bind."""
-
-    description: Optional[str] = None
-    """
-    Optional description of what this secret is used for (helps generate meaningful
-    slot names).
-    """
-
-
-class Creation(BaseModel):
-    """Parameters set during the creation of this task."""
-
-    secret_bindings: Optional[Dict[str, str]] = None
-    """Mapping of required secret slot names to secret IDs bound during task creation."""
-
-    secrets: Optional[List[CreationSecret]] = None
-    """List of secrets provided during task creation."""
-
-
-class FailureInfo(BaseModel):
-    """Information about why a task failed, for user display."""
-
-    category: str
-    """Primary failure category"""
-
-    message: str
-    """Summary of the failure cause"""
-
-
-class RequiredSecret(BaseModel):
-    """Definition of a secret slot that a task requires."""
-
-    name: str
-    """
-    Name of the secret slot (used as env var prefix, e.g., 'LOGIN' →
-    LOGIN_USERNAME).
-    """
-
-    type: Literal["login", "string"]
-    """Type of secret required: 'login' or 'string'."""
-
-    requires_totp: Optional[bool] = None
-    """Whether this login slot requires 2FA/TOTP. Only applicable for 'login' type."""
+__all__ = ["Task"]
 
 
 class Task(BaseModel):
@@ -65,7 +19,7 @@ class Task(BaseModel):
     created_at: datetime
     """Timestamp when the object was created."""
 
-    creation: Creation
+    creation: TaskCreation
     """Parameters set during the creation of this task."""
 
     current_state: Literal["not_ready", "waiting_for_manual_completion", "ready", "failed"]
@@ -100,8 +54,8 @@ class Task(BaseModel):
     May be null while the task is not ready; non-null once generation completes.
     """
 
-    failure_info: Optional[FailureInfo] = None
+    failure_info: Optional[TaskFailureInfo] = None
     """Information about why a task failed, for user display."""
 
-    required_secrets: Optional[List[RequiredSecret]] = None
+    required_secrets: Optional[List[SecretSlotDefinition]] = None
     """List of secrets that must be provided when running this task."""
