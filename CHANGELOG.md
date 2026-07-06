@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.1 (2026-07-06)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/indicesio/indices-python/compare/v0.6.0...v0.6.1)
+
+### Features
+
+* **api:** api update ([c6dd5ce](https://github.com/indicesio/indices-python/commit/c6dd5cee3ab2a5bb449f7165ba0ae0ea681b4085))
+
+
+### Chores
+
+* remove custom code ([4335a51](https://github.com/indicesio/indices-python/commit/4335a516c0aa8b698de0d62fded0b31d6d61470c))
+
 ## 0.6.0 (2026-07-06)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/indicesio/indices-python/compare/v0.5.0...v0.6.0)
