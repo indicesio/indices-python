@@ -20,6 +20,7 @@ from .._response import (
 from ..types.task import Task
 from .._base_client import make_request_options
 from ..types.task_list_response import TaskListResponse
+from ..types.task_delete_response import TaskDeleteResponse
 from ..types.task_start_manual_session_response import TaskStartManualSessionResponse
 
 __all__ = ["TasksResource", "AsyncTasksResource"]
@@ -161,7 +162,7 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> TaskDeleteResponse:
         """
         <p>Delete a task by its ID.</p>
 
@@ -183,7 +184,7 @@ class TasksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=TaskDeleteResponse,
         )
 
     def complete_manual_session(
@@ -407,7 +408,7 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> TaskDeleteResponse:
         """
         <p>Delete a task by its ID.</p>
 
@@ -429,7 +430,7 @@ class AsyncTasksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=TaskDeleteResponse,
         )
 
     async def complete_manual_session(

@@ -17,6 +17,7 @@ from .task_list_response import TaskListResponse as TaskListResponse
 from .file_delete_response import FileDeleteResponse as FileDeleteResponse
 from .secret_create_params import SecretCreateParams as SecretCreateParams
 from .secret_list_response import SecretListResponse as SecretListResponse
+from .task_delete_response import TaskDeleteResponse as TaskDeleteResponse
 from .secret_delete_response import SecretDeleteResponse as SecretDeleteResponse
 from .secret_slot_definition import SecretSlotDefinition as SecretSlotDefinition
 from .secret_get_totp_response import SecretGetTotpResponse as SecretGetTotpResponse
