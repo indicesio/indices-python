@@ -18,8 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..types.run import Run
-from .._base_client import make_request_options
-from ..types.run_list_response import RunListResponse
+from ..pagination import SyncCursorPage, AsyncCursorPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.run_logs_response import RunLogsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
@@ -94,7 +94,7 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> SyncCursorPage[Run]:
         """
         <p>List runs for a given task.</p>
 
@@ -113,8 +113,9 @@ class RunsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1beta/runs",
+            page=SyncCursorPage[Run],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -129,7 +130,7 @@ class RunsResource(SyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=Run,
         )
 
     def logs(
@@ -284,7 +285,7 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=Run,
         )
 
-    async def list(
+    def list(
         self,
         *,
         task_id: str,
@@ -296,7 +297,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> AsyncPaginator[Run, AsyncCursorPage[Run]]:
         """
         <p>List runs for a given task.</p>
 
@@ -315,14 +316,15 @@ class AsyncRunsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1beta/runs",
+            page=AsyncCursorPage[Run],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "task_id": task_id,
                         "cursor": cursor,
@@ -331,7 +333,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=Run,
         )
 
     async def logs(

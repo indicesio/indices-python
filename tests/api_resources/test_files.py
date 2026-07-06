@@ -9,7 +9,8 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import File, FileListResponse, FileDeleteResponse, FileGetDownloadURLResponse
+from indices.types import File, FileDeleteResponse, FileGetDownloadURLResponse
+from indices.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -65,7 +66,7 @@ class TestFiles:
         file = client.files.list(
             run_id="run_id",
         )
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -75,7 +76,7 @@ class TestFiles:
             cursor="cursor",
             limit=1,
         )
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -87,7 +88,7 @@ class TestFiles:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         file = response.parse()
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,7 +100,7 @@ class TestFiles:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             file = response.parse()
-            assert_matches_type(FileListResponse, file, path=["response"])
+            assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -283,7 +284,7 @@ class TestAsyncFiles:
         file = await async_client.files.list(
             run_id="run_id",
         )
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -293,7 +294,7 @@ class TestAsyncFiles:
             cursor="cursor",
             limit=1,
         )
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -305,7 +306,7 @@ class TestAsyncFiles:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         file = await response.parse()
-        assert_matches_type(FileListResponse, file, path=["response"])
+        assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -317,7 +318,7 @@ class TestAsyncFiles:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             file = await response.parse()
-            assert_matches_type(FileListResponse, file, path=["response"])
+            assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
