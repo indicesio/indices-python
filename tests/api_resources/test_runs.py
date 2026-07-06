@@ -9,7 +9,8 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import Run, RunListResponse, RunLogsResponse
+from indices.types import Run, RunLogsResponse
+from indices.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -65,7 +66,7 @@ class TestRuns:
         run = client.runs.list(
             task_id="task_id",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -75,7 +76,7 @@ class TestRuns:
             cursor="cursor",
             limit=1,
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -87,7 +88,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,7 +100,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(SyncCursorPage[Run], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -245,7 +246,7 @@ class TestAsyncRuns:
         run = await async_client.runs.list(
             task_id="task_id",
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -255,7 +256,7 @@ class TestAsyncRuns:
             cursor="cursor",
             limit=1,
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -267,7 +268,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -279,7 +280,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
