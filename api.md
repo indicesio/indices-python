@@ -27,13 +27,13 @@ Methods:
 Types:
 
 ```python
-from indices.types import Run, RunListResponse, RunLogsResponse
+from indices.types import Run, RunLogsResponse
 ```
 
 Methods:
 
 - <code title="get /v1beta/runs/{run_id}">client.runs.<a href="./src/indices/resources/runs.py">retrieve</a>(run_id) -> <a href="./src/indices/types/run.py">Run</a></code>
-- <code title="get /v1beta/runs">client.runs.<a href="./src/indices/resources/runs.py">list</a>(\*\*<a href="src/indices/types/run_list_params.py">params</a>) -> <a href="./src/indices/types/run_list_response.py">RunListResponse</a></code>
+- <code title="get /v1beta/runs">client.runs.<a href="./src/indices/resources/runs.py">list</a>(\*\*<a href="src/indices/types/run_list_params.py">params</a>) -> <a href="./src/indices/types/run.py">SyncCursorPage[Run]</a></code>
 - <code title="get /v1beta/runs/{run_id}/logs">client.runs.<a href="./src/indices/resources/runs.py">logs</a>(run_id) -> <a href="./src/indices/types/run_logs_response.py">RunLogsResponse</a></code>
 - <code title="post /v1beta/runs">client.runs.<a href="./src/indices/resources/runs.py">run</a>(\*\*<a href="src/indices/types/run_run_params.py">params</a>) -> <a href="./src/indices/types/run.py">Run</a></code>
 
@@ -57,13 +57,13 @@ Methods:
 Types:
 
 ```python
-from indices.types import File, FileListResponse, FileDeleteResponse, FileGetDownloadURLResponse
+from indices.types import File, FileDeleteResponse, FileGetDownloadURLResponse
 ```
 
 Methods:
 
 - <code title="get /v1beta/files/{file_id}">client.files.<a href="./src/indices/resources/files.py">retrieve</a>(file_id) -> <a href="./src/indices/types/file.py">File</a></code>
-- <code title="get /v1beta/files">client.files.<a href="./src/indices/resources/files.py">list</a>(\*\*<a href="src/indices/types/file_list_params.py">params</a>) -> <a href="./src/indices/types/file_list_response.py">FileListResponse</a></code>
+- <code title="get /v1beta/files">client.files.<a href="./src/indices/resources/files.py">list</a>(\*\*<a href="src/indices/types/file_list_params.py">params</a>) -> <a href="./src/indices/types/file.py">SyncCursorPage[File]</a></code>
 - <code title="delete /v1beta/files/{file_id}">client.files.<a href="./src/indices/resources/files.py">delete</a>(file_id) -> <a href="./src/indices/types/file_delete_response.py">FileDeleteResponse</a></code>
 - <code title="get /v1beta/files/{file_id}/download">client.files.<a href="./src/indices/resources/files.py">download</a>(file_id) -> None</code>
 - <code title="get /v1beta/files/{file_id}/download_url">client.files.<a href="./src/indices/resources/files.py">get_download_url</a>(file_id) -> <a href="./src/indices/types/file_get_download_url_response.py">FileGetDownloadURLResponse</a></code>
