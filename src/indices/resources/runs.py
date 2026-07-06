@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict
 
 import httpx
 
@@ -86,7 +86,7 @@ class RunsResource(SyncAPIResource):
         self,
         *,
         task_id: str,
-        cursor: Optional[str] | Omit = omit,
+        cursor: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -289,7 +289,7 @@ class AsyncRunsResource(AsyncAPIResource):
         self,
         *,
         task_id: str,
-        cursor: Optional[str] | Omit = omit,
+        cursor: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
