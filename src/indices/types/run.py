@@ -26,7 +26,11 @@ class Run(BaseModel):
     """Whether the run has associated logs"""
 
     result_json: Optional[str] = None
-    """Execution result of the run. In JSON, matching the task's output schema."""
+    """Execution result of the run.
+
+    In JSON, matching the task's output schema. Limited to 100MB; results above
+    100MB will be truncated and result in a `result_too_large` status.
+    """
 
     status: Literal["pending", "running", "success", "failed", "timed_out", "result_too_large", "internal_error"]
     """
