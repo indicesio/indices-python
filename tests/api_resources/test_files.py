@@ -63,27 +63,28 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Indices) -> None:
-        file = client.files.list(
-            run_id="run_id",
-        )
+        file = client.files.list()
         assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Indices) -> None:
         file = client.files.list(
-            run_id="run_id",
             cursor="cursor",
+            filename="filename",
             limit=1,
+            order="asc",
+            run_id="run_id",
+            sort="name",
+            source="UPLOAD",
+            task_id="task_id",
         )
         assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
-        response = client.files.with_raw_response.list(
-            run_id="run_id",
-        )
+        response = client.files.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -93,9 +94,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
-        with client.files.with_streaming_response.list(
-            run_id="run_id",
-        ) as response:
+        with client.files.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -281,27 +280,28 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.list(
-            run_id="run_id",
-        )
+        file = await async_client.files.list()
         assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
         file = await async_client.files.list(
-            run_id="run_id",
             cursor="cursor",
+            filename="filename",
             limit=1,
+            order="asc",
+            run_id="run_id",
+            sort="name",
+            source="UPLOAD",
+            task_id="task_id",
         )
         assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.list(
-            run_id="run_id",
-        )
+        response = await async_client.files.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -311,9 +311,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.list(
-            run_id="run_id",
-        ) as response:
+        async with async_client.files.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

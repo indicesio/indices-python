@@ -1,6 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -23,8 +25,14 @@ class File(BaseModel):
     name: str
     """User-facing filename."""
 
-    run_id: str
-    """ID of the run that produced this file."""
+    run_id: Optional[str] = None
+    """ID of the run that produced this file. Null for uploaded files."""
 
     size_bytes: int
     """Size of the file in bytes."""
+
+    source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION"]
+    """How the file came to exist: uploaded by the user or produced by a run."""
+
+    task_id: Optional[str] = None
+    """ID of the task whose run produced this file. Null for uploaded files."""
