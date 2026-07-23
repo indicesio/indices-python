@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import file_list_params
@@ -82,9 +84,14 @@ class FilesResource(SyncAPIResource):
     def list(
         self,
         *,
-        run_id: str,
         cursor: str | Omit = omit,
+        filename: str | Omit = omit,
         limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        run_id: str | Omit = omit,
+        sort: Literal["name", "created_at", "size_bytes", "source"] | Omit = omit,
+        source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION"] | Omit = omit,
+        task_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -92,15 +99,26 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[File]:
-        """
-        <p>List the files produced by a run.</p>
+        """<p>List your files: uploads and run outputs.
+
+        Default order is newest first.</p>
 
         Args:
-          run_id: The ID of the run whose files to list.
-
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
+          filename: Only files whose name contains this text.
+
           limit: Maximum number of files to return.
+
+          order: Sort direction.
+
+          run_id: Only files produced by this run.
+
+          sort: Column to sort by: name, created_at, size_bytes, or source.
+
+          source: Only files from this source.
+
+          task_id: Only files produced by runs of this task.
 
           extra_headers: Send extra headers
 
@@ -120,9 +138,14 @@ class FilesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "run_id": run_id,
                         "cursor": cursor,
+                        "filename": filename,
                         "limit": limit,
+                        "order": order,
+                        "run_id": run_id,
+                        "sort": sort,
+                        "source": source,
+                        "task_id": task_id,
                     },
                     file_list_params.FileListParams,
                 ),
@@ -295,9 +318,14 @@ class AsyncFilesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        run_id: str,
         cursor: str | Omit = omit,
+        filename: str | Omit = omit,
         limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        run_id: str | Omit = omit,
+        sort: Literal["name", "created_at", "size_bytes", "source"] | Omit = omit,
+        source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION"] | Omit = omit,
+        task_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -305,15 +333,26 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[File, AsyncCursorPage[File]]:
-        """
-        <p>List the files produced by a run.</p>
+        """<p>List your files: uploads and run outputs.
+
+        Default order is newest first.</p>
 
         Args:
-          run_id: The ID of the run whose files to list.
-
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
+          filename: Only files whose name contains this text.
+
           limit: Maximum number of files to return.
+
+          order: Sort direction.
+
+          run_id: Only files produced by this run.
+
+          sort: Column to sort by: name, created_at, size_bytes, or source.
+
+          source: Only files from this source.
+
+          task_id: Only files produced by runs of this task.
 
           extra_headers: Send extra headers
 
@@ -333,9 +372,14 @@ class AsyncFilesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "run_id": run_id,
                         "cursor": cursor,
+                        "filename": filename,
                         "limit": limit,
+                        "order": order,
+                        "run_id": run_id,
+                        "sort": sort,
+                        "source": source,
+                        "task_id": task_id,
                     },
                     file_list_params.FileListParams,
                 ),
