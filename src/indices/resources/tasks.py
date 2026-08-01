@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-
 import httpx
 
-from ..types import task_create_params, task_start_manual_session_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import task_create_params
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -21,7 +19,6 @@ from ..types.task import Task
 from .._base_client import make_request_options
 from ..types.task_list_response import TaskListResponse
 from ..types.task_delete_response import TaskDeleteResponse
-from ..types.task_start_manual_session_response import TaskStartManualSessionResponse
 
 __all__ = ["TasksResource", "AsyncTasksResource"]
 
@@ -187,90 +184,6 @@ class TasksResource(SyncAPIResource):
             cast_to=TaskDeleteResponse,
         )
 
-    def complete_manual_session(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
-        """
-        <p>Mark the manual browser session as complete and continue the task workflow.</p>
-
-        Args:
-          id: The ID of the task to perform manually.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            path_template("/v1beta/tasks/{id}/complete-manual-session", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Task,
-        )
-
-    def start_manual_session(
-        self,
-        id: str,
-        *,
-        cookies: Iterable[task_start_manual_session_params.Cookie] | Omit = omit,
-        use_proxy: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskStartManualSessionResponse:
-        """<p>Spawn a browser session for manual task completion.
-
-        If a session already exists, it will be closed and replaced.</p>
-
-        Args:
-          id: The ID of the task to perform manually.
-
-          cookies: Initial cookies to set in the browser session.
-
-          use_proxy: If true, spawn the browser session using a proxy.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            path_template("/v1beta/tasks/{id}/start-manual-session", id=id),
-            body=maybe_transform(
-                {
-                    "cookies": cookies,
-                    "use_proxy": use_proxy,
-                },
-                task_start_manual_session_params.TaskStartManualSessionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TaskStartManualSessionResponse,
-        )
-
 
 class AsyncTasksResource(AsyncAPIResource):
     """Create a task to repeatedly perform an action on an external website."""
@@ -433,90 +346,6 @@ class AsyncTasksResource(AsyncAPIResource):
             cast_to=TaskDeleteResponse,
         )
 
-    async def complete_manual_session(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
-        """
-        <p>Mark the manual browser session as complete and continue the task workflow.</p>
-
-        Args:
-          id: The ID of the task to perform manually.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            path_template("/v1beta/tasks/{id}/complete-manual-session", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Task,
-        )
-
-    async def start_manual_session(
-        self,
-        id: str,
-        *,
-        cookies: Iterable[task_start_manual_session_params.Cookie] | Omit = omit,
-        use_proxy: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskStartManualSessionResponse:
-        """<p>Spawn a browser session for manual task completion.
-
-        If a session already exists, it will be closed and replaced.</p>
-
-        Args:
-          id: The ID of the task to perform manually.
-
-          cookies: Initial cookies to set in the browser session.
-
-          use_proxy: If true, spawn the browser session using a proxy.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            path_template("/v1beta/tasks/{id}/start-manual-session", id=id),
-            body=await async_maybe_transform(
-                {
-                    "cookies": cookies,
-                    "use_proxy": use_proxy,
-                },
-                task_start_manual_session_params.TaskStartManualSessionParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TaskStartManualSessionResponse,
-        )
-
 
 class TasksResourceWithRawResponse:
     def __init__(self, tasks: TasksResource) -> None:
@@ -533,12 +362,6 @@ class TasksResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             tasks.delete,
-        )
-        self.complete_manual_session = to_raw_response_wrapper(
-            tasks.complete_manual_session,
-        )
-        self.start_manual_session = to_raw_response_wrapper(
-            tasks.start_manual_session,
         )
 
 
@@ -558,12 +381,6 @@ class AsyncTasksResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             tasks.delete,
         )
-        self.complete_manual_session = async_to_raw_response_wrapper(
-            tasks.complete_manual_session,
-        )
-        self.start_manual_session = async_to_raw_response_wrapper(
-            tasks.start_manual_session,
-        )
 
 
 class TasksResourceWithStreamingResponse:
@@ -582,12 +399,6 @@ class TasksResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             tasks.delete,
         )
-        self.complete_manual_session = to_streamed_response_wrapper(
-            tasks.complete_manual_session,
-        )
-        self.start_manual_session = to_streamed_response_wrapper(
-            tasks.start_manual_session,
-        )
 
 
 class AsyncTasksResourceWithStreamingResponse:
@@ -605,10 +416,4 @@ class AsyncTasksResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             tasks.delete,
-        )
-        self.complete_manual_session = async_to_streamed_response_wrapper(
-            tasks.complete_manual_session,
-        )
-        self.start_manual_session = async_to_streamed_response_wrapper(
-            tasks.start_manual_session,
         )
