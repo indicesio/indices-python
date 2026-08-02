@@ -9,7 +9,7 @@ __all__ = ["SecretSlotDefinition"]
 
 
 class SecretSlotDefinition(BaseModel):
-    """Definition of a secret slot that a task requires."""
+    """Definition of a secret slot that a connector requires."""
 
     name: str
     """

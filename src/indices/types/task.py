@@ -16,6 +16,12 @@ class Task(BaseModel):
     id: str
     """Unique identifier for the object."""
 
+    connector_id: Optional[str] = None
+    """The connector executed when this task is run; pass it to the runs endpoints.
+
+    Null until the task is ready. Changes when a revision publishes a new connector.
+    """
+
     created_at: datetime
     """Timestamp when the object was created."""
 
