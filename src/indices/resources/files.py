@@ -6,9 +6,9 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import file_list_params
+from ..types import file_list_params, file_create_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,7 +20,9 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from ..types.file import File
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.file_create_response import FileCreateResponse
 from ..types.file_delete_response import FileDeleteResponse
+from ..types.file_finalize_response import FileFinalizeResponse
 from ..types.file_get_download_url_response import FileGetDownloadURLResponse
 
 __all__ = ["FilesResource", "AsyncFilesResource"]
@@ -45,6 +47,53 @@ class FilesResource(SyncAPIResource):
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
         return FilesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        content_type: str,
+        name: str,
+        size_bytes: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileCreateResponse:
+        """
+        <p>Create a pending file and get a signed URL to PUT the bytes to.</p>
+
+        Args:
+          content_type: MIME type of the file content.
+
+          name: User-facing filename, e.g. 'report.pdf'.
+
+          size_bytes: Exact size of the file in bytes. Enforced by the signed upload URL.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1beta/files",
+            body=maybe_transform(
+                {
+                    "content_type": content_type,
+                    "name": name,
+                    "size_bytes": size_bytes,
+                },
+                file_create_params.FileCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FileCreateResponse,
+        )
 
     def retrieve(
         self,
@@ -224,6 +273,41 @@ class FilesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def finalize(
+        self,
+        file_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileFinalizeResponse:
+        """
+        <p>Confirm the bytes were uploaded; the file becomes available for use.</p>
+
+        Args:
+          file_id: The ID of the pending file to finalize.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return self._post(
+            path_template("/v1beta/files/{file_id}/complete", file_id=file_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FileFinalizeResponse,
+        )
+
     def get_download_url(
         self,
         file_id: str,
@@ -279,6 +363,53 @@ class AsyncFilesResource(AsyncAPIResource):
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
         return AsyncFilesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        content_type: str,
+        name: str,
+        size_bytes: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileCreateResponse:
+        """
+        <p>Create a pending file and get a signed URL to PUT the bytes to.</p>
+
+        Args:
+          content_type: MIME type of the file content.
+
+          name: User-facing filename, e.g. 'report.pdf'.
+
+          size_bytes: Exact size of the file in bytes. Enforced by the signed upload URL.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1beta/files",
+            body=await async_maybe_transform(
+                {
+                    "content_type": content_type,
+                    "name": name,
+                    "size_bytes": size_bytes,
+                },
+                file_create_params.FileCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FileCreateResponse,
+        )
 
     async def retrieve(
         self,
@@ -458,6 +589,41 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def finalize(
+        self,
+        file_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileFinalizeResponse:
+        """
+        <p>Confirm the bytes were uploaded; the file becomes available for use.</p>
+
+        Args:
+          file_id: The ID of the pending file to finalize.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return await self._post(
+            path_template("/v1beta/files/{file_id}/complete", file_id=file_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=FileFinalizeResponse,
+        )
+
     async def get_download_url(
         self,
         file_id: str,
@@ -498,6 +664,9 @@ class FilesResourceWithRawResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
+        self.create = to_raw_response_wrapper(
+            files.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             files.retrieve,
         )
@@ -510,6 +679,9 @@ class FilesResourceWithRawResponse:
         self.download = to_raw_response_wrapper(
             files.download,
         )
+        self.finalize = to_raw_response_wrapper(
+            files.finalize,
+        )
         self.get_download_url = to_raw_response_wrapper(
             files.get_download_url,
         )
@@ -519,6 +691,9 @@ class AsyncFilesResourceWithRawResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
+        self.create = async_to_raw_response_wrapper(
+            files.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             files.retrieve,
         )
@@ -531,6 +706,9 @@ class AsyncFilesResourceWithRawResponse:
         self.download = async_to_raw_response_wrapper(
             files.download,
         )
+        self.finalize = async_to_raw_response_wrapper(
+            files.finalize,
+        )
         self.get_download_url = async_to_raw_response_wrapper(
             files.get_download_url,
         )
@@ -540,6 +718,9 @@ class FilesResourceWithStreamingResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
+        self.create = to_streamed_response_wrapper(
+            files.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             files.retrieve,
         )
@@ -552,6 +733,9 @@ class FilesResourceWithStreamingResponse:
         self.download = to_streamed_response_wrapper(
             files.download,
         )
+        self.finalize = to_streamed_response_wrapper(
+            files.finalize,
+        )
         self.get_download_url = to_streamed_response_wrapper(
             files.get_download_url,
         )
@@ -561,6 +745,9 @@ class AsyncFilesResourceWithStreamingResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
+        self.create = async_to_streamed_response_wrapper(
+            files.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             files.retrieve,
         )
@@ -572,6 +759,9 @@ class AsyncFilesResourceWithStreamingResponse:
         )
         self.download = async_to_streamed_response_wrapper(
             files.download,
+        )
+        self.finalize = async_to_streamed_response_wrapper(
+            files.finalize,
         )
         self.get_download_url = async_to_streamed_response_wrapper(
             files.get_download_url,

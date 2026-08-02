@@ -35,11 +35,12 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import runs, files, tasks, secrets
+    from .resources import runs, files, tasks, secrets, capture_sessions
     from .resources.runs import RunsResource, AsyncRunsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.secrets import SecretsResource, AsyncSecretsResource
+    from .resources.capture_sessions import CaptureSessionsResource, AsyncCaptureSessionsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Indices", "AsyncIndices", "Client", "AsyncClient"]
 
@@ -134,6 +135,15 @@ class Indices(SyncAPIClient):
         from .resources.files import FilesResource
 
         return FilesResource(self)
+
+    @cached_property
+    def capture_sessions(self) -> CaptureSessionsResource:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import CaptureSessionsResource
+
+        return CaptureSessionsResource(self)
 
     @cached_property
     def with_raw_response(self) -> IndicesWithRawResponse:
@@ -340,6 +350,15 @@ class AsyncIndices(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
+    def capture_sessions(self) -> AsyncCaptureSessionsResource:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import AsyncCaptureSessionsResource
+
+        return AsyncCaptureSessionsResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncIndicesWithRawResponse:
         return AsyncIndicesWithRawResponse(self)
 
@@ -485,6 +504,15 @@ class IndicesWithRawResponse:
 
         return FilesResourceWithRawResponse(self._client.files)
 
+    @cached_property
+    def capture_sessions(self) -> capture_sessions.CaptureSessionsResourceWithRawResponse:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import CaptureSessionsResourceWithRawResponse
+
+        return CaptureSessionsResourceWithRawResponse(self._client.capture_sessions)
+
 
 class AsyncIndicesWithRawResponse:
     _client: AsyncIndices
@@ -518,6 +546,15 @@ class AsyncIndicesWithRawResponse:
         from .resources.files import AsyncFilesResourceWithRawResponse
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
+
+    @cached_property
+    def capture_sessions(self) -> capture_sessions.AsyncCaptureSessionsResourceWithRawResponse:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import AsyncCaptureSessionsResourceWithRawResponse
+
+        return AsyncCaptureSessionsResourceWithRawResponse(self._client.capture_sessions)
 
 
 class IndicesWithStreamedResponse:
@@ -553,6 +590,15 @@ class IndicesWithStreamedResponse:
 
         return FilesResourceWithStreamingResponse(self._client.files)
 
+    @cached_property
+    def capture_sessions(self) -> capture_sessions.CaptureSessionsResourceWithStreamingResponse:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import CaptureSessionsResourceWithStreamingResponse
+
+        return CaptureSessionsResourceWithStreamingResponse(self._client.capture_sessions)
+
 
 class AsyncIndicesWithStreamedResponse:
     _client: AsyncIndices
@@ -586,6 +632,15 @@ class AsyncIndicesWithStreamedResponse:
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
+
+    @cached_property
+    def capture_sessions(self) -> capture_sessions.AsyncCaptureSessionsResourceWithStreamingResponse:
+        """
+        Record a browser session; a completed capture is a reusable input for task generation.
+        """
+        from .resources.capture_sessions import AsyncCaptureSessionsResourceWithStreamingResponse
+
+        return AsyncCaptureSessionsResourceWithStreamingResponse(self._client.capture_sessions)
 
 
 Client = Indices
