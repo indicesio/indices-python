@@ -9,7 +9,11 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import Task, TaskListResponse, TaskDeleteResponse
+from indices.types import (
+    Task,
+    TaskListResponse,
+    TaskDeleteResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -186,6 +190,52 @@ class TestTasks:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_attach_capture_session(self, client: Indices) -> None:
+        task = client.tasks.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_attach_capture_session(self, client: Indices) -> None:
+        response = client.tasks.with_raw_response.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_attach_capture_session(self, client: Indices) -> None:
+        with client.tasks.with_streaming_response.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_attach_capture_session(self, client: Indices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.tasks.with_raw_response.attach_capture_session(
+                id="",
+                capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+            )
+
 
 class TestAsyncTasks:
     parametrize = pytest.mark.parametrize(
@@ -359,4 +409,50 @@ class TestAsyncTasks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.tasks.with_raw_response.delete(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_attach_capture_session(self, async_client: AsyncIndices) -> None:
+        task = await async_client.tasks.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_attach_capture_session(self, async_client: AsyncIndices) -> None:
+        response = await async_client.tasks.with_raw_response.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_attach_capture_session(self, async_client: AsyncIndices) -> None:
+        async with async_client.tasks.with_streaming_response.attach_capture_session(
+            id="id",
+            capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_attach_capture_session(self, async_client: AsyncIndices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.tasks.with_raw_response.attach_capture_session(
+                id="",
+                capture_session_id="cap_0R3kPq8mWxYz1aBcDeFgHi",
             )
