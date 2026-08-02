@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
-from ..types import task_create_params, task_attach_capture_session_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import capture_session_create_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -15,59 +17,57 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..types.task import Task
 from .._base_client import make_request_options
-from ..types.task_list_response import TaskListResponse
-from ..types.task_delete_response import TaskDeleteResponse
+from ..types.capture_session import CaptureSession
+from ..types.session_cookie_param import SessionCookieParam
+from ..types.capture_session_list_response import CaptureSessionListResponse
 
-__all__ = ["TasksResource", "AsyncTasksResource"]
+__all__ = ["CaptureSessionsResource", "AsyncCaptureSessionsResource"]
 
 
-class TasksResource(SyncAPIResource):
-    """Create a task to repeatedly perform an action on an external website."""
+class CaptureSessionsResource(SyncAPIResource):
+    """
+    Record a browser session; a completed capture is a reusable input for task generation.
+    """
 
     @cached_property
-    def with_raw_response(self) -> TasksResourceWithRawResponse:
+    def with_raw_response(self) -> CaptureSessionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/indicesio/indices-python#accessing-raw-response-data-eg-headers
         """
-        return TasksResourceWithRawResponse(self)
+        return CaptureSessionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> TasksResourceWithStreamingResponse:
+    def with_streaming_response(self) -> CaptureSessionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
-        return TasksResourceWithStreamingResponse(self)
+        return CaptureSessionsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        creation_params: task_create_params.CreationParams,
-        display_name: str,
-        task: str,
+        cookies: Iterable[SessionCookieParam] | Omit = omit,
+        use_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
+    ) -> CaptureSession:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p>
+        <p>Spawn a browser session that records the network traffic of everything done in it.</p><p>Once completed, the capture session is a reusable recording: attach it to a task to generate an API from it.</p>
 
         Args:
-          creation_params: Information used during task creation.
+          cookies: Initial cookies to set in the browser session.
 
-          display_name: Short title shown in the dashboard. Informational only; not used to generate the
-              task.
-
-          task: Detailed explanation of the task to be performed.
+          use_proxy: If true, spawn the browser session using a proxy.
 
           extra_headers: Send extra headers
 
@@ -78,19 +78,18 @@ class TasksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1beta/tasks",
+            "/v1beta/capture_sessions",
             body=maybe_transform(
                 {
-                    "creation_params": creation_params,
-                    "display_name": display_name,
-                    "task": task,
+                    "cookies": cookies,
+                    "use_proxy": use_proxy,
                 },
-                task_create_params.TaskCreateParams,
+                capture_session_create_params.CaptureSessionCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
     def retrieve(
@@ -103,12 +102,12 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
+    ) -> CaptureSession:
         """
-        <p>Retrieve a task by its ID.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
+        <p>Retrieve a capture session by its ID.</p><p>Poll this after requesting completion: the session is a usable recording once <code>state</code> is <code>completed</code>.</p>
 
         Args:
-          id: The ID of the task to retrieve.
+          id: The ID of the capture session to retrieve.
 
           extra_headers: Send extra headers
 
@@ -121,11 +120,11 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/v1beta/tasks/{id}", id=id),
+            path_template("/v1beta/capture_sessions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
     def list(
@@ -137,19 +136,17 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskListResponse:
-        """
-        <p>List all tasks that have been created.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
-        """
+    ) -> CaptureSessionListResponse:
+        """<p>List all capture sessions, newest first.</p>"""
         return self._get(
-            "/v1beta/tasks",
+            "/v1beta/capture_sessions",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskListResponse,
+            cast_to=CaptureSessionListResponse,
         )
 
-    def delete(
+    def complete(
         self,
         id: str,
         *,
@@ -159,51 +156,12 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskDeleteResponse:
+    ) -> CaptureSession:
         """
-        <p>Delete a task by its ID.</p>
+        <p>Stop recording and finalize the capture session.</p><p>Completion is asynchronous: the browser uploads its recording and the session then transitions to <code>completed</code>. Poll <code>retrieveCaptureSession</code> to observe the transition.</p>
 
         Args:
-          id: The ID of the task to delete.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._delete(
-            path_template("/v1beta/tasks/{id}", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TaskDeleteResponse,
-        )
-
-    def attach_capture_session(
-        self,
-        id: str,
-        *,
-        capture_session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
-        """
-        <p>Use a completed capture session as this task's recording and kick off API generation from it.</p><p>A capture session can be attached to several tasks: each task filters and consumes the recording independently.</p>
-
-        Args:
-          id: The ID of the task to attach the capture session to.
-
-          capture_session_id: ID of a completed capture session to use as this task's recording. Attaching
-              kicks off API generation from it.
+          id: The ID of the capture session to complete.
 
           extra_headers: Send extra headers
 
@@ -216,63 +174,57 @@ class TasksResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template("/v1beta/tasks/{id}/attach_capture_session", id=id),
-            body=maybe_transform(
-                {"capture_session_id": capture_session_id},
-                task_attach_capture_session_params.TaskAttachCaptureSessionParams,
-            ),
+            path_template("/v1beta/capture_sessions/{id}/complete", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
 
-class AsyncTasksResource(AsyncAPIResource):
-    """Create a task to repeatedly perform an action on an external website."""
+class AsyncCaptureSessionsResource(AsyncAPIResource):
+    """
+    Record a browser session; a completed capture is a reusable input for task generation.
+    """
 
     @cached_property
-    def with_raw_response(self) -> AsyncTasksResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncCaptureSessionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/indicesio/indices-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncTasksResourceWithRawResponse(self)
+        return AsyncCaptureSessionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncTasksResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncCaptureSessionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
-        return AsyncTasksResourceWithStreamingResponse(self)
+        return AsyncCaptureSessionsResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        creation_params: task_create_params.CreationParams,
-        display_name: str,
-        task: str,
+        cookies: Iterable[SessionCookieParam] | Omit = omit,
+        use_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
+    ) -> CaptureSession:
         """
-        <p>Create a new task to repeatedly perform an action on an external website.</p><p>Once created and ready, it can be repeatedly executed using the <code>run</code> endpoint.</p>
+        <p>Spawn a browser session that records the network traffic of everything done in it.</p><p>Once completed, the capture session is a reusable recording: attach it to a task to generate an API from it.</p>
 
         Args:
-          creation_params: Information used during task creation.
+          cookies: Initial cookies to set in the browser session.
 
-          display_name: Short title shown in the dashboard. Informational only; not used to generate the
-              task.
-
-          task: Detailed explanation of the task to be performed.
+          use_proxy: If true, spawn the browser session using a proxy.
 
           extra_headers: Send extra headers
 
@@ -283,19 +235,18 @@ class AsyncTasksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1beta/tasks",
+            "/v1beta/capture_sessions",
             body=await async_maybe_transform(
                 {
-                    "creation_params": creation_params,
-                    "display_name": display_name,
-                    "task": task,
+                    "cookies": cookies,
+                    "use_proxy": use_proxy,
                 },
-                task_create_params.TaskCreateParams,
+                capture_session_create_params.CaptureSessionCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
     async def retrieve(
@@ -308,12 +259,12 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
+    ) -> CaptureSession:
         """
-        <p>Retrieve a task by its ID.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
+        <p>Retrieve a capture session by its ID.</p><p>Poll this after requesting completion: the session is a usable recording once <code>state</code> is <code>completed</code>.</p>
 
         Args:
-          id: The ID of the task to retrieve.
+          id: The ID of the capture session to retrieve.
 
           extra_headers: Send extra headers
 
@@ -326,11 +277,11 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/v1beta/tasks/{id}", id=id),
+            path_template("/v1beta/capture_sessions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
     async def list(
@@ -342,19 +293,17 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskListResponse:
-        """
-        <p>List all tasks that have been created.</p><p>For tasks that are still being generated, <code>input_schema</code> and <code>output_schema</code> may be <code>null</code>. They are guaranteed to be present once the task reaches the ready state.</p>
-        """
+    ) -> CaptureSessionListResponse:
+        """<p>List all capture sessions, newest first.</p>"""
         return await self._get(
-            "/v1beta/tasks",
+            "/v1beta/capture_sessions",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskListResponse,
+            cast_to=CaptureSessionListResponse,
         )
 
-    async def delete(
+    async def complete(
         self,
         id: str,
         *,
@@ -364,51 +313,12 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskDeleteResponse:
+    ) -> CaptureSession:
         """
-        <p>Delete a task by its ID.</p>
+        <p>Stop recording and finalize the capture session.</p><p>Completion is asynchronous: the browser uploads its recording and the session then transitions to <code>completed</code>. Poll <code>retrieveCaptureSession</code> to observe the transition.</p>
 
         Args:
-          id: The ID of the task to delete.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._delete(
-            path_template("/v1beta/tasks/{id}", id=id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TaskDeleteResponse,
-        )
-
-    async def attach_capture_session(
-        self,
-        id: str,
-        *,
-        capture_session_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Task:
-        """
-        <p>Use a completed capture session as this task's recording and kick off API generation from it.</p><p>A capture session can be attached to several tasks: each task filters and consumes the recording independently.</p>
-
-        Args:
-          id: The ID of the task to attach the capture session to.
-
-          capture_session_id: ID of a completed capture session to use as this task's recording. Attaching
-              kicks off API generation from it.
+          id: The ID of the capture session to complete.
 
           extra_headers: Send extra headers
 
@@ -421,97 +331,81 @@ class AsyncTasksResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template("/v1beta/tasks/{id}/attach_capture_session", id=id),
-            body=await async_maybe_transform(
-                {"capture_session_id": capture_session_id},
-                task_attach_capture_session_params.TaskAttachCaptureSessionParams,
-            ),
+            path_template("/v1beta/capture_sessions/{id}/complete", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Task,
+            cast_to=CaptureSession,
         )
 
 
-class TasksResourceWithRawResponse:
-    def __init__(self, tasks: TasksResource) -> None:
-        self._tasks = tasks
+class CaptureSessionsResourceWithRawResponse:
+    def __init__(self, capture_sessions: CaptureSessionsResource) -> None:
+        self._capture_sessions = capture_sessions
 
         self.create = to_raw_response_wrapper(
-            tasks.create,
+            capture_sessions.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            tasks.retrieve,
+            capture_sessions.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            tasks.list,
+            capture_sessions.list,
         )
-        self.delete = to_raw_response_wrapper(
-            tasks.delete,
-        )
-        self.attach_capture_session = to_raw_response_wrapper(
-            tasks.attach_capture_session,
+        self.complete = to_raw_response_wrapper(
+            capture_sessions.complete,
         )
 
 
-class AsyncTasksResourceWithRawResponse:
-    def __init__(self, tasks: AsyncTasksResource) -> None:
-        self._tasks = tasks
+class AsyncCaptureSessionsResourceWithRawResponse:
+    def __init__(self, capture_sessions: AsyncCaptureSessionsResource) -> None:
+        self._capture_sessions = capture_sessions
 
         self.create = async_to_raw_response_wrapper(
-            tasks.create,
+            capture_sessions.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            tasks.retrieve,
+            capture_sessions.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            tasks.list,
+            capture_sessions.list,
         )
-        self.delete = async_to_raw_response_wrapper(
-            tasks.delete,
-        )
-        self.attach_capture_session = async_to_raw_response_wrapper(
-            tasks.attach_capture_session,
+        self.complete = async_to_raw_response_wrapper(
+            capture_sessions.complete,
         )
 
 
-class TasksResourceWithStreamingResponse:
-    def __init__(self, tasks: TasksResource) -> None:
-        self._tasks = tasks
+class CaptureSessionsResourceWithStreamingResponse:
+    def __init__(self, capture_sessions: CaptureSessionsResource) -> None:
+        self._capture_sessions = capture_sessions
 
         self.create = to_streamed_response_wrapper(
-            tasks.create,
+            capture_sessions.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            tasks.retrieve,
+            capture_sessions.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            tasks.list,
+            capture_sessions.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            tasks.delete,
-        )
-        self.attach_capture_session = to_streamed_response_wrapper(
-            tasks.attach_capture_session,
+        self.complete = to_streamed_response_wrapper(
+            capture_sessions.complete,
         )
 
 
-class AsyncTasksResourceWithStreamingResponse:
-    def __init__(self, tasks: AsyncTasksResource) -> None:
-        self._tasks = tasks
+class AsyncCaptureSessionsResourceWithStreamingResponse:
+    def __init__(self, capture_sessions: AsyncCaptureSessionsResource) -> None:
+        self._capture_sessions = capture_sessions
 
         self.create = async_to_streamed_response_wrapper(
-            tasks.create,
+            capture_sessions.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            tasks.retrieve,
+            capture_sessions.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            tasks.list,
+            capture_sessions.list,
         )
-        self.delete = async_to_streamed_response_wrapper(
-            tasks.delete,
-        )
-        self.attach_capture_session = async_to_streamed_response_wrapper(
-            tasks.attach_capture_session,
+        self.complete = async_to_streamed_response_wrapper(
+            capture_sessions.complete,
         )

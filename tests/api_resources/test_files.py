@@ -9,7 +9,13 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import File, FileDeleteResponse, FileGetDownloadURLResponse
+from indices.types import (
+    File,
+    FileCreateResponse,
+    FileDeleteResponse,
+    FileFinalizeResponse,
+    FileGetDownloadURLResponse,
+)
 from indices.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -17,6 +23,46 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestFiles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create(self, client: Indices) -> None:
+        file = client.files.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        )
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Indices) -> None:
+        response = client.files.with_raw_response.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = response.parse()
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Indices) -> None:
+        with client.files.with_streaming_response.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = response.parse()
+            assert_matches_type(FileCreateResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -189,6 +235,48 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_finalize(self, client: Indices) -> None:
+        file = client.files.finalize(
+            "file_id",
+        )
+        assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_finalize(self, client: Indices) -> None:
+        response = client.files.with_raw_response.finalize(
+            "file_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = response.parse()
+        assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_finalize(self, client: Indices) -> None:
+        with client.files.with_streaming_response.finalize(
+            "file_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = response.parse()
+            assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_finalize(self, client: Indices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+            client.files.with_raw_response.finalize(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_get_download_url(self, client: Indices) -> None:
         file = client.files.get_download_url(
             "file_id",
@@ -234,6 +322,46 @@ class TestAsyncFiles:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncIndices) -> None:
+        file = await async_client.files.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        )
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
+        response = await async_client.files.with_raw_response.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = await response.parse()
+        assert_matches_type(FileCreateResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
+        async with async_client.files.with_streaming_response.create(
+            content_type="x",
+            name="x",
+            size_bytes=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = await response.parse()
+            assert_matches_type(FileCreateResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -401,6 +529,48 @@ class TestAsyncFiles:
     async def test_path_params_download(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             await async_client.files.with_raw_response.download(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_finalize(self, async_client: AsyncIndices) -> None:
+        file = await async_client.files.finalize(
+            "file_id",
+        )
+        assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_finalize(self, async_client: AsyncIndices) -> None:
+        response = await async_client.files.with_raw_response.finalize(
+            "file_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = await response.parse()
+        assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_finalize(self, async_client: AsyncIndices) -> None:
+        async with async_client.files.with_streaming_response.finalize(
+            "file_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = await response.parse()
+            assert_matches_type(FileFinalizeResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_finalize(self, async_client: AsyncIndices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+            await async_client.files.with_raw_response.finalize(
                 "",
             )
 
