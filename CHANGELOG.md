@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.7.0 (2026-08-02)
+
+Full Changelog: [v0.6.1...v0.7.0](https://github.com/indicesio/indices-python/compare/v0.6.1...v0.7.0)
+
+### Features
+
+* **api:** api update ([22d44ec](https://github.com/indicesio/indices-python/commit/22d44ecf8e876c0161b0b6fd7133e4bf6f3907d8))
+* **api:** api update ([5624ff6](https://github.com/indicesio/indices-python/commit/5624ff65fdaa67b445907b3b6d46fc42495ade2d))
+* **api:** api update ([15b113a](https://github.com/indicesio/indices-python/commit/15b113aacd4178171cc5ab81c3919739fb0c7d24))
+* **api:** capture sessions ([d14a5f6](https://github.com/indicesio/indices-python/commit/d14a5f6bdd6a061cd659063fa45627fae42f3359))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([349b985](https://github.com/indicesio/indices-python/commit/349b985b4cdf8df31bf7a512175d02d48b739640))
+
+
+### Bug Fixes
+
+* **internal:** resolve build failures ([f6dcb0c](https://github.com/indicesio/indices-python/commit/f6dcb0c03e6216edc1b90edd4f4ce0c348b31f22))
+
+
+### Chores
+
+* configure new SDK language ([7807578](https://github.com/indicesio/indices-python/commit/7807578ba9461db0d5dd5b6dcbad95e4d8f36a87))
+
 ## 0.6.1 (2026-07-06)
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/indicesio/indices-python/compare/v0.6.0...v0.6.1)
