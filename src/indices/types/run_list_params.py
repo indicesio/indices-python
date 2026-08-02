@@ -8,8 +8,8 @@ __all__ = ["RunListParams"]
 
 
 class RunListParams(TypedDict, total=False):
-    task_id: Required[str]
-    """The ID of the task to list runs for."""
+    connector_id: Required[str]
+    """The ID of the connector to list runs for."""
 
     cursor: str
     """Cursor from a previous response's `next_cursor`, to fetch the next page."""

@@ -42,7 +42,7 @@ client = Indices(
 )
 
 run = client.runs.run(
-    task_id="<your_task_id>",
+    connector_id="connector_id",
     arguments={"...": None},
 )
 print(run.result_json)
@@ -69,7 +69,7 @@ client = AsyncIndices(
 
 async def main() -> None:
     run = await client.runs.run(
-        task_id="<your_task_id>",
+        connector_id="connector_id",
         arguments={"...": None},
     )
     print(run.result_json)
@@ -106,7 +106,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         run = await client.runs.run(
-            task_id="<your_task_id>",
+            connector_id="connector_id",
             arguments={"...": None},
         )
         print(run.result_json)
@@ -138,7 +138,7 @@ client = Indices()
 all_runs = []
 # Automatically fetches more pages as needed.
 for run in client.runs.list(
-    task_id="task_id",
+    connector_id="connector_id",
 ):
     # Do something with run here
     all_runs.append(run)
@@ -158,7 +158,7 @@ async def main() -> None:
     all_runs = []
     # Iterate through items across all pages, issuing requests as needed.
     async for run in client.runs.list(
-        task_id="task_id",
+        connector_id="connector_id",
     ):
         all_runs.append(run)
     print(all_runs)
@@ -171,7 +171,7 @@ Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get
 
 ```python
 first_page = await client.runs.list(
-    task_id="task_id",
+    connector_id="connector_id",
 )
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
@@ -185,7 +185,7 @@ Or just work directly with the returned data:
 
 ```python
 first_page = await client.runs.list(
-    task_id="task_id",
+    connector_id="connector_id",
 )
 
 print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."
@@ -229,7 +229,7 @@ client = Indices()
 
 try:
     client.runs.run(
-        task_id="<your_task_id>",
+        connector_id="connector_id",
         arguments={"...": None},
     )
 except indices.APIConnectionError as e:
@@ -275,7 +275,7 @@ client = Indices(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).runs.run(
-    task_id="<your_task_id>",
+    connector_id="connector_id",
     arguments={"...": None},
 )
 ```
@@ -301,7 +301,7 @@ client = Indices(
 
 # Override per-request:
 client.with_options(timeout=5.0).runs.run(
-    task_id="<your_task_id>",
+    connector_id="connector_id",
     arguments={"...": None},
 )
 ```
@@ -345,7 +345,7 @@ from indices import Indices
 
 client = Indices()
 response = client.runs.with_raw_response.run(
-    task_id="<your_task_id>",
+    connector_id="connector_id",
     arguments={
         "...": None
     },
@@ -368,7 +368,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.runs.with_streaming_response.run(
-    task_id="<your_task_id>",
+    connector_id="connector_id",
     arguments={"...": None},
 ) as response:
     print(response.headers.get("X-My-Header"))
