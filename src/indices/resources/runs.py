@@ -85,7 +85,7 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
-        task_id: str,
+        connector_id: str,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -96,10 +96,10 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[Run]:
         """
-        <p>List runs for a given task.</p>
+        <p>List runs of a given connector.</p>
 
         Args:
-          task_id: The ID of the task to list runs for.
+          connector_id: The ID of the connector to list runs for.
 
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
@@ -123,7 +123,7 @@ class RunsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "task_id": task_id,
+                        "connector_id": connector_id,
                         "cursor": cursor,
                         "limit": limit,
                     },
@@ -171,7 +171,7 @@ class RunsResource(SyncAPIResource):
     def run(
         self,
         *,
-        task_id: str,
+        connector_id: str,
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
@@ -183,22 +183,22 @@ class RunsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run:
-        """<p>Execute a task that has already been created.
+        """<p>Execute a connector.
 
         By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
 
         Args:
-          task_id: ID of the task to execute.
+          connector_id: ID of the connector to execute.
 
-          arguments: Arguments to pass to the task. Optional if the task does not require any
-              arguments.
+          arguments: Arguments to pass to the connector. Optional if the connector does not require
+              any arguments.
 
           async_: When true, return immediately with a pending run; poll retrieveRun for the
               result.
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
-          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
+          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the connector's
               required_secrets must be mapped to a user-owned secret.
 
           extra_headers: Send extra headers
@@ -213,7 +213,7 @@ class RunsResource(SyncAPIResource):
             "/v1beta/runs",
             body=maybe_transform(
                 {
-                    "task_id": task_id,
+                    "connector_id": connector_id,
                     "arguments": arguments,
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,
@@ -288,7 +288,7 @@ class AsyncRunsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        task_id: str,
+        connector_id: str,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -299,10 +299,10 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Run, AsyncCursorPage[Run]]:
         """
-        <p>List runs for a given task.</p>
+        <p>List runs of a given connector.</p>
 
         Args:
-          task_id: The ID of the task to list runs for.
+          connector_id: The ID of the connector to list runs for.
 
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
@@ -326,7 +326,7 @@ class AsyncRunsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "task_id": task_id,
+                        "connector_id": connector_id,
                         "cursor": cursor,
                         "limit": limit,
                     },
@@ -374,7 +374,7 @@ class AsyncRunsResource(AsyncAPIResource):
     async def run(
         self,
         *,
-        task_id: str,
+        connector_id: str,
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
@@ -386,22 +386,22 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run:
-        """<p>Execute a task that has already been created.
+        """<p>Execute a connector.
 
         By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
 
         Args:
-          task_id: ID of the task to execute.
+          connector_id: ID of the connector to execute.
 
-          arguments: Arguments to pass to the task. Optional if the task does not require any
-              arguments.
+          arguments: Arguments to pass to the connector. Optional if the connector does not require
+              any arguments.
 
           async_: When true, return immediately with a pending run; poll retrieveRun for the
               result.
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
-          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the task's
+          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the connector's
               required_secrets must be mapped to a user-owned secret.
 
           extra_headers: Send extra headers
@@ -416,7 +416,7 @@ class AsyncRunsResource(AsyncAPIResource):
             "/v1beta/runs",
             body=await async_maybe_transform(
                 {
-                    "task_id": task_id,
+                    "connector_id": connector_id,
                     "arguments": arguments,
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,

@@ -11,13 +11,13 @@ __all__ = ["RunRunParams"]
 
 
 class RunRunParams(TypedDict, total=False):
-    task_id: Required[str]
-    """ID of the task to execute."""
+    connector_id: Required[str]
+    """ID of the connector to execute."""
 
     arguments: Dict[str, object]
-    """Arguments to pass to the task.
+    """Arguments to pass to the connector.
 
-    Optional if the task does not require any arguments.
+    Optional if the connector does not require any arguments.
     """
 
     async_: Annotated[bool, PropertyInfo(alias="async")]
@@ -32,6 +32,6 @@ class RunRunParams(TypedDict, total=False):
     secret_bindings: Dict[str, str]
     """Mapping of secret slot names to secret IDs.
 
-    Each slot defined in the task's required_secrets must be mapped to a user-owned
-    secret.
+    Each slot defined in the connector's required_secrets must be mapped to a
+    user-owned secret.
     """

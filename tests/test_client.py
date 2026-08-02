@@ -876,7 +876,7 @@ class TestIndices:
         respx_mock.post("/v1beta/runs").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.runs.with_streaming_response.run(task_id="task_id").__enter__()
+            client.runs.with_streaming_response.run(connector_id="connector_id").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -886,7 +886,7 @@ class TestIndices:
         respx_mock.post("/v1beta/runs").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.runs.with_streaming_response.run(task_id="task_id").__enter__()
+            client.runs.with_streaming_response.run(connector_id="connector_id").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -915,7 +915,7 @@ class TestIndices:
 
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
-        response = client.runs.with_raw_response.run(task_id="task_id")
+        response = client.runs.with_raw_response.run(connector_id="connector_id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -940,7 +940,7 @@ class TestIndices:
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
         response = client.runs.with_raw_response.run(
-            task_id="task_id", extra_headers={"x-stainless-retry-count": Omit()}
+            connector_id="connector_id", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -964,7 +964,9 @@ class TestIndices:
 
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
-        response = client.runs.with_raw_response.run(task_id="task_id", extra_headers={"x-stainless-retry-count": "42"})
+        response = client.runs.with_raw_response.run(
+            connector_id="connector_id", extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1810,7 +1812,7 @@ class TestAsyncIndices:
         respx_mock.post("/v1beta/runs").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.runs.with_streaming_response.run(task_id="task_id").__aenter__()
+            await async_client.runs.with_streaming_response.run(connector_id="connector_id").__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1820,7 +1822,7 @@ class TestAsyncIndices:
         respx_mock.post("/v1beta/runs").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.runs.with_streaming_response.run(task_id="task_id").__aenter__()
+            await async_client.runs.with_streaming_response.run(connector_id="connector_id").__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1849,7 +1851,7 @@ class TestAsyncIndices:
 
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
-        response = await client.runs.with_raw_response.run(task_id="task_id")
+        response = await client.runs.with_raw_response.run(connector_id="connector_id")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1874,7 +1876,7 @@ class TestAsyncIndices:
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
         response = await client.runs.with_raw_response.run(
-            task_id="task_id", extra_headers={"x-stainless-retry-count": Omit()}
+            connector_id="connector_id", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1899,7 +1901,7 @@ class TestAsyncIndices:
         respx_mock.post("/v1beta/runs").mock(side_effect=retry_handler)
 
         response = await client.runs.with_raw_response.run(
-            task_id="task_id", extra_headers={"x-stainless-retry-count": "42"}
+            connector_id="connector_id", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
