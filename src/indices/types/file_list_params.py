@@ -26,7 +26,7 @@ class FileListParams(TypedDict, total=False):
     sort: Literal["name", "created_at", "size_bytes", "source"]
     """Column to sort by: name, created_at, size_bytes, or source."""
 
-    source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION"]
+    source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION", "FORGE_SESSION"]
     """Only files from this source."""
 
     task_id: str
