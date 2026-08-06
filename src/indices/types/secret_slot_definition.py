@@ -18,5 +18,9 @@ class SecretSlotDefinition(BaseModel):
     type: Literal["login", "string"]
     """Type of secret required: 'login' or 'string'."""
 
-    requires_totp: Optional[bool] = None
-    """Whether this login slot requires 2FA/TOTP. Only applicable for 'login' type."""
+    supports_totp: Optional[bool] = None
+    """
+    Whether the connector can perform 2FA/TOTP when the bound login has it
+    configured. Logins without TOTP remain bindable. Only applicable for 'login'
+    type.
+    """
