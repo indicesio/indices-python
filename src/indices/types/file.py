@@ -31,7 +31,7 @@ class File(BaseModel):
     size_bytes: int
     """Size of the file in bytes."""
 
-    source: Literal["UPLOAD", "RUN_OUTPUT", "GENERATION", "FORGE_SESSION"]
+    source: Literal["UPLOAD", "RUN_OUTPUT"]
     """How the file came to exist: uploaded by the user or produced by a run."""
 
     task_id: Optional[str] = None
