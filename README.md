@@ -33,7 +33,7 @@ client = Indices(
 )
 
 run = client.runs.run(
-    connector_id="connector_id",
+    connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
 print(run.result_json)
@@ -60,7 +60,7 @@ client = AsyncIndices(
 
 async def main() -> None:
     run = await client.runs.run(
-        connector_id="connector_id",
+        connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
         arguments={"...": None},
     )
     print(run.result_json)
@@ -97,7 +97,7 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         run = await client.runs.run(
-            connector_id="connector_id",
+            connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
             arguments={"...": None},
         )
         print(run.result_json)
@@ -126,14 +126,12 @@ from indices import Indices
 
 client = Indices()
 
-all_runs = []
+all_connectors = []
 # Automatically fetches more pages as needed.
-for run in client.runs.list(
-    connector_id="connector_id",
-):
-    # Do something with run here
-    all_runs.append(run)
-print(all_runs)
+for connector in client.connectors.list():
+    # Do something with connector here
+    all_connectors.append(connector)
+print(all_connectors)
 ```
 
 Or, asynchronously:
@@ -146,13 +144,11 @@ client = AsyncIndices()
 
 
 async def main() -> None:
-    all_runs = []
+    all_connectors = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for run in client.runs.list(
-        connector_id="connector_id",
-    ):
-        all_runs.append(run)
-    print(all_runs)
+    async for connector in client.connectors.list():
+        all_connectors.append(connector)
+    print(all_connectors)
 
 
 asyncio.run(main())
@@ -161,9 +157,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.runs.list(
-    connector_id="connector_id",
-)
+first_page = await client.connectors.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -175,13 +169,11 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.runs.list(
-    connector_id="connector_id",
-)
+first_page = await client.connectors.list()
 
 print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."
-for run in first_page.data:
-    print(run.id)
+for connector in first_page.data:
+    print(connector.id)
 
 # Remove `await` for non-async usage.
 ```
@@ -220,7 +212,7 @@ client = Indices()
 
 try:
     client.runs.run(
-        connector_id="connector_id",
+        connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
         arguments={"...": None},
     )
 except indices.APIConnectionError as e:
@@ -266,7 +258,7 @@ client = Indices(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).runs.run(
-    connector_id="connector_id",
+    connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
 ```
@@ -292,7 +284,7 @@ client = Indices(
 
 # Override per-request:
 client.with_options(timeout=5.0).runs.run(
-    connector_id="connector_id",
+    connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
 ```
@@ -336,7 +328,7 @@ from indices import Indices
 
 client = Indices()
 response = client.runs.with_raw_response.run(
-    connector_id="connector_id",
+    connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={
         "...": None
     },
@@ -359,7 +351,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.runs.with_streaming_response.run(
-    connector_id="connector_id",
+    connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 ) as response:
     print(response.headers.get("X-My-Header"))

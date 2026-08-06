@@ -135,6 +135,48 @@ class TestCaptureSessions:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_abandon(self, client: Indices) -> None:
+        capture_session = client.capture_sessions.abandon(
+            "id",
+        )
+        assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_abandon(self, client: Indices) -> None:
+        response = client.capture_sessions.with_raw_response.abandon(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        capture_session = response.parse()
+        assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_abandon(self, client: Indices) -> None:
+        with client.capture_sessions.with_streaming_response.abandon(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            capture_session = response.parse()
+            assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_abandon(self, client: Indices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.capture_sessions.with_raw_response.abandon(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_complete(self, client: Indices) -> None:
         capture_session = client.capture_sessions.complete(
             "id",
@@ -296,6 +338,48 @@ class TestAsyncCaptureSessions:
             assert_matches_type(CaptureSessionListResponse, capture_session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_abandon(self, async_client: AsyncIndices) -> None:
+        capture_session = await async_client.capture_sessions.abandon(
+            "id",
+        )
+        assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_abandon(self, async_client: AsyncIndices) -> None:
+        response = await async_client.capture_sessions.with_raw_response.abandon(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        capture_session = await response.parse()
+        assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_abandon(self, async_client: AsyncIndices) -> None:
+        async with async_client.capture_sessions.with_streaming_response.abandon(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            capture_session = await response.parse()
+            assert_matches_type(CaptureSession, capture_session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_abandon(self, async_client: AsyncIndices) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.capture_sessions.with_raw_response.abandon(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
