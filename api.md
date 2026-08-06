@@ -21,6 +21,21 @@ Methods:
 - <code title="delete /v1beta/tasks/{id}">client.tasks.<a href="./src/indices/resources/tasks.py">delete</a>(id) -> <a href="./src/indices/types/task_delete_response.py">TaskDeleteResponse</a></code>
 - <code title="post /v1beta/tasks/{id}/attach_capture_session">client.tasks.<a href="./src/indices/resources/tasks.py">attach_capture_session</a>(id, \*\*<a href="src/indices/types/task_attach_capture_session_params.py">params</a>) -> <a href="./src/indices/types/task.py">Task</a></code>
 
+# Connectors
+
+Types:
+
+```python
+from indices.types import Connector, ConnectorDeleteResponse, ConnectorListRevisionsResponse
+```
+
+Methods:
+
+- <code title="get /v1beta/connectors/{connector_id}">client.connectors.<a href="./src/indices/resources/connectors.py">retrieve</a>(connector_id) -> <a href="./src/indices/types/connector.py">Connector</a></code>
+- <code title="get /v1beta/connectors">client.connectors.<a href="./src/indices/resources/connectors.py">list</a>(\*\*<a href="src/indices/types/connector_list_params.py">params</a>) -> <a href="./src/indices/types/connector.py">SyncCursorPage[Connector]</a></code>
+- <code title="delete /v1beta/connectors/{connector_id}">client.connectors.<a href="./src/indices/resources/connectors.py">delete</a>(connector_id) -> <a href="./src/indices/types/connector_delete_response.py">ConnectorDeleteResponse</a></code>
+- <code title="get /v1beta/connectors/{connector_id}/revisions">client.connectors.<a href="./src/indices/resources/connectors.py">list_revisions</a>(connector_id) -> <a href="./src/indices/types/connector_list_revisions_response.py">ConnectorListRevisionsResponse</a></code>
+
 # Runs
 
 Types:
@@ -93,4 +108,5 @@ Methods:
 - <code title="post /v1beta/capture_sessions">client.capture_sessions.<a href="./src/indices/resources/capture_sessions.py">create</a>(\*\*<a href="src/indices/types/capture_session_create_params.py">params</a>) -> <a href="./src/indices/types/capture_session.py">CaptureSession</a></code>
 - <code title="get /v1beta/capture_sessions/{id}">client.capture_sessions.<a href="./src/indices/resources/capture_sessions.py">retrieve</a>(id) -> <a href="./src/indices/types/capture_session.py">CaptureSession</a></code>
 - <code title="get /v1beta/capture_sessions">client.capture_sessions.<a href="./src/indices/resources/capture_sessions.py">list</a>() -> <a href="./src/indices/types/capture_session_list_response.py">CaptureSessionListResponse</a></code>
+- <code title="post /v1beta/capture_sessions/{id}/abandon">client.capture_sessions.<a href="./src/indices/resources/capture_sessions.py">abandon</a>(id) -> <a href="./src/indices/types/capture_session.py">CaptureSession</a></code>
 - <code title="post /v1beta/capture_sessions/{id}/complete">client.capture_sessions.<a href="./src/indices/resources/capture_sessions.py">complete</a>(id) -> <a href="./src/indices/types/capture_session.py">CaptureSession</a></code>
