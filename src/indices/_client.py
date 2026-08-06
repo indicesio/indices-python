@@ -35,11 +35,12 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import runs, files, tasks, secrets, capture_sessions
+    from .resources import runs, files, tasks, secrets, connectors, capture_sessions
     from .resources.runs import RunsResource, AsyncRunsResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.secrets import SecretsResource, AsyncSecretsResource
+    from .resources.connectors import ConnectorsResource, AsyncConnectorsResource
     from .resources.capture_sessions import CaptureSessionsResource, AsyncCaptureSessionsResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Indices", "AsyncIndices", "Client", "AsyncClient"]
@@ -115,6 +116,13 @@ class Indices(SyncAPIClient):
         from .resources.tasks import TasksResource
 
         return TasksResource(self)
+
+    @cached_property
+    def connectors(self) -> ConnectorsResource:
+        """Manage connectors."""
+        from .resources.connectors import ConnectorsResource
+
+        return ConnectorsResource(self)
 
     @cached_property
     def runs(self) -> RunsResource:
@@ -330,6 +338,13 @@ class AsyncIndices(AsyncAPIClient):
         return AsyncTasksResource(self)
 
     @cached_property
+    def connectors(self) -> AsyncConnectorsResource:
+        """Manage connectors."""
+        from .resources.connectors import AsyncConnectorsResource
+
+        return AsyncConnectorsResource(self)
+
+    @cached_property
     def runs(self) -> AsyncRunsResource:
         """Execute a task."""
         from .resources.runs import AsyncRunsResource
@@ -485,6 +500,13 @@ class IndicesWithRawResponse:
         return TasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
+    def connectors(self) -> connectors.ConnectorsResourceWithRawResponse:
+        """Manage connectors."""
+        from .resources.connectors import ConnectorsResourceWithRawResponse
+
+        return ConnectorsResourceWithRawResponse(self._client.connectors)
+
+    @cached_property
     def runs(self) -> runs.RunsResourceWithRawResponse:
         """Execute a task."""
         from .resources.runs import RunsResourceWithRawResponse
@@ -526,6 +548,13 @@ class AsyncIndicesWithRawResponse:
         from .resources.tasks import AsyncTasksResourceWithRawResponse
 
         return AsyncTasksResourceWithRawResponse(self._client.tasks)
+
+    @cached_property
+    def connectors(self) -> connectors.AsyncConnectorsResourceWithRawResponse:
+        """Manage connectors."""
+        from .resources.connectors import AsyncConnectorsResourceWithRawResponse
+
+        return AsyncConnectorsResourceWithRawResponse(self._client.connectors)
 
     @cached_property
     def runs(self) -> runs.AsyncRunsResourceWithRawResponse:
@@ -571,6 +600,13 @@ class IndicesWithStreamedResponse:
         return TasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
+    def connectors(self) -> connectors.ConnectorsResourceWithStreamingResponse:
+        """Manage connectors."""
+        from .resources.connectors import ConnectorsResourceWithStreamingResponse
+
+        return ConnectorsResourceWithStreamingResponse(self._client.connectors)
+
+    @cached_property
     def runs(self) -> runs.RunsResourceWithStreamingResponse:
         """Execute a task."""
         from .resources.runs import RunsResourceWithStreamingResponse
@@ -612,6 +648,13 @@ class AsyncIndicesWithStreamedResponse:
         from .resources.tasks import AsyncTasksResourceWithStreamingResponse
 
         return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
+
+    @cached_property
+    def connectors(self) -> connectors.AsyncConnectorsResourceWithStreamingResponse:
+        """Manage connectors."""
+        from .resources.connectors import AsyncConnectorsResourceWithStreamingResponse
+
+        return AsyncConnectorsResourceWithStreamingResponse(self._client.connectors)
 
     @cached_property
     def runs(self) -> runs.AsyncRunsResourceWithStreamingResponse:
