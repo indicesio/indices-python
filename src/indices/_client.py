@@ -35,12 +35,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import runs, files, secrets, connectors, capture_sessions
-    from .resources.runs import RunsResource, AsyncRunsResource
-    from .resources.files import FilesResource, AsyncFilesResource
-    from .resources.secrets import SecretsResource, AsyncSecretsResource
-    from .resources.connectors import ConnectorsResource, AsyncConnectorsResource
-    from .resources.capture_sessions import CaptureSessionsResource, AsyncCaptureSessionsResource
+    from .resources import beta
+    from .resources.beta.beta import BetaResource, AsyncBetaResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "Indices", "AsyncIndices", "Client", "AsyncClient"]
 
@@ -110,40 +106,10 @@ class Indices(SyncAPIClient):
         )
 
     @cached_property
-    def connectors(self) -> ConnectorsResource:
-        """Manage connectors."""
-        from .resources.connectors import ConnectorsResource
+    def beta(self) -> BetaResource:
+        from .resources.beta import BetaResource
 
-        return ConnectorsResource(self)
-
-    @cached_property
-    def runs(self) -> RunsResource:
-        """Execute a task."""
-        from .resources.runs import RunsResource
-
-        return RunsResource(self)
-
-    @cached_property
-    def secrets(self) -> SecretsResource:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import SecretsResource
-
-        return SecretsResource(self)
-
-    @cached_property
-    def files(self) -> FilesResource:
-        from .resources.files import FilesResource
-
-        return FilesResource(self)
-
-    @cached_property
-    def capture_sessions(self) -> CaptureSessionsResource:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import CaptureSessionsResource
-
-        return CaptureSessionsResource(self)
+        return BetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> IndicesWithRawResponse:
@@ -323,40 +289,10 @@ class AsyncIndices(AsyncAPIClient):
         )
 
     @cached_property
-    def connectors(self) -> AsyncConnectorsResource:
-        """Manage connectors."""
-        from .resources.connectors import AsyncConnectorsResource
+    def beta(self) -> AsyncBetaResource:
+        from .resources.beta import AsyncBetaResource
 
-        return AsyncConnectorsResource(self)
-
-    @cached_property
-    def runs(self) -> AsyncRunsResource:
-        """Execute a task."""
-        from .resources.runs import AsyncRunsResource
-
-        return AsyncRunsResource(self)
-
-    @cached_property
-    def secrets(self) -> AsyncSecretsResource:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import AsyncSecretsResource
-
-        return AsyncSecretsResource(self)
-
-    @cached_property
-    def files(self) -> AsyncFilesResource:
-        from .resources.files import AsyncFilesResource
-
-        return AsyncFilesResource(self)
-
-    @cached_property
-    def capture_sessions(self) -> AsyncCaptureSessionsResource:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import AsyncCaptureSessionsResource
-
-        return AsyncCaptureSessionsResource(self)
+        return AsyncBetaResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncIndicesWithRawResponse:
@@ -478,40 +414,10 @@ class IndicesWithRawResponse:
         self._client = client
 
     @cached_property
-    def connectors(self) -> connectors.ConnectorsResourceWithRawResponse:
-        """Manage connectors."""
-        from .resources.connectors import ConnectorsResourceWithRawResponse
+    def beta(self) -> beta.BetaResourceWithRawResponse:
+        from .resources.beta import BetaResourceWithRawResponse
 
-        return ConnectorsResourceWithRawResponse(self._client.connectors)
-
-    @cached_property
-    def runs(self) -> runs.RunsResourceWithRawResponse:
-        """Execute a task."""
-        from .resources.runs import RunsResourceWithRawResponse
-
-        return RunsResourceWithRawResponse(self._client.runs)
-
-    @cached_property
-    def secrets(self) -> secrets.SecretsResourceWithRawResponse:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import SecretsResourceWithRawResponse
-
-        return SecretsResourceWithRawResponse(self._client.secrets)
-
-    @cached_property
-    def files(self) -> files.FilesResourceWithRawResponse:
-        from .resources.files import FilesResourceWithRawResponse
-
-        return FilesResourceWithRawResponse(self._client.files)
-
-    @cached_property
-    def capture_sessions(self) -> capture_sessions.CaptureSessionsResourceWithRawResponse:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import CaptureSessionsResourceWithRawResponse
-
-        return CaptureSessionsResourceWithRawResponse(self._client.capture_sessions)
+        return BetaResourceWithRawResponse(self._client.beta)
 
 
 class AsyncIndicesWithRawResponse:
@@ -521,40 +427,10 @@ class AsyncIndicesWithRawResponse:
         self._client = client
 
     @cached_property
-    def connectors(self) -> connectors.AsyncConnectorsResourceWithRawResponse:
-        """Manage connectors."""
-        from .resources.connectors import AsyncConnectorsResourceWithRawResponse
+    def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
+        from .resources.beta import AsyncBetaResourceWithRawResponse
 
-        return AsyncConnectorsResourceWithRawResponse(self._client.connectors)
-
-    @cached_property
-    def runs(self) -> runs.AsyncRunsResourceWithRawResponse:
-        """Execute a task."""
-        from .resources.runs import AsyncRunsResourceWithRawResponse
-
-        return AsyncRunsResourceWithRawResponse(self._client.runs)
-
-    @cached_property
-    def secrets(self) -> secrets.AsyncSecretsResourceWithRawResponse:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import AsyncSecretsResourceWithRawResponse
-
-        return AsyncSecretsResourceWithRawResponse(self._client.secrets)
-
-    @cached_property
-    def files(self) -> files.AsyncFilesResourceWithRawResponse:
-        from .resources.files import AsyncFilesResourceWithRawResponse
-
-        return AsyncFilesResourceWithRawResponse(self._client.files)
-
-    @cached_property
-    def capture_sessions(self) -> capture_sessions.AsyncCaptureSessionsResourceWithRawResponse:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import AsyncCaptureSessionsResourceWithRawResponse
-
-        return AsyncCaptureSessionsResourceWithRawResponse(self._client.capture_sessions)
+        return AsyncBetaResourceWithRawResponse(self._client.beta)
 
 
 class IndicesWithStreamedResponse:
@@ -564,40 +440,10 @@ class IndicesWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def connectors(self) -> connectors.ConnectorsResourceWithStreamingResponse:
-        """Manage connectors."""
-        from .resources.connectors import ConnectorsResourceWithStreamingResponse
+    def beta(self) -> beta.BetaResourceWithStreamingResponse:
+        from .resources.beta import BetaResourceWithStreamingResponse
 
-        return ConnectorsResourceWithStreamingResponse(self._client.connectors)
-
-    @cached_property
-    def runs(self) -> runs.RunsResourceWithStreamingResponse:
-        """Execute a task."""
-        from .resources.runs import RunsResourceWithStreamingResponse
-
-        return RunsResourceWithStreamingResponse(self._client.runs)
-
-    @cached_property
-    def secrets(self) -> secrets.SecretsResourceWithStreamingResponse:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import SecretsResourceWithStreamingResponse
-
-        return SecretsResourceWithStreamingResponse(self._client.secrets)
-
-    @cached_property
-    def files(self) -> files.FilesResourceWithStreamingResponse:
-        from .resources.files import FilesResourceWithStreamingResponse
-
-        return FilesResourceWithStreamingResponse(self._client.files)
-
-    @cached_property
-    def capture_sessions(self) -> capture_sessions.CaptureSessionsResourceWithStreamingResponse:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import CaptureSessionsResourceWithStreamingResponse
-
-        return CaptureSessionsResourceWithStreamingResponse(self._client.capture_sessions)
+        return BetaResourceWithStreamingResponse(self._client.beta)
 
 
 class AsyncIndicesWithStreamedResponse:
@@ -607,40 +453,10 @@ class AsyncIndicesWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def connectors(self) -> connectors.AsyncConnectorsResourceWithStreamingResponse:
-        """Manage connectors."""
-        from .resources.connectors import AsyncConnectorsResourceWithStreamingResponse
+    def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
+        from .resources.beta import AsyncBetaResourceWithStreamingResponse
 
-        return AsyncConnectorsResourceWithStreamingResponse(self._client.connectors)
-
-    @cached_property
-    def runs(self) -> runs.AsyncRunsResourceWithStreamingResponse:
-        """Execute a task."""
-        from .resources.runs import AsyncRunsResourceWithStreamingResponse
-
-        return AsyncRunsResourceWithStreamingResponse(self._client.runs)
-
-    @cached_property
-    def secrets(self) -> secrets.AsyncSecretsResourceWithStreamingResponse:
-        """Manage secrets like login credentials and API keys."""
-        from .resources.secrets import AsyncSecretsResourceWithStreamingResponse
-
-        return AsyncSecretsResourceWithStreamingResponse(self._client.secrets)
-
-    @cached_property
-    def files(self) -> files.AsyncFilesResourceWithStreamingResponse:
-        from .resources.files import AsyncFilesResourceWithStreamingResponse
-
-        return AsyncFilesResourceWithStreamingResponse(self._client.files)
-
-    @cached_property
-    def capture_sessions(self) -> capture_sessions.AsyncCaptureSessionsResourceWithStreamingResponse:
-        """
-        Record a browser session; a completed capture is a reusable input for task generation.
-        """
-        from .resources.capture_sessions import AsyncCaptureSessionsResourceWithStreamingResponse
-
-        return AsyncCaptureSessionsResourceWithStreamingResponse(self._client.capture_sessions)
+        return AsyncBetaResourceWithStreamingResponse(self._client.beta)
 
 
 Client = Indices

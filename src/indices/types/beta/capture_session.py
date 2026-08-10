@@ -3,7 +3,7 @@
 from typing import Optional
 from datetime import datetime
 
-from .._models import BaseModel
+from ..._models import BaseModel
 from .capture_session_state import CaptureSessionState
 
 __all__ = ["CaptureSession"]

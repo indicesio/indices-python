@@ -6,21 +6,21 @@ from typing import Iterable
 
 import httpx
 
-from ..types import capture_session_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.capture_session import CaptureSession
-from ..types.session_cookie_param import SessionCookieParam
-from ..types.capture_session_list_response import CaptureSessionListResponse
+from ...types.beta import capture_session_create_params
+from ..._base_client import make_request_options
+from ...types.beta.capture_session import CaptureSession
+from ...types.beta.session_cookie_param import SessionCookieParam
+from ...types.beta.capture_session_list_response import CaptureSessionListResponse
 
 __all__ = ["CaptureSessionsResource", "AsyncCaptureSessionsResource"]
 

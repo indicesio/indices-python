@@ -2,88 +2,66 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from ..types import secret_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.secret import Secret
-from ..types.secret_list_response import SecretListResponse
-from ..types.secret_delete_response import SecretDeleteResponse
-from ..types.secret_get_totp_response import SecretGetTotpResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...types.beta import connector_list_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.beta.connector import Connector
+from ...types.beta.connector_delete_response import ConnectorDeleteResponse
+from ...types.beta.connector_list_revisions_response import ConnectorListRevisionsResponse
 
-__all__ = ["SecretsResource", "AsyncSecretsResource"]
+__all__ = ["ConnectorsResource", "AsyncConnectorsResource"]
 
 
-class SecretsResource(SyncAPIResource):
-    """Manage secrets like login credentials and API keys."""
+class ConnectorsResource(SyncAPIResource):
+    """Manage connectors."""
 
     @cached_property
-    def with_raw_response(self) -> SecretsResourceWithRawResponse:
+    def with_raw_response(self) -> ConnectorsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/indicesio/indices-python#accessing-raw-response-data-eg-headers
         """
-        return SecretsResourceWithRawResponse(self)
+        return ConnectorsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SecretsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ConnectorsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
-        return SecretsResourceWithStreamingResponse(self)
+        return ConnectorsResourceWithStreamingResponse(self)
 
-    def create(
+    def retrieve(
         self,
+        connector_id: str,
         *,
-        name: str,
-        secret_type: Literal["login", "string"],
-        password: Optional[str] | Omit = omit,
-        totp_secret: Optional[str] | Omit = omit,
-        username: Optional[str] | Omit = omit,
-        value: Optional[str] | Omit = omit,
-        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Secret:
-        """<p>Create a new secret.
-
-        Credentials are stored securely in 1Password.</p>
+    ) -> Connector:
+        """
+        <p>Retrieve a connector by its ID.</p>
 
         Args:
-          name: Human-readable name for the secret.
-
-          secret_type: Type of secret: 'login' for credentials, 'string' for simple values.
-
-          password: Login password. Required for 'login' type.
-
-          totp_secret: Optional TOTP secret (base32 encoded). Only for 'login' type.
-
-          username: Login username. Required for 'login' type.
-
-          value: Secret value. Required for 'string' type.
-
-          website: Optional website URL for context.
+          connector_id: The ID of the connector to retrieve.
 
           extra_headers: Send extra headers
 
@@ -93,51 +71,66 @@ class SecretsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/v1beta/secrets",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "secret_type": secret_type,
-                    "password": password,
-                    "totp_secret": totp_secret,
-                    "username": username,
-                    "value": value,
-                    "website": website,
-                },
-                secret_create_params.SecretCreateParams,
-            ),
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            path_template("/v1beta/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Secret,
+            cast_to=Connector,
         )
 
     def list(
         self,
         *,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretListResponse:
-        """<p>List all your secrets.
-
-        Returns metadata only, not the actual credentials.</p>
+    ) -> SyncCursorPage[Connector]:
         """
-        return self._get(
-            "/v1beta/secrets",
+        <p>List the connectors in your catalog.</p>
+
+        Args:
+          cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          limit: Maximum number of connectors to return.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/v1beta/connectors",
+            page=SyncCursorPage[Connector],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    connector_list_params.ConnectorListParams,
+                ),
             ),
-            cast_to=SecretListResponse,
+            model=Connector,
         )
 
     def delete(
         self,
-        id: str,
+        connector_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -145,13 +138,12 @@ class SecretsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretDeleteResponse:
-        """<p>Delete a secret.
-
-        This removes it from both the database and 1Password.</p>
+    ) -> ConnectorDeleteResponse:
+        """
+        <p>Delete a connector by its ID.</p><p>A legacy task that generated the connector is kept, but is detached and no longer runnable.</p>
 
         Args:
-          id: The ID of the secret to delete.
+          connector_id: The ID of the connector to delete.
 
           extra_headers: Send extra headers
 
@@ -161,19 +153,19 @@ class SecretsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return self._delete(
-            path_template("/v1beta/secrets/{id}", id=id),
+            path_template("/v1beta/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SecretDeleteResponse,
+            cast_to=ConnectorDeleteResponse,
         )
 
-    def get_totp(
+    def list_revisions(
         self,
-        id: str,
+        connector_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -181,12 +173,12 @@ class SecretsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretGetTotpResponse:
+    ) -> ConnectorListRevisionsResponse:
         """
-        <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
+        <p>List the full revision lineage of a connector, newest first.</p>
 
         Args:
-          id: The ID of the secret.
+          connector_id: The ID of the connector whose revisions to list.
 
           extra_headers: Send extra headers
 
@@ -196,74 +188,55 @@ class SecretsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            path_template("/v1beta/secrets/{id}/totp", id=id),
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return self._get(
+            path_template("/v1beta/connectors/{connector_id}/revisions", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SecretGetTotpResponse,
+            cast_to=ConnectorListRevisionsResponse,
         )
 
 
-class AsyncSecretsResource(AsyncAPIResource):
-    """Manage secrets like login credentials and API keys."""
+class AsyncConnectorsResource(AsyncAPIResource):
+    """Manage connectors."""
 
     @cached_property
-    def with_raw_response(self) -> AsyncSecretsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncConnectorsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/indicesio/indices-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncSecretsResourceWithRawResponse(self)
+        return AsyncConnectorsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSecretsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncConnectorsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
-        return AsyncSecretsResourceWithStreamingResponse(self)
+        return AsyncConnectorsResourceWithStreamingResponse(self)
 
-    async def create(
+    async def retrieve(
         self,
+        connector_id: str,
         *,
-        name: str,
-        secret_type: Literal["login", "string"],
-        password: Optional[str] | Omit = omit,
-        totp_secret: Optional[str] | Omit = omit,
-        username: Optional[str] | Omit = omit,
-        value: Optional[str] | Omit = omit,
-        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Secret:
-        """<p>Create a new secret.
-
-        Credentials are stored securely in 1Password.</p>
+    ) -> Connector:
+        """
+        <p>Retrieve a connector by its ID.</p>
 
         Args:
-          name: Human-readable name for the secret.
-
-          secret_type: Type of secret: 'login' for credentials, 'string' for simple values.
-
-          password: Login password. Required for 'login' type.
-
-          totp_secret: Optional TOTP secret (base32 encoded). Only for 'login' type.
-
-          username: Login username. Required for 'login' type.
-
-          value: Secret value. Required for 'string' type.
-
-          website: Optional website URL for context.
+          connector_id: The ID of the connector to retrieve.
 
           extra_headers: Send extra headers
 
@@ -273,51 +246,66 @@ class AsyncSecretsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/v1beta/secrets",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "secret_type": secret_type,
-                    "password": password,
-                    "totp_secret": totp_secret,
-                    "username": username,
-                    "value": value,
-                    "website": website,
-                },
-                secret_create_params.SecretCreateParams,
-            ),
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            path_template("/v1beta/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Secret,
+            cast_to=Connector,
         )
 
-    async def list(
+    def list(
         self,
         *,
+        cursor: str | Omit = omit,
+        limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretListResponse:
-        """<p>List all your secrets.
-
-        Returns metadata only, not the actual credentials.</p>
+    ) -> AsyncPaginator[Connector, AsyncCursorPage[Connector]]:
         """
-        return await self._get(
-            "/v1beta/secrets",
+        <p>List the connectors in your catalog.</p>
+
+        Args:
+          cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          limit: Maximum number of connectors to return.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/v1beta/connectors",
+            page=AsyncCursorPage[Connector],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "cursor": cursor,
+                        "limit": limit,
+                    },
+                    connector_list_params.ConnectorListParams,
+                ),
             ),
-            cast_to=SecretListResponse,
+            model=Connector,
         )
 
     async def delete(
         self,
-        id: str,
+        connector_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -325,13 +313,12 @@ class AsyncSecretsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretDeleteResponse:
-        """<p>Delete a secret.
-
-        This removes it from both the database and 1Password.</p>
+    ) -> ConnectorDeleteResponse:
+        """
+        <p>Delete a connector by its ID.</p><p>A legacy task that generated the connector is kept, but is detached and no longer runnable.</p>
 
         Args:
-          id: The ID of the secret to delete.
+          connector_id: The ID of the connector to delete.
 
           extra_headers: Send extra headers
 
@@ -341,19 +328,19 @@ class AsyncSecretsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
         return await self._delete(
-            path_template("/v1beta/secrets/{id}", id=id),
+            path_template("/v1beta/connectors/{connector_id}", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SecretDeleteResponse,
+            cast_to=ConnectorDeleteResponse,
         )
 
-    async def get_totp(
+    async def list_revisions(
         self,
-        id: str,
+        connector_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -361,12 +348,12 @@ class AsyncSecretsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SecretGetTotpResponse:
+    ) -> ConnectorListRevisionsResponse:
         """
-        <p>Generate a current TOTP code for a login secret that has 2FA configured.</p>
+        <p>List the full revision lineage of a connector, newest first.</p>
 
         Args:
-          id: The ID of the secret.
+          connector_id: The ID of the connector whose revisions to list.
 
           extra_headers: Send extra headers
 
@@ -376,84 +363,84 @@ class AsyncSecretsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            path_template("/v1beta/secrets/{id}/totp", id=id),
+        if not connector_id:
+            raise ValueError(f"Expected a non-empty value for `connector_id` but received {connector_id!r}")
+        return await self._get(
+            path_template("/v1beta/connectors/{connector_id}/revisions", connector_id=connector_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=SecretGetTotpResponse,
+            cast_to=ConnectorListRevisionsResponse,
         )
 
 
-class SecretsResourceWithRawResponse:
-    def __init__(self, secrets: SecretsResource) -> None:
-        self._secrets = secrets
+class ConnectorsResourceWithRawResponse:
+    def __init__(self, connectors: ConnectorsResource) -> None:
+        self._connectors = connectors
 
-        self.create = to_raw_response_wrapper(
-            secrets.create,
+        self.retrieve = to_raw_response_wrapper(
+            connectors.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            secrets.list,
+            connectors.list,
         )
         self.delete = to_raw_response_wrapper(
-            secrets.delete,
+            connectors.delete,
         )
-        self.get_totp = to_raw_response_wrapper(
-            secrets.get_totp,
+        self.list_revisions = to_raw_response_wrapper(
+            connectors.list_revisions,
         )
 
 
-class AsyncSecretsResourceWithRawResponse:
-    def __init__(self, secrets: AsyncSecretsResource) -> None:
-        self._secrets = secrets
+class AsyncConnectorsResourceWithRawResponse:
+    def __init__(self, connectors: AsyncConnectorsResource) -> None:
+        self._connectors = connectors
 
-        self.create = async_to_raw_response_wrapper(
-            secrets.create,
+        self.retrieve = async_to_raw_response_wrapper(
+            connectors.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            secrets.list,
+            connectors.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            secrets.delete,
+            connectors.delete,
         )
-        self.get_totp = async_to_raw_response_wrapper(
-            secrets.get_totp,
+        self.list_revisions = async_to_raw_response_wrapper(
+            connectors.list_revisions,
         )
 
 
-class SecretsResourceWithStreamingResponse:
-    def __init__(self, secrets: SecretsResource) -> None:
-        self._secrets = secrets
+class ConnectorsResourceWithStreamingResponse:
+    def __init__(self, connectors: ConnectorsResource) -> None:
+        self._connectors = connectors
 
-        self.create = to_streamed_response_wrapper(
-            secrets.create,
+        self.retrieve = to_streamed_response_wrapper(
+            connectors.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            secrets.list,
+            connectors.list,
         )
         self.delete = to_streamed_response_wrapper(
-            secrets.delete,
+            connectors.delete,
         )
-        self.get_totp = to_streamed_response_wrapper(
-            secrets.get_totp,
+        self.list_revisions = to_streamed_response_wrapper(
+            connectors.list_revisions,
         )
 
 
-class AsyncSecretsResourceWithStreamingResponse:
-    def __init__(self, secrets: AsyncSecretsResource) -> None:
-        self._secrets = secrets
+class AsyncConnectorsResourceWithStreamingResponse:
+    def __init__(self, connectors: AsyncConnectorsResource) -> None:
+        self._connectors = connectors
 
-        self.create = async_to_streamed_response_wrapper(
-            secrets.create,
+        self.retrieve = async_to_streamed_response_wrapper(
+            connectors.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            secrets.list,
+            connectors.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            secrets.delete,
+            connectors.delete,
         )
-        self.get_totp = async_to_streamed_response_wrapper(
-            secrets.get_totp,
+        self.list_revisions = async_to_streamed_response_wrapper(
+            connectors.list_revisions,
         )

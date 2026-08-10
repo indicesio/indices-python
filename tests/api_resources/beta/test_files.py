@@ -9,14 +9,14 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import (
+from indices.pagination import SyncCursorPage, AsyncCursorPage
+from indices.types.beta import (
     File,
     FileCreateResponse,
     FileDeleteResponse,
     FileFinalizeResponse,
     FileGetDownloadURLResponse,
 )
-from indices.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -27,7 +27,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Indices) -> None:
-        file = client.files.create(
+        file = client.beta.files.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -37,7 +37,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Indices) -> None:
-        response = client.files.with_raw_response.create(
+        response = client.beta.files.with_raw_response.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -51,7 +51,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Indices) -> None:
-        with client.files.with_streaming_response.create(
+        with client.beta.files.with_streaming_response.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -67,7 +67,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Indices) -> None:
-        file = client.files.retrieve(
+        file = client.beta.files.retrieve(
             "file_id",
         )
         assert_matches_type(File, file, path=["response"])
@@ -75,7 +75,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Indices) -> None:
-        response = client.files.with_raw_response.retrieve(
+        response = client.beta.files.with_raw_response.retrieve(
             "file_id",
         )
 
@@ -87,7 +87,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Indices) -> None:
-        with client.files.with_streaming_response.retrieve(
+        with client.beta.files.with_streaming_response.retrieve(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -102,20 +102,20 @@ class TestFiles:
     @parametrize
     def test_path_params_retrieve(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.retrieve(
+            client.beta.files.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Indices) -> None:
-        file = client.files.list()
+        file = client.beta.files.list()
         assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Indices) -> None:
-        file = client.files.list(
+        file = client.beta.files.list(
             cursor="cursor",
             filename="filename",
             limit=1,
@@ -130,7 +130,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
-        response = client.files.with_raw_response.list()
+        response = client.beta.files.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -140,7 +140,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
-        with client.files.with_streaming_response.list() as response:
+        with client.beta.files.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -152,7 +152,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Indices) -> None:
-        file = client.files.delete(
+        file = client.beta.files.delete(
             "file_id",
         )
         assert_matches_type(FileDeleteResponse, file, path=["response"])
@@ -160,7 +160,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Indices) -> None:
-        response = client.files.with_raw_response.delete(
+        response = client.beta.files.with_raw_response.delete(
             "file_id",
         )
 
@@ -172,7 +172,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Indices) -> None:
-        with client.files.with_streaming_response.delete(
+        with client.beta.files.with_streaming_response.delete(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -187,14 +187,14 @@ class TestFiles:
     @parametrize
     def test_path_params_delete(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.delete(
+            client.beta.files.with_raw_response.delete(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_download(self, client: Indices) -> None:
-        file = client.files.download(
+        file = client.beta.files.download(
             "file_id",
         )
         assert file is None
@@ -202,7 +202,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_download(self, client: Indices) -> None:
-        response = client.files.with_raw_response.download(
+        response = client.beta.files.with_raw_response.download(
             "file_id",
         )
 
@@ -214,7 +214,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_download(self, client: Indices) -> None:
-        with client.files.with_streaming_response.download(
+        with client.beta.files.with_streaming_response.download(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -229,14 +229,14 @@ class TestFiles:
     @parametrize
     def test_path_params_download(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.download(
+            client.beta.files.with_raw_response.download(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_finalize(self, client: Indices) -> None:
-        file = client.files.finalize(
+        file = client.beta.files.finalize(
             "file_id",
         )
         assert_matches_type(FileFinalizeResponse, file, path=["response"])
@@ -244,7 +244,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_finalize(self, client: Indices) -> None:
-        response = client.files.with_raw_response.finalize(
+        response = client.beta.files.with_raw_response.finalize(
             "file_id",
         )
 
@@ -256,7 +256,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_finalize(self, client: Indices) -> None:
-        with client.files.with_streaming_response.finalize(
+        with client.beta.files.with_streaming_response.finalize(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -271,14 +271,14 @@ class TestFiles:
     @parametrize
     def test_path_params_finalize(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.finalize(
+            client.beta.files.with_raw_response.finalize(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_download_url(self, client: Indices) -> None:
-        file = client.files.get_download_url(
+        file = client.beta.files.get_download_url(
             "file_id",
         )
         assert_matches_type(FileGetDownloadURLResponse, file, path=["response"])
@@ -286,7 +286,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_download_url(self, client: Indices) -> None:
-        response = client.files.with_raw_response.get_download_url(
+        response = client.beta.files.with_raw_response.get_download_url(
             "file_id",
         )
 
@@ -298,7 +298,7 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_download_url(self, client: Indices) -> None:
-        with client.files.with_streaming_response.get_download_url(
+        with client.beta.files.with_streaming_response.get_download_url(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -313,7 +313,7 @@ class TestFiles:
     @parametrize
     def test_path_params_get_download_url(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.get_download_url(
+            client.beta.files.with_raw_response.get_download_url(
                 "",
             )
 
@@ -326,7 +326,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.create(
+        file = await async_client.beta.files.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -336,7 +336,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.create(
+        response = await async_client.beta.files.with_raw_response.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -350,7 +350,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.create(
+        async with async_client.beta.files.with_streaming_response.create(
             content_type="x",
             name="x",
             size_bytes=0,
@@ -366,7 +366,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.retrieve(
+        file = await async_client.beta.files.retrieve(
             "file_id",
         )
         assert_matches_type(File, file, path=["response"])
@@ -374,7 +374,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.retrieve(
+        response = await async_client.beta.files.with_raw_response.retrieve(
             "file_id",
         )
 
@@ -386,7 +386,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.retrieve(
+        async with async_client.beta.files.with_streaming_response.retrieve(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -401,20 +401,20 @@ class TestAsyncFiles:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.retrieve(
+            await async_client.beta.files.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.list()
+        file = await async_client.beta.files.list()
         assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.list(
+        file = await async_client.beta.files.list(
             cursor="cursor",
             filename="filename",
             limit=1,
@@ -429,7 +429,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.list()
+        response = await async_client.beta.files.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -439,7 +439,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.list() as response:
+        async with async_client.beta.files.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -451,7 +451,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.delete(
+        file = await async_client.beta.files.delete(
             "file_id",
         )
         assert_matches_type(FileDeleteResponse, file, path=["response"])
@@ -459,7 +459,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.delete(
+        response = await async_client.beta.files.with_raw_response.delete(
             "file_id",
         )
 
@@ -471,7 +471,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.delete(
+        async with async_client.beta.files.with_streaming_response.delete(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -486,14 +486,14 @@ class TestAsyncFiles:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.delete(
+            await async_client.beta.files.with_raw_response.delete(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_download(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.download(
+        file = await async_client.beta.files.download(
             "file_id",
         )
         assert file is None
@@ -501,7 +501,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_download(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.download(
+        response = await async_client.beta.files.with_raw_response.download(
             "file_id",
         )
 
@@ -513,7 +513,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_download(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.download(
+        async with async_client.beta.files.with_streaming_response.download(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -528,14 +528,14 @@ class TestAsyncFiles:
     @parametrize
     async def test_path_params_download(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.download(
+            await async_client.beta.files.with_raw_response.download(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_finalize(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.finalize(
+        file = await async_client.beta.files.finalize(
             "file_id",
         )
         assert_matches_type(FileFinalizeResponse, file, path=["response"])
@@ -543,7 +543,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_finalize(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.finalize(
+        response = await async_client.beta.files.with_raw_response.finalize(
             "file_id",
         )
 
@@ -555,7 +555,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_finalize(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.finalize(
+        async with async_client.beta.files.with_streaming_response.finalize(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -570,14 +570,14 @@ class TestAsyncFiles:
     @parametrize
     async def test_path_params_finalize(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.finalize(
+            await async_client.beta.files.with_raw_response.finalize(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_download_url(self, async_client: AsyncIndices) -> None:
-        file = await async_client.files.get_download_url(
+        file = await async_client.beta.files.get_download_url(
             "file_id",
         )
         assert_matches_type(FileGetDownloadURLResponse, file, path=["response"])
@@ -585,7 +585,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_download_url(self, async_client: AsyncIndices) -> None:
-        response = await async_client.files.with_raw_response.get_download_url(
+        response = await async_client.beta.files.with_raw_response.get_download_url(
             "file_id",
         )
 
@@ -597,7 +597,7 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_download_url(self, async_client: AsyncIndices) -> None:
-        async with async_client.files.with_streaming_response.get_download_url(
+        async with async_client.beta.files.with_streaming_response.get_download_url(
             "file_id",
         ) as response:
             assert not response.is_closed
@@ -612,6 +612,6 @@ class TestAsyncFiles:
     @parametrize
     async def test_path_params_get_download_url(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.get_download_url(
+            await async_client.beta.files.with_raw_response.get_download_url(
                 "",
             )

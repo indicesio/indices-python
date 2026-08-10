@@ -9,7 +9,12 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import Secret, SecretListResponse, SecretDeleteResponse, SecretGetTotpResponse
+from indices.types.beta import (
+    Secret,
+    SecretListResponse,
+    SecretDeleteResponse,
+    SecretGetTotpResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +25,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Indices) -> None:
-        secret = client.secrets.create(
+        secret = client.beta.secrets.create(
             name="name",
             secret_type="login",
         )
@@ -29,7 +34,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Indices) -> None:
-        secret = client.secrets.create(
+        secret = client.beta.secrets.create(
             name="name",
             secret_type="login",
             password="password",
@@ -43,7 +48,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Indices) -> None:
-        response = client.secrets.with_raw_response.create(
+        response = client.beta.secrets.with_raw_response.create(
             name="name",
             secret_type="login",
         )
@@ -56,7 +61,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Indices) -> None:
-        with client.secrets.with_streaming_response.create(
+        with client.beta.secrets.with_streaming_response.create(
             name="name",
             secret_type="login",
         ) as response:
@@ -71,13 +76,13 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Indices) -> None:
-        secret = client.secrets.list()
+        secret = client.beta.secrets.list()
         assert_matches_type(SecretListResponse, secret, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
-        response = client.secrets.with_raw_response.list()
+        response = client.beta.secrets.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -87,7 +92,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
-        with client.secrets.with_streaming_response.list() as response:
+        with client.beta.secrets.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -99,7 +104,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Indices) -> None:
-        secret = client.secrets.delete(
+        secret = client.beta.secrets.delete(
             "id",
         )
         assert_matches_type(SecretDeleteResponse, secret, path=["response"])
@@ -107,7 +112,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Indices) -> None:
-        response = client.secrets.with_raw_response.delete(
+        response = client.beta.secrets.with_raw_response.delete(
             "id",
         )
 
@@ -119,7 +124,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Indices) -> None:
-        with client.secrets.with_streaming_response.delete(
+        with client.beta.secrets.with_streaming_response.delete(
             "id",
         ) as response:
             assert not response.is_closed
@@ -134,14 +139,14 @@ class TestSecrets:
     @parametrize
     def test_path_params_delete(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.secrets.with_raw_response.delete(
+            client.beta.secrets.with_raw_response.delete(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_totp(self, client: Indices) -> None:
-        secret = client.secrets.get_totp(
+        secret = client.beta.secrets.get_totp(
             "id",
         )
         assert_matches_type(SecretGetTotpResponse, secret, path=["response"])
@@ -149,7 +154,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_totp(self, client: Indices) -> None:
-        response = client.secrets.with_raw_response.get_totp(
+        response = client.beta.secrets.with_raw_response.get_totp(
             "id",
         )
 
@@ -161,7 +166,7 @@ class TestSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_totp(self, client: Indices) -> None:
-        with client.secrets.with_streaming_response.get_totp(
+        with client.beta.secrets.with_streaming_response.get_totp(
             "id",
         ) as response:
             assert not response.is_closed
@@ -176,7 +181,7 @@ class TestSecrets:
     @parametrize
     def test_path_params_get_totp(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.secrets.with_raw_response.get_totp(
+            client.beta.secrets.with_raw_response.get_totp(
                 "",
             )
 
@@ -189,7 +194,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncIndices) -> None:
-        secret = await async_client.secrets.create(
+        secret = await async_client.beta.secrets.create(
             name="name",
             secret_type="login",
         )
@@ -198,7 +203,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
-        secret = await async_client.secrets.create(
+        secret = await async_client.beta.secrets.create(
             name="name",
             secret_type="login",
             password="password",
@@ -212,7 +217,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
-        response = await async_client.secrets.with_raw_response.create(
+        response = await async_client.beta.secrets.with_raw_response.create(
             name="name",
             secret_type="login",
         )
@@ -225,7 +230,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
-        async with async_client.secrets.with_streaming_response.create(
+        async with async_client.beta.secrets.with_streaming_response.create(
             name="name",
             secret_type="login",
         ) as response:
@@ -240,13 +245,13 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
-        secret = await async_client.secrets.list()
+        secret = await async_client.beta.secrets.list()
         assert_matches_type(SecretListResponse, secret, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
-        response = await async_client.secrets.with_raw_response.list()
+        response = await async_client.beta.secrets.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -256,7 +261,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
-        async with async_client.secrets.with_streaming_response.list() as response:
+        async with async_client.beta.secrets.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -268,7 +273,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncIndices) -> None:
-        secret = await async_client.secrets.delete(
+        secret = await async_client.beta.secrets.delete(
             "id",
         )
         assert_matches_type(SecretDeleteResponse, secret, path=["response"])
@@ -276,7 +281,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncIndices) -> None:
-        response = await async_client.secrets.with_raw_response.delete(
+        response = await async_client.beta.secrets.with_raw_response.delete(
             "id",
         )
 
@@ -288,7 +293,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncIndices) -> None:
-        async with async_client.secrets.with_streaming_response.delete(
+        async with async_client.beta.secrets.with_streaming_response.delete(
             "id",
         ) as response:
             assert not response.is_closed
@@ -303,14 +308,14 @@ class TestAsyncSecrets:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.secrets.with_raw_response.delete(
+            await async_client.beta.secrets.with_raw_response.delete(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_totp(self, async_client: AsyncIndices) -> None:
-        secret = await async_client.secrets.get_totp(
+        secret = await async_client.beta.secrets.get_totp(
             "id",
         )
         assert_matches_type(SecretGetTotpResponse, secret, path=["response"])
@@ -318,7 +323,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_totp(self, async_client: AsyncIndices) -> None:
-        response = await async_client.secrets.with_raw_response.get_totp(
+        response = await async_client.beta.secrets.with_raw_response.get_totp(
             "id",
         )
 
@@ -330,7 +335,7 @@ class TestAsyncSecrets:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_totp(self, async_client: AsyncIndices) -> None:
-        async with async_client.secrets.with_streaming_response.get_totp(
+        async with async_client.beta.secrets.with_streaming_response.get_totp(
             "id",
         ) as response:
             assert not response.is_closed
@@ -345,6 +350,6 @@ class TestAsyncSecrets:
     @parametrize
     async def test_path_params_get_totp(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.secrets.with_raw_response.get_totp(
+            await async_client.beta.secrets.with_raw_response.get_totp(
                 "",
             )

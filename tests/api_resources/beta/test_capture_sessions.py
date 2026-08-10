@@ -9,7 +9,7 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import CaptureSession, CaptureSessionListResponse
+from indices.types.beta import CaptureSession, CaptureSessionListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,13 +20,13 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.create()
+        capture_session = client.beta.capture_sessions.create()
         assert_matches_type(CaptureSession, capture_session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.create(
+        capture_session = client.beta.capture_sessions.create(
             cookies=[
                 {
                     "name": "name",
@@ -44,7 +44,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Indices) -> None:
-        response = client.capture_sessions.with_raw_response.create()
+        response = client.beta.capture_sessions.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -54,7 +54,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Indices) -> None:
-        with client.capture_sessions.with_streaming_response.create() as response:
+        with client.beta.capture_sessions.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -66,7 +66,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.retrieve(
+        capture_session = client.beta.capture_sessions.retrieve(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -74,7 +74,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Indices) -> None:
-        response = client.capture_sessions.with_raw_response.retrieve(
+        response = client.beta.capture_sessions.with_raw_response.retrieve(
             "id",
         )
 
@@ -86,7 +86,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Indices) -> None:
-        with client.capture_sessions.with_streaming_response.retrieve(
+        with client.beta.capture_sessions.with_streaming_response.retrieve(
             "id",
         ) as response:
             assert not response.is_closed
@@ -101,20 +101,20 @@ class TestCaptureSessions:
     @parametrize
     def test_path_params_retrieve(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.capture_sessions.with_raw_response.retrieve(
+            client.beta.capture_sessions.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.list()
+        capture_session = client.beta.capture_sessions.list()
         assert_matches_type(CaptureSessionListResponse, capture_session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
-        response = client.capture_sessions.with_raw_response.list()
+        response = client.beta.capture_sessions.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -124,7 +124,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
-        with client.capture_sessions.with_streaming_response.list() as response:
+        with client.beta.capture_sessions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -136,7 +136,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_abandon(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.abandon(
+        capture_session = client.beta.capture_sessions.abandon(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -144,7 +144,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_abandon(self, client: Indices) -> None:
-        response = client.capture_sessions.with_raw_response.abandon(
+        response = client.beta.capture_sessions.with_raw_response.abandon(
             "id",
         )
 
@@ -156,7 +156,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_abandon(self, client: Indices) -> None:
-        with client.capture_sessions.with_streaming_response.abandon(
+        with client.beta.capture_sessions.with_streaming_response.abandon(
             "id",
         ) as response:
             assert not response.is_closed
@@ -171,14 +171,14 @@ class TestCaptureSessions:
     @parametrize
     def test_path_params_abandon(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.capture_sessions.with_raw_response.abandon(
+            client.beta.capture_sessions.with_raw_response.abandon(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_complete(self, client: Indices) -> None:
-        capture_session = client.capture_sessions.complete(
+        capture_session = client.beta.capture_sessions.complete(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -186,7 +186,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_complete(self, client: Indices) -> None:
-        response = client.capture_sessions.with_raw_response.complete(
+        response = client.beta.capture_sessions.with_raw_response.complete(
             "id",
         )
 
@@ -198,7 +198,7 @@ class TestCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_complete(self, client: Indices) -> None:
-        with client.capture_sessions.with_streaming_response.complete(
+        with client.beta.capture_sessions.with_streaming_response.complete(
             "id",
         ) as response:
             assert not response.is_closed
@@ -213,7 +213,7 @@ class TestCaptureSessions:
     @parametrize
     def test_path_params_complete(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.capture_sessions.with_raw_response.complete(
+            client.beta.capture_sessions.with_raw_response.complete(
                 "",
             )
 
@@ -226,13 +226,13 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.create()
+        capture_session = await async_client.beta.capture_sessions.create()
         assert_matches_type(CaptureSession, capture_session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.create(
+        capture_session = await async_client.beta.capture_sessions.create(
             cookies=[
                 {
                     "name": "name",
@@ -250,7 +250,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
-        response = await async_client.capture_sessions.with_raw_response.create()
+        response = await async_client.beta.capture_sessions.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -260,7 +260,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
-        async with async_client.capture_sessions.with_streaming_response.create() as response:
+        async with async_client.beta.capture_sessions.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -272,7 +272,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.retrieve(
+        capture_session = await async_client.beta.capture_sessions.retrieve(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -280,7 +280,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncIndices) -> None:
-        response = await async_client.capture_sessions.with_raw_response.retrieve(
+        response = await async_client.beta.capture_sessions.with_raw_response.retrieve(
             "id",
         )
 
@@ -292,7 +292,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncIndices) -> None:
-        async with async_client.capture_sessions.with_streaming_response.retrieve(
+        async with async_client.beta.capture_sessions.with_streaming_response.retrieve(
             "id",
         ) as response:
             assert not response.is_closed
@@ -307,20 +307,20 @@ class TestAsyncCaptureSessions:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.capture_sessions.with_raw_response.retrieve(
+            await async_client.beta.capture_sessions.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.list()
+        capture_session = await async_client.beta.capture_sessions.list()
         assert_matches_type(CaptureSessionListResponse, capture_session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
-        response = await async_client.capture_sessions.with_raw_response.list()
+        response = await async_client.beta.capture_sessions.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -330,7 +330,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
-        async with async_client.capture_sessions.with_streaming_response.list() as response:
+        async with async_client.beta.capture_sessions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -342,7 +342,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_abandon(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.abandon(
+        capture_session = await async_client.beta.capture_sessions.abandon(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -350,7 +350,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_abandon(self, async_client: AsyncIndices) -> None:
-        response = await async_client.capture_sessions.with_raw_response.abandon(
+        response = await async_client.beta.capture_sessions.with_raw_response.abandon(
             "id",
         )
 
@@ -362,7 +362,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_abandon(self, async_client: AsyncIndices) -> None:
-        async with async_client.capture_sessions.with_streaming_response.abandon(
+        async with async_client.beta.capture_sessions.with_streaming_response.abandon(
             "id",
         ) as response:
             assert not response.is_closed
@@ -377,14 +377,14 @@ class TestAsyncCaptureSessions:
     @parametrize
     async def test_path_params_abandon(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.capture_sessions.with_raw_response.abandon(
+            await async_client.beta.capture_sessions.with_raw_response.abandon(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_complete(self, async_client: AsyncIndices) -> None:
-        capture_session = await async_client.capture_sessions.complete(
+        capture_session = await async_client.beta.capture_sessions.complete(
             "id",
         )
         assert_matches_type(CaptureSession, capture_session, path=["response"])
@@ -392,7 +392,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_complete(self, async_client: AsyncIndices) -> None:
-        response = await async_client.capture_sessions.with_raw_response.complete(
+        response = await async_client.beta.capture_sessions.with_raw_response.complete(
             "id",
         )
 
@@ -404,7 +404,7 @@ class TestAsyncCaptureSessions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_complete(self, async_client: AsyncIndices) -> None:
-        async with async_client.capture_sessions.with_streaming_response.complete(
+        async with async_client.beta.capture_sessions.with_streaming_response.complete(
             "id",
         ) as response:
             assert not response.is_closed
@@ -419,6 +419,6 @@ class TestAsyncCaptureSessions:
     @parametrize
     async def test_path_params_complete(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.capture_sessions.with_raw_response.complete(
+            await async_client.beta.capture_sessions.with_raw_response.complete(
                 "",
             )

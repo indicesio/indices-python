@@ -6,24 +6,24 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import file_list_params, file_create_params
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from ..types.file import File
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.file_create_response import FileCreateResponse
-from ..types.file_delete_response import FileDeleteResponse
-from ..types.file_finalize_response import FileFinalizeResponse
-from ..types.file_get_download_url_response import FileGetDownloadURLResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...types.beta import file_list_params, file_create_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.beta.file import File
+from ...types.beta.file_create_response import FileCreateResponse
+from ...types.beta.file_delete_response import FileDeleteResponse
+from ...types.beta.file_finalize_response import FileFinalizeResponse
+from ...types.beta.file_get_download_url_response import FileGetDownloadURLResponse
 
 __all__ = ["FilesResource", "AsyncFilesResource"]
 
