@@ -8,6 +8,9 @@ __all__ = ["FileListParams"]
 
 
 class FileListParams(TypedDict, total=False):
+    connector_id: str
+    """Only files produced by runs of this connector."""
+
     cursor: str
     """Cursor from a previous response's `next_cursor`, to fetch the next page."""
 

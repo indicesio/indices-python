@@ -133,6 +133,7 @@ class FilesResource(SyncAPIResource):
     def list(
         self,
         *,
+        connector_id: str | Omit = omit,
         cursor: str | Omit = omit,
         filename: str | Omit = omit,
         limit: int | Omit = omit,
@@ -153,6 +154,8 @@ class FilesResource(SyncAPIResource):
         Default order is newest first.</p>
 
         Args:
+          connector_id: Only files produced by runs of this connector.
+
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
           filename: Only files whose name contains this text.
@@ -187,6 +190,7 @@ class FilesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "connector_id": connector_id,
                         "cursor": cursor,
                         "filename": filename,
                         "limit": limit,
@@ -449,6 +453,7 @@ class AsyncFilesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        connector_id: str | Omit = omit,
         cursor: str | Omit = omit,
         filename: str | Omit = omit,
         limit: int | Omit = omit,
@@ -469,6 +474,8 @@ class AsyncFilesResource(AsyncAPIResource):
         Default order is newest first.</p>
 
         Args:
+          connector_id: Only files produced by runs of this connector.
+
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
           filename: Only files whose name contains this text.
@@ -503,6 +510,7 @@ class AsyncFilesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "connector_id": connector_id,
                         "cursor": cursor,
                         "filename": filename,
                         "limit": limit,

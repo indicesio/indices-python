@@ -116,6 +116,7 @@ class TestFiles:
     @parametrize
     def test_method_list_with_all_params(self, client: Indices) -> None:
         file = client.beta.files.list(
+            connector_id="connector_id",
             cursor="cursor",
             filename="filename",
             limit=1,
@@ -415,6 +416,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
         file = await async_client.beta.files.list(
+            connector_id="connector_id",
             cursor="cursor",
             filename="filename",
             limit=1,
