@@ -3,23 +3,8 @@
 Types:
 
 ```python
-from indices.types import (
-    SecretSlotDefinition,
-    Task,
-    TaskCreation,
-    TaskFailureInfo,
-    TaskListResponse,
-    TaskDeleteResponse,
-)
+from indices.types import SecretSlotDefinition
 ```
-
-Methods:
-
-- <code title="post /v1beta/tasks">client.tasks.<a href="./src/indices/resources/tasks.py">create</a>(\*\*<a href="src/indices/types/task_create_params.py">params</a>) -> <a href="./src/indices/types/task.py">Task</a></code>
-- <code title="get /v1beta/tasks/{id}">client.tasks.<a href="./src/indices/resources/tasks.py">retrieve</a>(id) -> <a href="./src/indices/types/task.py">Task</a></code>
-- <code title="get /v1beta/tasks">client.tasks.<a href="./src/indices/resources/tasks.py">list</a>() -> <a href="./src/indices/types/task_list_response.py">TaskListResponse</a></code>
-- <code title="delete /v1beta/tasks/{id}">client.tasks.<a href="./src/indices/resources/tasks.py">delete</a>(id) -> <a href="./src/indices/types/task_delete_response.py">TaskDeleteResponse</a></code>
-- <code title="post /v1beta/tasks/{id}/attach_capture_session">client.tasks.<a href="./src/indices/resources/tasks.py">attach_capture_session</a>(id, \*\*<a href="src/indices/types/task_attach_capture_session_params.py">params</a>) -> <a href="./src/indices/types/task.py">Task</a></code>
 
 # Connectors
 

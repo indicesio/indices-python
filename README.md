@@ -187,23 +187,6 @@ for connector in first_page.data:
 # Remove `await` for non-async usage.
 ```
 
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from indices import Indices
-
-client = Indices()
-
-task = client.tasks.create(
-    creation_params={},
-    display_name="display_name",
-    task="task",
-)
-print(task.creation_params)
-```
-
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `indices.APIConnectionError` is raised.
