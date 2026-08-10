@@ -32,7 +32,7 @@ client = Indices(
     api_key=os.environ.get("INDICES_API_KEY"),  # This is the default and can be omitted
 )
 
-run = client.runs.run(
+run = client.beta.runs.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
@@ -59,7 +59,7 @@ client = AsyncIndices(
 
 
 async def main() -> None:
-    run = await client.runs.run(
+    run = await client.beta.runs.run(
         connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
         arguments={"...": None},
     )
@@ -96,7 +96,7 @@ async def main() -> None:
         api_key=os.environ.get("INDICES_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        run = await client.runs.run(
+        run = await client.beta.runs.run(
             connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
             arguments={"...": None},
         )
@@ -128,7 +128,7 @@ client = Indices()
 
 all_connectors = []
 # Automatically fetches more pages as needed.
-for connector in client.connectors.list():
+for connector in client.beta.connectors.list():
     # Do something with connector here
     all_connectors.append(connector)
 print(all_connectors)
@@ -146,7 +146,7 @@ client = AsyncIndices()
 async def main() -> None:
     all_connectors = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for connector in client.connectors.list():
+    async for connector in client.beta.connectors.list():
         all_connectors.append(connector)
     print(all_connectors)
 
@@ -157,7 +157,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.connectors.list()
+first_page = await client.beta.connectors.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -169,7 +169,7 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.connectors.list()
+first_page = await client.beta.connectors.list()
 
 print(f"next page cursor: {first_page.next_cursor}")  # => "next page cursor: ..."
 for connector in first_page.data:
@@ -194,7 +194,7 @@ from indices import Indices
 client = Indices()
 
 try:
-    client.runs.run(
+    client.beta.runs.run(
         connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
         arguments={"...": None},
     )
@@ -240,7 +240,7 @@ client = Indices(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).runs.run(
+client.with_options(max_retries=5).beta.runs.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
@@ -266,7 +266,7 @@ client = Indices(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).runs.run(
+client.with_options(timeout=5.0).beta.runs.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
@@ -310,7 +310,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from indices import Indices
 
 client = Indices()
-response = client.runs.with_raw_response.run(
+response = client.beta.runs.with_raw_response.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={
         "...": None
@@ -318,7 +318,7 @@ response = client.runs.with_raw_response.run(
 )
 print(response.headers.get('X-My-Header'))
 
-run = response.parse()  # get the object that `runs.run()` would have returned
+run = response.parse()  # get the object that `beta.runs.run()` would have returned
 print(run.result_json)
 ```
 
@@ -333,7 +333,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.runs.with_streaming_response.run(
+with client.beta.runs.with_streaming_response.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 ) as response:

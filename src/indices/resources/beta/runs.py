@@ -6,21 +6,21 @@ from typing import Dict
 
 import httpx
 
-from ..types import run_run_params, run_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..types.run import Run
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.run_logs_response import RunLogsResponse
+from ...pagination import SyncCursorPage, AsyncCursorPage
+from ...types.beta import run_run_params, run_list_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.beta.run import Run
+from ...types.beta.run_logs_response import RunLogsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
