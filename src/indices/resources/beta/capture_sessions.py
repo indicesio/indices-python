@@ -27,7 +27,7 @@ __all__ = ["CaptureSessionsResource", "AsyncCaptureSessionsResource"]
 
 class CaptureSessionsResource(SyncAPIResource):
     """
-    Record a browser session; a completed capture is a reusable input for task generation.
+    Record a browser session; a completed capture is a reusable input for building connectors.
     """
 
     @cached_property
@@ -219,7 +219,7 @@ class CaptureSessionsResource(SyncAPIResource):
 
 class AsyncCaptureSessionsResource(AsyncAPIResource):
     """
-    Record a browser session; a completed capture is a reusable input for task generation.
+    Record a browser session; a completed capture is a reusable input for building connectors.
     """
 
     @cached_property
