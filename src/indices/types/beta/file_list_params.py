@@ -31,6 +31,3 @@ class FileListParams(TypedDict, total=False):
 
     source: Literal["UPLOAD", "RUN_OUTPUT"]
     """Only files from this source."""
-
-    task_id: str
-    """Only files produced by runs of this task."""

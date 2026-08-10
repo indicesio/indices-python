@@ -124,7 +124,6 @@ class TestFiles:
             run_id="run_id",
             sort="name",
             source="UPLOAD",
-            task_id="task_id",
         )
         assert_matches_type(SyncCursorPage[File], file, path=["response"])
 
@@ -424,7 +423,6 @@ class TestAsyncFiles:
             run_id="run_id",
             sort="name",
             source="UPLOAD",
-            task_id="task_id",
         )
         assert_matches_type(AsyncCursorPage[File], file, path=["response"])
 

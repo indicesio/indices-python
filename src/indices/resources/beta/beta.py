@@ -56,7 +56,7 @@ class BetaResource(SyncAPIResource):
 
     @cached_property
     def runs(self) -> RunsResource:
-        """Execute a task."""
+        """Execute a connector."""
         return RunsResource(self._client)
 
     @cached_property
@@ -71,7 +71,7 @@ class BetaResource(SyncAPIResource):
     @cached_property
     def capture_sessions(self) -> CaptureSessionsResource:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return CaptureSessionsResource(self._client)
 
@@ -103,7 +103,7 @@ class AsyncBetaResource(AsyncAPIResource):
 
     @cached_property
     def runs(self) -> AsyncRunsResource:
-        """Execute a task."""
+        """Execute a connector."""
         return AsyncRunsResource(self._client)
 
     @cached_property
@@ -118,7 +118,7 @@ class AsyncBetaResource(AsyncAPIResource):
     @cached_property
     def capture_sessions(self) -> AsyncCaptureSessionsResource:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return AsyncCaptureSessionsResource(self._client)
 
@@ -153,7 +153,7 @@ class BetaResourceWithRawResponse:
 
     @cached_property
     def runs(self) -> RunsResourceWithRawResponse:
-        """Execute a task."""
+        """Execute a connector."""
         return RunsResourceWithRawResponse(self._beta.runs)
 
     @cached_property
@@ -168,7 +168,7 @@ class BetaResourceWithRawResponse:
     @cached_property
     def capture_sessions(self) -> CaptureSessionsResourceWithRawResponse:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return CaptureSessionsResourceWithRawResponse(self._beta.capture_sessions)
 
@@ -184,7 +184,7 @@ class AsyncBetaResourceWithRawResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithRawResponse:
-        """Execute a task."""
+        """Execute a connector."""
         return AsyncRunsResourceWithRawResponse(self._beta.runs)
 
     @cached_property
@@ -199,7 +199,7 @@ class AsyncBetaResourceWithRawResponse:
     @cached_property
     def capture_sessions(self) -> AsyncCaptureSessionsResourceWithRawResponse:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return AsyncCaptureSessionsResourceWithRawResponse(self._beta.capture_sessions)
 
@@ -215,7 +215,7 @@ class BetaResourceWithStreamingResponse:
 
     @cached_property
     def runs(self) -> RunsResourceWithStreamingResponse:
-        """Execute a task."""
+        """Execute a connector."""
         return RunsResourceWithStreamingResponse(self._beta.runs)
 
     @cached_property
@@ -230,7 +230,7 @@ class BetaResourceWithStreamingResponse:
     @cached_property
     def capture_sessions(self) -> CaptureSessionsResourceWithStreamingResponse:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return CaptureSessionsResourceWithStreamingResponse(self._beta.capture_sessions)
 
@@ -246,7 +246,7 @@ class AsyncBetaResourceWithStreamingResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithStreamingResponse:
-        """Execute a task."""
+        """Execute a connector."""
         return AsyncRunsResourceWithStreamingResponse(self._beta.runs)
 
     @cached_property
@@ -261,6 +261,6 @@ class AsyncBetaResourceWithStreamingResponse:
     @cached_property
     def capture_sessions(self) -> AsyncCaptureSessionsResourceWithStreamingResponse:
         """
-        Record a browser session; a completed capture is a reusable input for task generation.
+        Record a browser session; a completed capture is a reusable input for building connectors.
         """
         return AsyncCaptureSessionsResourceWithStreamingResponse(self._beta.capture_sessions)

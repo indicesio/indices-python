@@ -141,7 +141,6 @@ class FilesResource(SyncAPIResource):
         run_id: str | Omit = omit,
         sort: Literal["name", "created_at", "size_bytes", "source"] | Omit = omit,
         source: Literal["UPLOAD", "RUN_OUTPUT"] | Omit = omit,
-        task_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,8 +169,6 @@ class FilesResource(SyncAPIResource):
 
           source: Only files from this source.
 
-          task_id: Only files produced by runs of this task.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -198,7 +195,6 @@ class FilesResource(SyncAPIResource):
                         "run_id": run_id,
                         "sort": sort,
                         "source": source,
-                        "task_id": task_id,
                     },
                     file_list_params.FileListParams,
                 ),
@@ -461,7 +457,6 @@ class AsyncFilesResource(AsyncAPIResource):
         run_id: str | Omit = omit,
         sort: Literal["name", "created_at", "size_bytes", "source"] | Omit = omit,
         source: Literal["UPLOAD", "RUN_OUTPUT"] | Omit = omit,
-        task_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -490,8 +485,6 @@ class AsyncFilesResource(AsyncAPIResource):
 
           source: Only files from this source.
 
-          task_id: Only files produced by runs of this task.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -518,7 +511,6 @@ class AsyncFilesResource(AsyncAPIResource):
                         "run_id": run_id,
                         "sort": sort,
                         "source": source,
-                        "task_id": task_id,
                     },
                     file_list_params.FileListParams,
                 ),
