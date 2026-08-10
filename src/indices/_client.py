@@ -35,10 +35,9 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import runs, files, tasks, secrets, connectors, capture_sessions
+    from .resources import runs, files, secrets, connectors, capture_sessions
     from .resources.runs import RunsResource, AsyncRunsResource
     from .resources.files import FilesResource, AsyncFilesResource
-    from .resources.tasks import TasksResource, AsyncTasksResource
     from .resources.secrets import SecretsResource, AsyncSecretsResource
     from .resources.connectors import ConnectorsResource, AsyncConnectorsResource
     from .resources.capture_sessions import CaptureSessionsResource, AsyncCaptureSessionsResource
@@ -109,13 +108,6 @@ class Indices(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
-
-    @cached_property
-    def tasks(self) -> TasksResource:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import TasksResource
-
-        return TasksResource(self)
 
     @cached_property
     def connectors(self) -> ConnectorsResource:
@@ -331,13 +323,6 @@ class AsyncIndices(AsyncAPIClient):
         )
 
     @cached_property
-    def tasks(self) -> AsyncTasksResource:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import AsyncTasksResource
-
-        return AsyncTasksResource(self)
-
-    @cached_property
     def connectors(self) -> AsyncConnectorsResource:
         """Manage connectors."""
         from .resources.connectors import AsyncConnectorsResource
@@ -493,13 +478,6 @@ class IndicesWithRawResponse:
         self._client = client
 
     @cached_property
-    def tasks(self) -> tasks.TasksResourceWithRawResponse:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import TasksResourceWithRawResponse
-
-        return TasksResourceWithRawResponse(self._client.tasks)
-
-    @cached_property
     def connectors(self) -> connectors.ConnectorsResourceWithRawResponse:
         """Manage connectors."""
         from .resources.connectors import ConnectorsResourceWithRawResponse
@@ -541,13 +519,6 @@ class AsyncIndicesWithRawResponse:
 
     def __init__(self, client: AsyncIndices) -> None:
         self._client = client
-
-    @cached_property
-    def tasks(self) -> tasks.AsyncTasksResourceWithRawResponse:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import AsyncTasksResourceWithRawResponse
-
-        return AsyncTasksResourceWithRawResponse(self._client.tasks)
 
     @cached_property
     def connectors(self) -> connectors.AsyncConnectorsResourceWithRawResponse:
@@ -593,13 +564,6 @@ class IndicesWithStreamedResponse:
         self._client = client
 
     @cached_property
-    def tasks(self) -> tasks.TasksResourceWithStreamingResponse:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import TasksResourceWithStreamingResponse
-
-        return TasksResourceWithStreamingResponse(self._client.tasks)
-
-    @cached_property
     def connectors(self) -> connectors.ConnectorsResourceWithStreamingResponse:
         """Manage connectors."""
         from .resources.connectors import ConnectorsResourceWithStreamingResponse
@@ -641,13 +605,6 @@ class AsyncIndicesWithStreamedResponse:
 
     def __init__(self, client: AsyncIndices) -> None:
         self._client = client
-
-    @cached_property
-    def tasks(self) -> tasks.AsyncTasksResourceWithStreamingResponse:
-        """Create a task to repeatedly perform an action on an external website."""
-        from .resources.tasks import AsyncTasksResourceWithStreamingResponse
-
-        return AsyncTasksResourceWithStreamingResponse(self._client.tasks)
 
     @cached_property
     def connectors(self) -> connectors.AsyncConnectorsResourceWithStreamingResponse:

@@ -16,14 +16,6 @@ from .files import (
     FilesResourceWithStreamingResponse,
     AsyncFilesResourceWithStreamingResponse,
 )
-from .tasks import (
-    TasksResource,
-    AsyncTasksResource,
-    TasksResourceWithRawResponse,
-    AsyncTasksResourceWithRawResponse,
-    TasksResourceWithStreamingResponse,
-    AsyncTasksResourceWithStreamingResponse,
-)
 from .secrets import (
     SecretsResource,
     AsyncSecretsResource,
@@ -50,12 +42,6 @@ from .capture_sessions import (
 )
 
 __all__ = [
-    "TasksResource",
-    "AsyncTasksResource",
-    "TasksResourceWithRawResponse",
-    "AsyncTasksResourceWithRawResponse",
-    "TasksResourceWithStreamingResponse",
-    "AsyncTasksResourceWithStreamingResponse",
     "ConnectorsResource",
     "AsyncConnectorsResource",
     "ConnectorsResourceWithRawResponse",
