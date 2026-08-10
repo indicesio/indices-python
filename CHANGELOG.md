@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.10.0 (2026-08-10)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/indicesio/indices-python/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** api update ([bf82067](https://github.com/indicesio/indices-python/commit/bf82067de859c24ebfd66dc9e7fb361cd05ff439))
+* **api:** api update ([596abb7](https://github.com/indicesio/indices-python/commit/596abb721fae5dddd813f1952d1bc70171618168))
+* **api:** api update ([8adce60](https://github.com/indicesio/indices-python/commit/8adce60010aea99f329f7f66fce15190d96e45ad))
+* **api:** api update ([e67b0ad](https://github.com/indicesio/indices-python/commit/e67b0ad42c869fd286eecfc2b1ee4821a04e121b))
+* **api:** api update ([6cc3802](https://github.com/indicesio/indices-python/commit/6cc38027a648e944e2c889f6e6a88ad427ff6cf5))
+* **api:** to beta namespace ([6cc1d7f](https://github.com/indicesio/indices-python/commit/6cc1d7f56f3cf8532b6a2826f164a5aead205764))
+
 ## 0.9.0 (2026-08-06)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/indicesio/indices-python/compare/v0.8.0...v0.9.0)
