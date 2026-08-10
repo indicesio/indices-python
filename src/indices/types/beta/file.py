@@ -33,6 +33,3 @@ class File(BaseModel):
 
     source: Literal["UPLOAD", "RUN_OUTPUT"]
     """How the file came to exist: uploaded by the user or produced by a run."""
-
-    task_id: Optional[str] = None
-    """ID of the task whose run produced this file. Null for uploaded files."""

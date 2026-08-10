@@ -26,7 +26,7 @@ __all__ = ["RunsResource", "AsyncRunsResource"]
 
 
 class RunsResource(SyncAPIResource):
-    """Execute a task."""
+    """Execute a connector."""
 
     @cached_property
     def with_raw_response(self) -> RunsResourceWithRawResponse:
@@ -229,7 +229,7 @@ class RunsResource(SyncAPIResource):
 
 
 class AsyncRunsResource(AsyncAPIResource):
-    """Execute a task."""
+    """Execute a connector."""
 
     @cached_property
     def with_raw_response(self) -> AsyncRunsResourceWithRawResponse:

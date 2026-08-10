@@ -31,9 +31,6 @@ class Connector(BaseModel):
     revised_from_connector_id: Optional[str] = None
     """Connector this one revised (if any)."""
 
-    task_id: Optional[str] = None
-    """Task this connector was generated from; null for directly published connectors."""
-
     website: Optional[str] = None
     """Website the connector operates against."""
 

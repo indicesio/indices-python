@@ -14,7 +14,7 @@ class Run(BaseModel):
     """Unique identifier for the object."""
 
     arguments: Dict[str, object]
-    """Arguments in this run for the task's input parameters."""
+    """Arguments in this run for the connector's input parameters."""
 
     connector_id: str
     """ID of the connector executed in this run."""
@@ -31,7 +31,7 @@ class Run(BaseModel):
     result_json: Optional[str] = None
     """Execution result of the run.
 
-    In JSON, matching the task's output schema. Limited to 100MB; results above
+    In JSON, matching the connector's output schema. Limited to 100MB; results above
     100MB will be truncated and result in a `result_too_large` status.
     """
 
@@ -40,9 +40,6 @@ class Run(BaseModel):
     Lifecycle status of the run: `pending`, `running`, `success`, `failed`,
     `timed_out`, `result_too_large`, or `internal_error`.
     """
-
-    task_id: Optional[str] = None
-    """ID of the task executed in this run; null for direct connector runs."""
 
     secret_bindings: Optional[Dict[str, str]] = None
     """Secrets to use for this run.
