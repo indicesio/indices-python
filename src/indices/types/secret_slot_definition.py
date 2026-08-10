@@ -10,13 +10,13 @@ __all__ = ["SecretSlotDefinition"]
 
 class SecretSlotDefinition(BaseModel):
     name: str
-    """Name of the secret slot.
-
-    Use this name as the identifier when binding secrets to a slot.
-    """
+    """Name of the secret slot, used as the key in a run's secret_bindings."""
 
     type: Literal["login", "string"]
     """Type of secret required: 'login' or 'string'."""
+
+    description: Optional[str] = None
+    """What the bound secret is used for, when the connector declares it."""
 
     supports_totp: Optional[bool] = None
     """
