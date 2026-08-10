@@ -139,8 +139,9 @@ class ConnectorsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorDeleteResponse:
-        """
-        <p>Delete a connector by its ID.</p><p>A legacy task that generated the connector is kept, but is detached and no longer runnable.</p>
+        """<p>Delete a connector by its ID.
+
+        Its past runs are kept, but it can no longer be run.</p>
 
         Args:
           connector_id: The ID of the connector to delete.
@@ -314,8 +315,9 @@ class AsyncConnectorsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorDeleteResponse:
-        """
-        <p>Delete a connector by its ID.</p><p>A legacy task that generated the connector is kept, but is detached and no longer runnable.</p>
+        """<p>Delete a connector by its ID.
+
+        Its past runs are kept, but it can no longer be run.</p>
 
         Args:
           connector_id: The ID of the connector to delete.
