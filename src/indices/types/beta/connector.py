@@ -3,7 +3,7 @@
 from typing import Dict, List, Optional
 from datetime import datetime
 
-from .._models import BaseModel
+from ..._models import BaseModel
 from .secret_slot_definition import SecretSlotDefinition
 
 __all__ = ["Connector"]

@@ -2,7 +2,7 @@
 
 from typing import List
 
-from .._models import BaseModel
+from ..._models import BaseModel
 from .connector import Connector
 
 __all__ = ["ConnectorListRevisionsResponse"]

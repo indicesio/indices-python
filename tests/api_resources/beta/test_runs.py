@@ -9,8 +9,8 @@ import pytest
 
 from indices import Indices, AsyncIndices
 from tests.utils import assert_matches_type
-from indices.types import Run, RunLogsResponse
 from indices.pagination import SyncCursorPage, AsyncCursorPage
+from indices.types.beta import Run, RunLogsResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -21,7 +21,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Indices) -> None:
-        run = client.runs.retrieve(
+        run = client.beta.runs.retrieve(
             "run_id",
         )
         assert_matches_type(Run, run, path=["response"])
@@ -29,7 +29,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Indices) -> None:
-        response = client.runs.with_raw_response.retrieve(
+        response = client.beta.runs.with_raw_response.retrieve(
             "run_id",
         )
 
@@ -41,7 +41,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Indices) -> None:
-        with client.runs.with_streaming_response.retrieve(
+        with client.beta.runs.with_streaming_response.retrieve(
             "run_id",
         ) as response:
             assert not response.is_closed
@@ -56,14 +56,14 @@ class TestRuns:
     @parametrize
     def test_path_params_retrieve(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            client.runs.with_raw_response.retrieve(
+            client.beta.runs.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Indices) -> None:
-        run = client.runs.list(
+        run = client.beta.runs.list(
             connector_id="connector_id",
         )
         assert_matches_type(SyncCursorPage[Run], run, path=["response"])
@@ -71,7 +71,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Indices) -> None:
-        run = client.runs.list(
+        run = client.beta.runs.list(
             connector_id="connector_id",
             cursor="cursor",
             limit=1,
@@ -81,7 +81,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Indices) -> None:
-        response = client.runs.with_raw_response.list(
+        response = client.beta.runs.with_raw_response.list(
             connector_id="connector_id",
         )
 
@@ -93,7 +93,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Indices) -> None:
-        with client.runs.with_streaming_response.list(
+        with client.beta.runs.with_streaming_response.list(
             connector_id="connector_id",
         ) as response:
             assert not response.is_closed
@@ -107,7 +107,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_logs(self, client: Indices) -> None:
-        run = client.runs.logs(
+        run = client.beta.runs.logs(
             "run_id",
         )
         assert_matches_type(RunLogsResponse, run, path=["response"])
@@ -115,7 +115,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_logs(self, client: Indices) -> None:
-        response = client.runs.with_raw_response.logs(
+        response = client.beta.runs.with_raw_response.logs(
             "run_id",
         )
 
@@ -127,7 +127,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_logs(self, client: Indices) -> None:
-        with client.runs.with_streaming_response.logs(
+        with client.beta.runs.with_streaming_response.logs(
             "run_id",
         ) as response:
             assert not response.is_closed
@@ -142,14 +142,14 @@ class TestRuns:
     @parametrize
     def test_path_params_logs(self, client: Indices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            client.runs.with_raw_response.logs(
+            client.beta.runs.with_raw_response.logs(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run(self, client: Indices) -> None:
-        run = client.runs.run(
+        run = client.beta.runs.run(
             connector_id="connector_id",
         )
         assert_matches_type(Run, run, path=["response"])
@@ -157,7 +157,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: Indices) -> None:
-        run = client.runs.run(
+        run = client.beta.runs.run(
             connector_id="connector_id",
             arguments={"foo": "bar"},
             async_=True,
@@ -169,7 +169,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Indices) -> None:
-        response = client.runs.with_raw_response.run(
+        response = client.beta.runs.with_raw_response.run(
             connector_id="connector_id",
         )
 
@@ -181,7 +181,7 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: Indices) -> None:
-        with client.runs.with_streaming_response.run(
+        with client.beta.runs.with_streaming_response.run(
             connector_id="connector_id",
         ) as response:
             assert not response.is_closed
@@ -201,7 +201,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.retrieve(
+        run = await async_client.beta.runs.retrieve(
             "run_id",
         )
         assert_matches_type(Run, run, path=["response"])
@@ -209,7 +209,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncIndices) -> None:
-        response = await async_client.runs.with_raw_response.retrieve(
+        response = await async_client.beta.runs.with_raw_response.retrieve(
             "run_id",
         )
 
@@ -221,7 +221,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncIndices) -> None:
-        async with async_client.runs.with_streaming_response.retrieve(
+        async with async_client.beta.runs.with_streaming_response.retrieve(
             "run_id",
         ) as response:
             assert not response.is_closed
@@ -236,14 +236,14 @@ class TestAsyncRuns:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            await async_client.runs.with_raw_response.retrieve(
+            await async_client.beta.runs.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.list(
+        run = await async_client.beta.runs.list(
             connector_id="connector_id",
         )
         assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
@@ -251,7 +251,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.list(
+        run = await async_client.beta.runs.list(
             connector_id="connector_id",
             cursor="cursor",
             limit=1,
@@ -261,7 +261,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncIndices) -> None:
-        response = await async_client.runs.with_raw_response.list(
+        response = await async_client.beta.runs.with_raw_response.list(
             connector_id="connector_id",
         )
 
@@ -273,7 +273,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncIndices) -> None:
-        async with async_client.runs.with_streaming_response.list(
+        async with async_client.beta.runs.with_streaming_response.list(
             connector_id="connector_id",
         ) as response:
             assert not response.is_closed
@@ -287,7 +287,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_logs(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.logs(
+        run = await async_client.beta.runs.logs(
             "run_id",
         )
         assert_matches_type(RunLogsResponse, run, path=["response"])
@@ -295,7 +295,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_logs(self, async_client: AsyncIndices) -> None:
-        response = await async_client.runs.with_raw_response.logs(
+        response = await async_client.beta.runs.with_raw_response.logs(
             "run_id",
         )
 
@@ -307,7 +307,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_logs(self, async_client: AsyncIndices) -> None:
-        async with async_client.runs.with_streaming_response.logs(
+        async with async_client.beta.runs.with_streaming_response.logs(
             "run_id",
         ) as response:
             assert not response.is_closed
@@ -322,14 +322,14 @@ class TestAsyncRuns:
     @parametrize
     async def test_path_params_logs(self, async_client: AsyncIndices) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            await async_client.runs.with_raw_response.logs(
+            await async_client.beta.runs.with_raw_response.logs(
                 "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.run(
+        run = await async_client.beta.runs.run(
             connector_id="connector_id",
         )
         assert_matches_type(Run, run, path=["response"])
@@ -337,7 +337,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncIndices) -> None:
-        run = await async_client.runs.run(
+        run = await async_client.beta.runs.run(
             connector_id="connector_id",
             arguments={"foo": "bar"},
             async_=True,
@@ -349,7 +349,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncIndices) -> None:
-        response = await async_client.runs.with_raw_response.run(
+        response = await async_client.beta.runs.with_raw_response.run(
             connector_id="connector_id",
         )
 
@@ -361,7 +361,7 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncIndices) -> None:
-        async with async_client.runs.with_streaming_response.run(
+        async with async_client.beta.runs.with_streaming_response.run(
             connector_id="connector_id",
         ) as response:
             assert not response.is_closed
