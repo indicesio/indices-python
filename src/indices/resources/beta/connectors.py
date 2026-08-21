@@ -85,6 +85,7 @@ class ConnectorsResource(SyncAPIResource):
         self,
         *,
         cursor: str | Omit = omit,
+        domain: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -98,6 +99,8 @@ class ConnectorsResource(SyncAPIResource):
 
         Args:
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          domain: Only connectors whose website is this domain or a subdomain of it.
 
           limit: Maximum number of connectors to return.
 
@@ -120,6 +123,7 @@ class ConnectorsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "cursor": cursor,
+                        "domain": domain,
                         "limit": limit,
                     },
                     connector_list_params.ConnectorListParams,
@@ -261,6 +265,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         self,
         *,
         cursor: str | Omit = omit,
+        domain: str | Omit = omit,
         limit: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -274,6 +279,8 @@ class AsyncConnectorsResource(AsyncAPIResource):
 
         Args:
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
+
+          domain: Only connectors whose website is this domain or a subdomain of it.
 
           limit: Maximum number of connectors to return.
 
@@ -296,6 +303,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "cursor": cursor,
+                        "domain": domain,
                         "limit": limit,
                     },
                     connector_list_params.ConnectorListParams,

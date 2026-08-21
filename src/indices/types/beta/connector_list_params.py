@@ -11,5 +11,8 @@ class ConnectorListParams(TypedDict, total=False):
     cursor: str
     """Cursor from a previous response's `next_cursor`, to fetch the next page."""
 
+    domain: str
+    """Only connectors whose website is this domain or a subdomain of it."""
+
     limit: int
     """Maximum number of connectors to return."""
