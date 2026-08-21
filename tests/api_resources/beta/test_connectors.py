@@ -71,6 +71,7 @@ class TestConnectors:
     def test_method_list_with_all_params(self, client: Indices) -> None:
         connector = client.beta.connectors.list(
             cursor="cursor",
+            domain="domain",
             limit=1,
         )
         assert_matches_type(SyncCursorPage[Connector], connector, path=["response"])
@@ -240,6 +241,7 @@ class TestAsyncConnectors:
     async def test_method_list_with_all_params(self, async_client: AsyncIndices) -> None:
         connector = await async_client.beta.connectors.list(
             cursor="cursor",
+            domain="domain",
             limit=1,
         )
         assert_matches_type(AsyncCursorPage[Connector], connector, path=["response"])
