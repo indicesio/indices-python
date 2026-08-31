@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.12.0](https://github.com/indicesio/indices-python/compare/v0.11.1...v0.12.0) (2026-08-31)
+
+
+### Features
+
+* **api:** rename run result_json to result ([7976282](https://github.com/indicesio/indices-python/commit/79762821210a85bde137d6b78533355c2e9b3be3))
+* initial stlc build ([90211e7](https://github.com/indicesio/indices-python/commit/90211e786c8339164f5a922f622f01fcb8ddd3c0))
+
+
+### Chores
+
+* add stlc promote and back-sync workflows ([02c56b7](https://github.com/indicesio/indices-python/commit/02c56b7ec5617277b93c944761247a5f7fb6b691))
+
 ## 0.11.1 (2026-08-23)
 
 Full Changelog: [v0.11.0...v0.11.1](https://github.com/indicesio/indices-python/compare/v0.11.0...v0.11.1)
