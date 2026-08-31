@@ -5,36 +5,9 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .run_error import RunError
 
-__all__ = ["Run", "Error"]
-
-
-class Error(BaseModel):
-    """Why the run failed.
-
-    Present iff `status` is `connector_error`; for platform failures the status itself is the reason.
-    """
-
-    details: Optional[Dict[str, object]] = None
-    """Structured context reported by the connector."""
-
-    exception: Optional[str] = None
-    """Exception class name, when the failure came from a raised exception."""
-
-    message: str
-    """Human-readable description of the failure."""
-
-    retryable: Optional[bool] = None
-    """Whether retrying the run with the same arguments is expected to succeed.
-
-    Null when unknown.
-    """
-
-    type: str
-    """
-    Machine-readable failure type: `auth_required`, `invalid_input`,
-    `site_unavailable`, `site_changed`, `crash`, or `unhandled`.
-    """
+__all__ = ["Run"]
 
 
 class Run(BaseModel):
@@ -50,7 +23,7 @@ class Run(BaseModel):
     created_at: datetime
     """Timestamp when the object was created."""
 
-    error: Optional[Error] = None
+    error: Optional[RunError] = None
     """Why the run failed.
 
     Present iff `status` is `connector_error`; for platform failures the status

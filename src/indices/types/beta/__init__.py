@@ -6,6 +6,7 @@ from .run import Run as Run
 from .file import File as File
 from .secret import Secret as Secret
 from .connector import Connector as Connector
+from .run_error import RunError as RunError
 from .run_run_params import RunRunParams as RunRunParams
 from .capture_session import CaptureSession as CaptureSession
 from .run_list_params import RunListParams as RunListParams

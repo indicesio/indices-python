@@ -25,7 +25,7 @@ Methods:
 Types:
 
 ```python
-from indices.types.beta import Run, RunLogsResponse
+from indices.types.beta import Run, RunError, RunLogsResponse
 ```
 
 Methods:
