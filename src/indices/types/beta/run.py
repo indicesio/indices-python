@@ -36,11 +36,11 @@ class Run(BaseModel):
     has_logs: bool
     """Whether the run has associated logs"""
 
-    result_json: Optional[str] = None
-    """Execution result of the run.
+    result: Optional[Dict[str, object]] = None
+    """Execution result of the run, matching the connector's output schema.
 
-    In JSON, matching the connector's output schema. Limited to 100MB; results above
-    100MB will be truncated and result in a `result_too_large` status.
+    Present iff `status` is `success`. Limited to 100MB; results above 100MB are not
+    stored and the run ends with `result_too_large`.
     """
 
     status: Literal[

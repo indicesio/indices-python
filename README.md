@@ -36,7 +36,7 @@ run = client.beta.runs.run(
     connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
     arguments={"...": None},
 )
-print(run.result_json)
+print(run.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -63,7 +63,7 @@ async def main() -> None:
         connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
         arguments={"...": None},
     )
-    print(run.result_json)
+    print(run.id)
 
 
 asyncio.run(main())
@@ -100,7 +100,7 @@ async def main() -> None:
             connector_id="conn_8kPq2mWxYz1aBcDeFgHi3J",
             arguments={"...": None},
         )
-        print(run.result_json)
+        print(run.id)
 
 
 asyncio.run(main())
@@ -319,7 +319,7 @@ response = client.beta.runs.with_raw_response.run(
 print(response.headers.get('X-My-Header'))
 
 run = response.parse()  # get the object that `beta.runs.run()` would have returned
-print(run.result_json)
+print(run.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/indicesio/indices-python/tree/main/src/indices/_response.py) object.
