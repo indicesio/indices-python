@@ -41,7 +41,6 @@ class TestSecrets:
             totp_secret="totp_secret",
             username="username",
             value="value",
-            website="website",
         )
         assert_matches_type(Secret, secret, path=["response"])
 
@@ -210,7 +209,6 @@ class TestAsyncSecrets:
             totp_secret="totp_secret",
             username="username",
             value="value",
-            website="website",
         )
         assert_matches_type(Secret, secret, path=["response"])
 

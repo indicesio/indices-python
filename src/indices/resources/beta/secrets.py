@@ -58,7 +58,6 @@ class SecretsResource(SyncAPIResource):
         totp_secret: Optional[str] | Omit = omit,
         username: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
-        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,8 +82,6 @@ class SecretsResource(SyncAPIResource):
 
           value: Secret value. Required for 'string' type.
 
-          website: Optional website URL for context.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -103,7 +100,6 @@ class SecretsResource(SyncAPIResource):
                     "totp_secret": totp_secret,
                     "username": username,
                     "value": value,
-                    "website": website,
                 },
                 secret_create_params.SecretCreateParams,
             ),
@@ -238,7 +234,6 @@ class AsyncSecretsResource(AsyncAPIResource):
         totp_secret: Optional[str] | Omit = omit,
         username: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
-        website: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -263,8 +258,6 @@ class AsyncSecretsResource(AsyncAPIResource):
 
           value: Secret value. Required for 'string' type.
 
-          website: Optional website URL for context.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -283,7 +276,6 @@ class AsyncSecretsResource(AsyncAPIResource):
                     "totp_secret": totp_secret,
                     "username": username,
                     "value": value,
-                    "website": website,
                 },
                 secret_create_params.SecretCreateParams,
             ),

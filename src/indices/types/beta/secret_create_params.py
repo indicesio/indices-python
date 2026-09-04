@@ -26,6 +26,3 @@ class SecretCreateParams(TypedDict, total=False):
 
     value: Optional[str]
     """Secret value. Required for 'string' type."""
-
-    website: Optional[str]
-    """Optional website URL for context."""

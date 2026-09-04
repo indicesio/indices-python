@@ -1,6 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -27,6 +26,3 @@ class Secret(BaseModel):
 
     updated_at: datetime
     """Timestamp when the secret was last updated."""
-
-    website: Optional[str] = None
-    """Optional website URL."""
