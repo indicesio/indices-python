@@ -163,6 +163,13 @@ class TestRuns:
             async_=True,
             max_timeout_s=1,
             secret_bindings={"foo": "string"},
+            secret_values={
+                "foo": {
+                    "password": "password",
+                    "username": "username",
+                    "totp_secret": "totp_secret",
+                }
+            },
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -343,6 +350,13 @@ class TestAsyncRuns:
             async_=True,
             max_timeout_s=1,
             secret_bindings={"foo": "string"},
+            secret_values={
+                "foo": {
+                    "password": "password",
+                    "username": "username",
+                    "totp_secret": "totp_secret",
+                }
+            },
         )
         assert_matches_type(Run, run, path=["response"])
 

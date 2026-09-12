@@ -176,6 +176,7 @@ class RunsResource(SyncAPIResource):
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
+        secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,8 +199,14 @@ class RunsResource(SyncAPIResource):
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
-          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the connector's
-              required_secrets must be mapped to a user-owned secret.
+          secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
+              the connector's required_secrets must appear here or in secret_values, but not
+              both.
+
+          secret_values: Mapping of secret slot names to secret values supplied directly for this run,
+              instead of referencing a saved secret. Use a login shape ({username, password,
+              totp_secret?}) for login slots and a string shape ({value}) for string slots.
+              Values are not persisted.
 
           extra_headers: Send extra headers
 
@@ -218,6 +225,7 @@ class RunsResource(SyncAPIResource):
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,
                     "secret_bindings": secret_bindings,
+                    "secret_values": secret_values,
                 },
                 run_run_params.RunRunParams,
             ),
@@ -379,6 +387,7 @@ class AsyncRunsResource(AsyncAPIResource):
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
+        secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -401,8 +410,14 @@ class AsyncRunsResource(AsyncAPIResource):
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
-          secret_bindings: Mapping of secret slot names to secret IDs. Each slot defined in the connector's
-              required_secrets must be mapped to a user-owned secret.
+          secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
+              the connector's required_secrets must appear here or in secret_values, but not
+              both.
+
+          secret_values: Mapping of secret slot names to secret values supplied directly for this run,
+              instead of referencing a saved secret. Use a login shape ({username, password,
+              totp_secret?}) for login slots and a string shape ({value}) for string slots.
+              Values are not persisted.
 
           extra_headers: Send extra headers
 
@@ -421,6 +436,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,
                     "secret_bindings": secret_bindings,
+                    "secret_values": secret_values,
                 },
                 run_run_params.RunRunParams,
             ),
