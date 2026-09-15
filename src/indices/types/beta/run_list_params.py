@@ -16,3 +16,6 @@ class RunListParams(TypedDict, total=False):
 
     limit: int
     """Maximum number of runs to return."""
+
+    version: int
+    """Version of the connector to list runs of; defaults to the newest."""

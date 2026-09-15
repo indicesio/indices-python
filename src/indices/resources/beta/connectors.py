@@ -180,7 +180,7 @@ class ConnectorsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListRevisionsResponse:
         """
-        <p>List the full revision lineage of a connector, newest first.</p>
+        <p>List every version of a connector, newest first.</p>
 
         Args:
           connector_id: The ID of the connector whose revisions to list.
@@ -360,7 +360,7 @@ class AsyncConnectorsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConnectorListRevisionsResponse:
         """
-        <p>List the full revision lineage of a connector, newest first.</p>
+        <p>List every version of a connector, newest first.</p>
 
         Args:
           connector_id: The ID of the connector whose revisions to list.

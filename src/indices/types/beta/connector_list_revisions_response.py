@@ -10,7 +10,7 @@ __all__ = ["ConnectorListRevisionsResponse"]
 
 class ConnectorListRevisionsResponse(BaseModel):
     data: List[Connector]
-    """The connector's full revision history, most recent first.
+    """Every version of the connector, most recent first.
 
-    The first entry is the current revision.
+    The first entry is the current version.
     """

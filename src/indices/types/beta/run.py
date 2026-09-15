@@ -20,6 +20,12 @@ class Run(BaseModel):
     connector_id: str
     """ID of the connector executed in this run."""
 
+    connector_version: int
+    """Version of the connector executed in this run.
+
+    Runs pin the version that was newest when they were created.
+    """
+
     created_at: datetime
     """Timestamp when the object was created."""
 

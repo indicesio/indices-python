@@ -88,6 +88,7 @@ class RunsResource(SyncAPIResource):
         connector_id: str,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
+        version: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -104,6 +105,8 @@ class RunsResource(SyncAPIResource):
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
           limit: Maximum number of runs to return.
+
+          version: Version of the connector to list runs of; defaults to the newest.
 
           extra_headers: Send extra headers
 
@@ -126,6 +129,7 @@ class RunsResource(SyncAPIResource):
                         "connector_id": connector_id,
                         "cursor": cursor,
                         "limit": limit,
+                        "version": version,
                     },
                     run_list_params.RunListParams,
                 ),
@@ -299,6 +303,7 @@ class AsyncRunsResource(AsyncAPIResource):
         connector_id: str,
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
+        version: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,6 +320,8 @@ class AsyncRunsResource(AsyncAPIResource):
           cursor: Cursor from a previous response's `next_cursor`, to fetch the next page.
 
           limit: Maximum number of runs to return.
+
+          version: Version of the connector to list runs of; defaults to the newest.
 
           extra_headers: Send extra headers
 
@@ -337,6 +344,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "connector_id": connector_id,
                         "cursor": cursor,
                         "limit": limit,
+                        "version": version,
                     },
                     run_list_params.RunListParams,
                 ),

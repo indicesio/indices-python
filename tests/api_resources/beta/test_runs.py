@@ -75,6 +75,7 @@ class TestRuns:
             connector_id="connector_id",
             cursor="cursor",
             limit=1,
+            version=1,
         )
         assert_matches_type(SyncCursorPage[Run], run, path=["response"])
 
@@ -262,6 +263,7 @@ class TestAsyncRuns:
             connector_id="connector_id",
             cursor="cursor",
             limit=1,
+            version=1,
         )
         assert_matches_type(AsyncCursorPage[Run], run, path=["response"])
 

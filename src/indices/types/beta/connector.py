@@ -28,8 +28,8 @@ class Connector(BaseModel):
     purpose: str
     """What the connector does, as specified at publish time."""
 
-    revised_from_connector_id: Optional[str] = None
-    """Connector this one revised (if any)."""
+    version: int
+    """Version of the connector, starting at 1 and incremented by each revision."""
 
     website: Optional[str] = None
     """Website the connector operates against."""
