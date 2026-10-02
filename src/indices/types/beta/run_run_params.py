@@ -23,7 +23,9 @@ class RunRunParams(TypedDict, total=False):
     async_: Annotated[bool, PropertyInfo(alias="async")]
     """
     When true, return immediately with a pending run; poll retrieveRun for the
-    result.
+    result. Results above 1,000,000 UTF-8 JSON bytes are discarded and finish with
+    result_too_large. Retry those requests with async=false to receive the result
+    directly.
     """
 
     max_timeout_s: int

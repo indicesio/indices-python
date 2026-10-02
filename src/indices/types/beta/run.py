@@ -45,9 +45,17 @@ class Run(BaseModel):
     result: Optional[Dict[str, object]] = None
     """Execution result of the run, matching the connector's output schema.
 
-    Present iff `status` is `success`. Limited to 100MB; results above 100MB are not
-    stored and the run ends with `result_too_large`.
+    Synchronous requests return successful results up to the 100 MB execution limit.
+    Only results of at most 1,000,000 UTF-8 JSON bytes are stored. Larger results
+    are returned once to the synchronous caller and are null on later retrieval. If
+    delivery fails, the result cannot be retrieved later.
     """
+
+    result_size_bytes: Optional[int] = None
+    """Size of the executor's serialized result in UTF-8 bytes, when known."""
+
+    result_stored: bool
+    """Whether the result is retained for later retrieval."""
 
     status: Literal[
         "pending", "running", "success", "connector_error", "timed_out", "result_too_large", "internal_error"
@@ -56,7 +64,9 @@ class Run(BaseModel):
     Lifecycle status of the run: `pending`, `running`, `success`, `connector_error`,
     `timed_out`, `result_too_large`, or `internal_error`. `connector_error` means
     the connector's code failed (see `error`); `timed_out` and `internal_error` are
-    platform outcomes worth retrying; `result_too_large` is not retryable as-is.
+    platform outcomes worth retrying; `result_too_large` means the result exceeded
+    the execution limit or could not be retained for an async caller. Async results
+    above 1 MB require a new synchronous request.
     """
 
     secret_bindings: Optional[Dict[str, str]] = None
