@@ -6,8 +6,16 @@ from typing import Dict, Union, Optional
 from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from .datacenter_proxy_param import DatacenterProxyParam
+from .residential_proxy_param import ResidentialProxyParam
 
-__all__ = ["RunRunParams", "SecretValues", "SecretValuesLoginSecretValue", "SecretValuesStringSecretValue"]
+__all__ = [
+    "RunRunParams",
+    "ProxySettings",
+    "SecretValues",
+    "SecretValuesLoginSecretValue",
+    "SecretValuesStringSecretValue",
+]
 
 
 class RunRunParams(TypedDict, total=False):
@@ -31,6 +39,12 @@ class RunRunParams(TypedDict, total=False):
     max_timeout_s: int
     """Maximum execution time in seconds before the run is timed out."""
 
+    proxy_settings: Optional[ProxySettings]
+    """Proxy for the network traffic of this run.
+
+    If you do not set it, a setting is automatically determined by the platform.
+    """
+
     secret_bindings: Dict[str, str]
     """Mapping of secret slot names to the IDs of saved, user-owned secrets.
 
@@ -45,6 +59,9 @@ class RunRunParams(TypedDict, total=False):
     totp_secret?}) for login slots and a string shape ({value}) for string slots.
     Values are not persisted.
     """
+
+
+ProxySettings: TypeAlias = Union[DatacenterProxyParam, ResidentialProxyParam]
 
 
 class SecretValuesLoginSecretValue(TypedDict, total=False):

@@ -163,6 +163,10 @@ class TestRuns:
             arguments={"foo": "bar"},
             async_=True,
             max_timeout_s=1,
+            proxy_settings={
+                "location": "us",
+                "type": "datacenter",
+            },
             secret_bindings={"foo": "string"},
             secret_values={
                 "foo": {
@@ -351,6 +355,10 @@ class TestAsyncRuns:
             arguments={"foo": "bar"},
             async_=True,
             max_timeout_s=1,
+            proxy_settings={
+                "location": "us",
+                "type": "datacenter",
+            },
             secret_bindings={"foo": "string"},
             secret_values={
                 "foo": {

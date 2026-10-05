@@ -20,9 +20,11 @@ from .secret_list_response import SecretListResponse as SecretListResponse
 from .session_cookie_param import SessionCookieParam as SessionCookieParam
 from .capture_session_state import CaptureSessionState as CaptureSessionState
 from .connector_list_params import ConnectorListParams as ConnectorListParams
+from .datacenter_proxy_param import DatacenterProxyParam as DatacenterProxyParam
 from .file_finalize_response import FileFinalizeResponse as FileFinalizeResponse
 from .secret_delete_response import SecretDeleteResponse as SecretDeleteResponse
 from .secret_slot_definition import SecretSlotDefinition as SecretSlotDefinition
+from .residential_proxy_param import ResidentialProxyParam as ResidentialProxyParam
 from .secret_get_totp_response import SecretGetTotpResponse as SecretGetTotpResponse
 from .connector_delete_response import ConnectorDeleteResponse as ConnectorDeleteResponse
 from .capture_session_create_params import CaptureSessionCreateParams as CaptureSessionCreateParams
