@@ -6,7 +6,6 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .run_error import RunError
-from .proxy_settings import ProxySettings
 
 __all__ = ["Run"]
 
@@ -42,13 +41,6 @@ class Run(BaseModel):
 
     has_logs: bool
     """Whether the run has associated logs"""
-
-    proxy_settings: ProxySettings
-    """Proxy that the run uses for its network traffic.
-
-    This is the `proxy_settings` of the request. If the request did not set it, a
-    setting is automatically determined by the platform.
-    """
 
     result: Optional[Dict[str, object]] = None
     """Execution result of the run, matching the connector's output schema.
