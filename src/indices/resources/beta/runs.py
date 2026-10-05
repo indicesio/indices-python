@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 
 import httpx
 
@@ -179,6 +179,7 @@ class RunsResource(SyncAPIResource):
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
+        proxy_settings: Optional[run_run_params.ProxySettings] | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
         secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -205,6 +206,9 @@ class RunsResource(SyncAPIResource):
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
+          proxy_settings: Proxy for the network traffic of this run. If you do not set it, a setting is
+              automatically determined by the platform.
+
           secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
               the connector's required_secrets must appear here or in secret_values, but not
               both.
@@ -230,6 +234,7 @@ class RunsResource(SyncAPIResource):
                     "arguments": arguments,
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,
+                    "proxy_settings": proxy_settings,
                     "secret_bindings": secret_bindings,
                     "secret_values": secret_values,
                 },
@@ -396,6 +401,7 @@ class AsyncRunsResource(AsyncAPIResource):
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
+        proxy_settings: Optional[run_run_params.ProxySettings] | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
         secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -422,6 +428,9 @@ class AsyncRunsResource(AsyncAPIResource):
 
           max_timeout_s: Maximum execution time in seconds before the run is timed out.
 
+          proxy_settings: Proxy for the network traffic of this run. If you do not set it, a setting is
+              automatically determined by the platform.
+
           secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
               the connector's required_secrets must appear here or in secret_values, but not
               both.
@@ -447,6 +456,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     "arguments": arguments,
                     "async_": async_,
                     "max_timeout_s": max_timeout_s,
+                    "proxy_settings": proxy_settings,
                     "secret_bindings": secret_bindings,
                     "secret_values": secret_values,
                 },
