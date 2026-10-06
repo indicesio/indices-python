@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.13.0](https://github.com/indicesio/indices-python/compare/v0.12.0...v0.13.0) (2026-10-06)
+
+
+### Features
+
+* **api:** `proxy_settings` configuration ([cb40bc6](https://github.com/indicesio/indices-python/commit/cb40bc6d4f88daca44020f24d11e97d0f5e5d7f8))
+* **api:** api update ([94da09e](https://github.com/indicesio/indices-python/commit/94da09e076fb70384ad0bff82dca8bc0110408f1))
+* **api:** api update ([06bdbd4](https://github.com/indicesio/indices-python/commit/06bdbd4bda90e4e9cebb9b40b2588eda53c04181))
+* **api:** api update ([21008ea](https://github.com/indicesio/indices-python/commit/21008ea7cb8b262ac7de83ed7ecf050cd15d9d07))
+* **api:** api update ([0097d22](https://github.com/indicesio/indices-python/commit/0097d222b38b3b1015e94de61e53aa9c90222c5e))
+* **api:** api update ([b3d9d6a](https://github.com/indicesio/indices-python/commit/b3d9d6ac3062d372cb6f7f9f2b8f5a228b780fb0))
+
 ## [0.12.0](https://github.com/indicesio/indices-python/compare/v0.11.1...v0.12.0) (2026-08-31)
 
 
