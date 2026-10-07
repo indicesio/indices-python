@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Optional
 
 import httpx
@@ -17,7 +18,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncCursorPage, AsyncCursorPage
-from ...types.beta import run_run_params, run_list_params
+from ...types.beta import run_list_params, run_create_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.beta.run import Run
 from ...types.beta.run_logs_response import RunLogsResponse
@@ -46,6 +47,80 @@ class RunsResource(SyncAPIResource):
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
         return RunsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        connector_id: str,
+        arguments: Dict[str, object] | Omit = omit,
+        async_: bool | Omit = omit,
+        max_timeout_s: int | Omit = omit,
+        proxy_settings: Optional[run_create_params.ProxySettings] | Omit = omit,
+        secret_bindings: Dict[str, str] | Omit = omit,
+        secret_values: Dict[str, run_create_params.SecretValues] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Run:
+        """<p>Execute a connector.
+
+        By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
+
+        Args:
+          connector_id: ID of the connector to execute.
+
+          arguments: Arguments to pass to the connector. Optional if the connector does not require
+              any arguments.
+
+          async_: When true, return immediately with a pending run; poll retrieveRun for the
+              result. Results above 1,000,000 UTF-8 JSON bytes are discarded and finish with
+              result_too_large. Retry those requests with async=false to receive the result
+              directly.
+
+          max_timeout_s: Maximum execution time in seconds before the run is timed out.
+
+          proxy_settings: Proxy for the network traffic of this run. If you do not set it, a setting is
+              automatically determined by the platform.
+
+          secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
+              the connector's required_secrets must appear here or in secret_values, but not
+              both.
+
+          secret_values: Mapping of secret slot names to secret values supplied directly for this run,
+              instead of referencing a saved secret. Use a login shape ({username, password,
+              totp_secret?}) for login slots and a string shape ({value}) for string slots.
+              Values are not persisted.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1beta/runs",
+            body=maybe_transform(
+                {
+                    "connector_id": connector_id,
+                    "arguments": arguments,
+                    "async_": async_,
+                    "max_timeout_s": max_timeout_s,
+                    "proxy_settings": proxy_settings,
+                    "secret_bindings": secret_bindings,
+                    "secret_values": secret_values,
+                },
+                run_create_params.RunCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Run,
+        )
 
     def retrieve(
         self,
@@ -172,6 +247,7 @@ class RunsResource(SyncAPIResource):
             cast_to=RunLogsResponse,
         )
 
+    @typing_extensions.deprecated("Use `create` instead.")
     def run(
         self,
         *,
@@ -179,9 +255,9 @@ class RunsResource(SyncAPIResource):
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
-        proxy_settings: Optional[run_run_params.ProxySettings] | Omit = omit,
+        proxy_settings: Optional[run_create_params.ProxySettings] | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
-        secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
+        secret_values: Dict[str, run_create_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -226,24 +302,18 @@ class RunsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
-            "/v1beta/runs",
-            body=maybe_transform(
-                {
-                    "connector_id": connector_id,
-                    "arguments": arguments,
-                    "async_": async_,
-                    "max_timeout_s": max_timeout_s,
-                    "proxy_settings": proxy_settings,
-                    "secret_bindings": secret_bindings,
-                    "secret_values": secret_values,
-                },
-                run_run_params.RunRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Run,
+        return self.create(
+            connector_id=connector_id,
+            arguments=arguments,
+            async_=async_,
+            max_timeout_s=max_timeout_s,
+            proxy_settings=proxy_settings,
+            secret_bindings=secret_bindings,
+            secret_values=secret_values,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
         )
 
 
@@ -268,6 +338,80 @@ class AsyncRunsResource(AsyncAPIResource):
         For more information, see https://www.github.com/indicesio/indices-python#with_streaming_response
         """
         return AsyncRunsResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        connector_id: str,
+        arguments: Dict[str, object] | Omit = omit,
+        async_: bool | Omit = omit,
+        max_timeout_s: int | Omit = omit,
+        proxy_settings: Optional[run_create_params.ProxySettings] | Omit = omit,
+        secret_bindings: Dict[str, str] | Omit = omit,
+        secret_values: Dict[str, run_create_params.SecretValues] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Run:
+        """<p>Execute a connector.
+
+        By default the call blocks until the run finishes. Pass <code>async: true</code> to return immediately, in which case you should poll <code>GET /runs</code> to retrieve the result once it's ready.</p>
+
+        Args:
+          connector_id: ID of the connector to execute.
+
+          arguments: Arguments to pass to the connector. Optional if the connector does not require
+              any arguments.
+
+          async_: When true, return immediately with a pending run; poll retrieveRun for the
+              result. Results above 1,000,000 UTF-8 JSON bytes are discarded and finish with
+              result_too_large. Retry those requests with async=false to receive the result
+              directly.
+
+          max_timeout_s: Maximum execution time in seconds before the run is timed out.
+
+          proxy_settings: Proxy for the network traffic of this run. If you do not set it, a setting is
+              automatically determined by the platform.
+
+          secret_bindings: Mapping of secret slot names to the IDs of saved, user-owned secrets. Each of
+              the connector's required_secrets must appear here or in secret_values, but not
+              both.
+
+          secret_values: Mapping of secret slot names to secret values supplied directly for this run,
+              instead of referencing a saved secret. Use a login shape ({username, password,
+              totp_secret?}) for login slots and a string shape ({value}) for string slots.
+              Values are not persisted.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1beta/runs",
+            body=await async_maybe_transform(
+                {
+                    "connector_id": connector_id,
+                    "arguments": arguments,
+                    "async_": async_,
+                    "max_timeout_s": max_timeout_s,
+                    "proxy_settings": proxy_settings,
+                    "secret_bindings": secret_bindings,
+                    "secret_values": secret_values,
+                },
+                run_create_params.RunCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Run,
+        )
 
     async def retrieve(
         self,
@@ -394,6 +538,7 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunLogsResponse,
         )
 
+    @typing_extensions.deprecated("Use `create` instead.")
     async def run(
         self,
         *,
@@ -401,9 +546,9 @@ class AsyncRunsResource(AsyncAPIResource):
         arguments: Dict[str, object] | Omit = omit,
         async_: bool | Omit = omit,
         max_timeout_s: int | Omit = omit,
-        proxy_settings: Optional[run_run_params.ProxySettings] | Omit = omit,
+        proxy_settings: Optional[run_create_params.ProxySettings] | Omit = omit,
         secret_bindings: Dict[str, str] | Omit = omit,
-        secret_values: Dict[str, run_run_params.SecretValues] | Omit = omit,
+        secret_values: Dict[str, run_create_params.SecretValues] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -448,24 +593,18 @@ class AsyncRunsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
-            "/v1beta/runs",
-            body=await async_maybe_transform(
-                {
-                    "connector_id": connector_id,
-                    "arguments": arguments,
-                    "async_": async_,
-                    "max_timeout_s": max_timeout_s,
-                    "proxy_settings": proxy_settings,
-                    "secret_bindings": secret_bindings,
-                    "secret_values": secret_values,
-                },
-                run_run_params.RunRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Run,
+        return await self.create(
+            connector_id=connector_id,
+            arguments=arguments,
+            async_=async_,
+            max_timeout_s=max_timeout_s,
+            proxy_settings=proxy_settings,
+            secret_bindings=secret_bindings,
+            secret_values=secret_values,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
         )
 
 
@@ -473,6 +612,9 @@ class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
         self._runs = runs
 
+        self.create = to_raw_response_wrapper(
+            runs.create,
+        )
         self.retrieve = to_raw_response_wrapper(
             runs.retrieve,
         )
@@ -482,8 +624,10 @@ class RunsResourceWithRawResponse:
         self.logs = to_raw_response_wrapper(
             runs.logs,
         )
-        self.run = to_raw_response_wrapper(
-            runs.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                runs.run,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -491,6 +635,9 @@ class AsyncRunsResourceWithRawResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
         self._runs = runs
 
+        self.create = async_to_raw_response_wrapper(
+            runs.create,
+        )
         self.retrieve = async_to_raw_response_wrapper(
             runs.retrieve,
         )
@@ -500,8 +647,10 @@ class AsyncRunsResourceWithRawResponse:
         self.logs = async_to_raw_response_wrapper(
             runs.logs,
         )
-        self.run = async_to_raw_response_wrapper(
-            runs.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                runs.run,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -509,6 +658,9 @@ class RunsResourceWithStreamingResponse:
     def __init__(self, runs: RunsResource) -> None:
         self._runs = runs
 
+        self.create = to_streamed_response_wrapper(
+            runs.create,
+        )
         self.retrieve = to_streamed_response_wrapper(
             runs.retrieve,
         )
@@ -518,8 +670,10 @@ class RunsResourceWithStreamingResponse:
         self.logs = to_streamed_response_wrapper(
             runs.logs,
         )
-        self.run = to_streamed_response_wrapper(
-            runs.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                runs.run,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -527,6 +681,9 @@ class AsyncRunsResourceWithStreamingResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
         self._runs = runs
 
+        self.create = async_to_streamed_response_wrapper(
+            runs.create,
+        )
         self.retrieve = async_to_streamed_response_wrapper(
             runs.retrieve,
         )
@@ -536,6 +693,8 @@ class AsyncRunsResourceWithStreamingResponse:
         self.logs = async_to_streamed_response_wrapper(
             runs.logs,
         )
-        self.run = async_to_streamed_response_wrapper(
-            runs.run,
+        self.run = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                runs.run,  # pyright: ignore[reportDeprecated],
+            )
         )

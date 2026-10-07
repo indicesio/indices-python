@@ -11,6 +11,7 @@ from .run_run_params import RunRunParams as RunRunParams
 from .capture_session import CaptureSession as CaptureSession
 from .run_list_params import RunListParams as RunListParams
 from .file_list_params import FileListParams as FileListParams
+from .run_create_params import RunCreateParams as RunCreateParams
 from .run_logs_response import RunLogsResponse as RunLogsResponse
 from .file_create_params import FileCreateParams as FileCreateParams
 from .file_create_response import FileCreateResponse as FileCreateResponse

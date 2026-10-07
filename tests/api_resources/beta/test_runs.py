@@ -12,11 +12,70 @@ from tests.utils import assert_matches_type
 from indices.pagination import SyncCursorPage, AsyncCursorPage
 from indices.types.beta import Run, RunLogsResponse
 
+# pyright: reportDeprecated=false
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
 class TestRuns:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create(self, client: Indices) -> None:
+        run = client.beta.runs.create(
+            connector_id="connector_id",
+        )
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Indices) -> None:
+        run = client.beta.runs.create(
+            connector_id="connector_id",
+            arguments={"foo": "bar"},
+            async_=True,
+            max_timeout_s=1,
+            proxy_settings={
+                "location": "us",
+                "type": "datacenter",
+            },
+            secret_bindings={"foo": "string"},
+            secret_values={
+                "foo": {
+                    "password": "password",
+                    "username": "username",
+                    "totp_secret": "totp_secret",
+                }
+            },
+        )
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: Indices) -> None:
+        response = client.beta.runs.with_raw_response.create(
+            connector_id="connector_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = response.parse()
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: Indices) -> None:
+        with client.beta.runs.with_streaming_response.create(
+            connector_id="connector_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = response.parse()
+            assert_matches_type(Run, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -150,15 +209,84 @@ class TestRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_run(self, client: Indices) -> None:
-        run = client.beta.runs.run(
+        with pytest.warns(DeprecationWarning):
+            run = client.beta.runs.run(
+                connector_id="connector_id",
+            )
+
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_run_with_all_params(self, client: Indices) -> None:
+        with pytest.warns(DeprecationWarning):
+            run = client.beta.runs.run(
+                connector_id="connector_id",
+                arguments={"foo": "bar"},
+                async_=True,
+                max_timeout_s=1,
+                proxy_settings={
+                    "location": "us",
+                    "type": "datacenter",
+                },
+                secret_bindings={"foo": "string"},
+                secret_values={
+                    "foo": {
+                        "password": "password",
+                        "username": "username",
+                        "totp_secret": "totp_secret",
+                    }
+                },
+            )
+
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_run(self, client: Indices) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = client.beta.runs.with_raw_response.run(
+                connector_id="connector_id",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = response.parse()
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_run(self, client: Indices) -> None:
+        with pytest.warns(DeprecationWarning):
+            with client.beta.runs.with_streaming_response.run(
+                connector_id="connector_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                run = response.parse()
+                assert_matches_type(Run, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+
+class TestAsyncRuns:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncIndices) -> None:
+        run = await async_client.beta.runs.create(
             connector_id="connector_id",
         )
         assert_matches_type(Run, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_run_with_all_params(self, client: Indices) -> None:
-        run = client.beta.runs.run(
+    async def test_method_create_with_all_params(self, async_client: AsyncIndices) -> None:
+        run = await async_client.beta.runs.create(
             connector_id="connector_id",
             arguments={"foo": "bar"},
             async_=True,
@@ -180,35 +308,29 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_run(self, client: Indices) -> None:
-        response = client.beta.runs.with_raw_response.run(
+    async def test_raw_response_create(self, async_client: AsyncIndices) -> None:
+        response = await async_client.beta.runs.with_raw_response.create(
             connector_id="connector_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        run = response.parse()
+        run = await response.parse()
         assert_matches_type(Run, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_run(self, client: Indices) -> None:
-        with client.beta.runs.with_streaming_response.run(
+    async def test_streaming_response_create(self, async_client: AsyncIndices) -> None:
+        async with async_client.beta.runs.with_streaming_response.create(
             connector_id="connector_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            run = response.parse()
+            run = await response.parse()
             assert_matches_type(Run, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-
-class TestAsyncRuns:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -342,40 +464,45 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncIndices) -> None:
-        run = await async_client.beta.runs.run(
-            connector_id="connector_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            run = await async_client.beta.runs.run(
+                connector_id="connector_id",
+            )
+
         assert_matches_type(Run, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncIndices) -> None:
-        run = await async_client.beta.runs.run(
-            connector_id="connector_id",
-            arguments={"foo": "bar"},
-            async_=True,
-            max_timeout_s=1,
-            proxy_settings={
-                "location": "us",
-                "type": "datacenter",
-            },
-            secret_bindings={"foo": "string"},
-            secret_values={
-                "foo": {
-                    "password": "password",
-                    "username": "username",
-                    "totp_secret": "totp_secret",
-                }
-            },
-        )
+        with pytest.warns(DeprecationWarning):
+            run = await async_client.beta.runs.run(
+                connector_id="connector_id",
+                arguments={"foo": "bar"},
+                async_=True,
+                max_timeout_s=1,
+                proxy_settings={
+                    "location": "us",
+                    "type": "datacenter",
+                },
+                secret_bindings={"foo": "string"},
+                secret_values={
+                    "foo": {
+                        "password": "password",
+                        "username": "username",
+                        "totp_secret": "totp_secret",
+                    }
+                },
+            )
+
         assert_matches_type(Run, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncIndices) -> None:
-        response = await async_client.beta.runs.with_raw_response.run(
-            connector_id="connector_id",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.beta.runs.with_raw_response.run(
+                connector_id="connector_id",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -385,13 +512,14 @@ class TestAsyncRuns:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncIndices) -> None:
-        async with async_client.beta.runs.with_streaming_response.run(
-            connector_id="connector_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.beta.runs.with_streaming_response.run(
+                connector_id="connector_id",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            run = await response.parse()
-            assert_matches_type(Run, run, path=["response"])
+                run = await response.parse()
+                assert_matches_type(Run, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True

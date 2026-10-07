@@ -30,10 +30,10 @@ from indices.types.beta import DatacenterProxy, ResidentialProxy, Run, RunError,
 
 Methods:
 
+- <code title="post /v1beta/runs">client.beta.runs.<a href="./src/indices/resources/beta/runs.py">create</a>(\*\*<a href="src/indices/types/beta/run_create_params.py">params</a>) -> <a href="./src/indices/types/beta/run.py">Run</a></code>
 - <code title="get /v1beta/runs/{run_id}">client.beta.runs.<a href="./src/indices/resources/beta/runs.py">retrieve</a>(run_id) -> <a href="./src/indices/types/beta/run.py">Run</a></code>
 - <code title="get /v1beta/runs">client.beta.runs.<a href="./src/indices/resources/beta/runs.py">list</a>(\*\*<a href="src/indices/types/beta/run_list_params.py">params</a>) -> <a href="./src/indices/types/beta/run.py">SyncCursorPage[Run]</a></code>
 - <code title="get /v1beta/runs/{run_id}/logs">client.beta.runs.<a href="./src/indices/resources/beta/runs.py">logs</a>(run_id) -> <a href="./src/indices/types/beta/run_logs_response.py">RunLogsResponse</a></code>
-- <code title="post /v1beta/runs">client.beta.runs.<a href="./src/indices/resources/beta/runs.py">run</a>(\*\*<a href="src/indices/types/beta/run_run_params.py">params</a>) -> <a href="./src/indices/types/beta/run.py">Run</a></code>
 
 ## Secrets
 
