@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/indicesio/indices-python/compare/v0.13.0...v0.13.1) (2026-10-07)
+
+
+### Features
+
+* **api:** api update ([b32276e](https://github.com/indicesio/indices-python/commit/b32276e0c60e9d7951cf72dc002efe0e3b7694d6))
+
 ## [0.13.0](https://github.com/indicesio/indices-python/compare/v0.12.0...v0.13.0) (2026-10-06)
 
 
